@@ -1,5 +1,580 @@
-body {
+/* http://web.archive.org/web/20170930182108/http://www.echojs.com/ */
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
   margin: 0;
   padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  text-decoration: none;
+  color: #666;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #333;
+}
+
+li {
+  list-style-type: none;
+}
+
+header {
+  display: block;
+  position: relative;
+  padding: 15px 0px 0px 15px;
+  background-color: #eee;
+  border-bottom: 1px #ccc solid;
+}
+
+header h1 {
+  display: inline;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #333;
+}
+
+header h1 a {
+  color: #333;
+}
+
+header h1 small {
+  font-size: 14px;
+}
+
+#content {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+footer {
+  display: block;
+  border-top: 1px #ccc solid;
+  text-align: center;
+  color: #ccc;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+nav {
+  margin-bottom: 15px;
+  display: inline;
+}
+
+nav a {
+  margin-left: 20px;
+}
+
+#account {
+  color: #aaa;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#account a {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#login,
+#submitform {
+  display: block;
+  position: relative;
+  width: 150px;
+}
+
+#login label,
+#submitform label {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+div #errormsg {
+  width: 400px;
+  color: #ff9999;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+article {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 15px;
+  border: 1px solid transparent;
+}
+
+article.active {
+  border: 1px dashed #000;
+}
+
+article h2 {
+  display: inline;
+  font-size: 20px;
+}
+
+article address {
+  display: inline;
+  color: #999;
+  font-size: 14px;
+}
+
+article h2 a {
+  color: black;
+}
+
+article h2 a:visited {
+  color: #999999;
+}
+
+article .uparrow,
+article .downarrow {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+article .uparrow {
+  color: #999;
+}
+
+article .downarrow {
+  color: #ccc;
+}
+
+article p {
+  font-size: 14px;
+  color: #999;
+  margin-left: 20px;
+}
+
+article p a {
+  color: #666;
+}
+
+article.comment .uparrow.voted,
+article .uparrow.voted {
+  color: #99dd99;
+}
+
+article.comment .downarrow.voted,
+article .downarrow.voted {
+  color: #dd9999;
+}
+
+article .downarrow.disabled,
+.uparrow.disabled {
+  visibility: hidden;
+}
+
+article.deleted {
+  padding-left: 20px;
+  color: #999;
+}
+
+form textarea {
+  font-family: Courier;
+  font-size: 14px;
+}
+
+.comment {
+  position: relative;
+  display: block;
+  margin-bottom: 40px;
+  min-height: 50px;
+  min-width: 50em;
+}
+
+.comment .avatar img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 48px;
+  height: 48px;
+}
+
+.comment .info {
+  position: relative;
+  left: 60px;
+  font-size: 14px;
+  color: #999;
+}
+
+.comment .info a.reply {
+  text-decoration: underline;
+  padding-left: 5px;
+}
+
+.comment pre {
+  width: 50em;
+  position: relative;
+  left: 60px;
+  margin-top: 10px;
+  font-family: Courier;
+  font-size: 14px;
+  white-space: pre-wrap; /* css-3 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+article.comment .uparrow,
+article.comment .downarrow {
+  color: #aaa;
+  font-size: 14px;
+}
+
+note {
+  color: #666;
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+.comment.deleted {
+  color: #999;
+}
+
+topcomment {
+  display: block;
+  margin: 20px;
+}
+
+.singlecomment {
+  background-color: #eee;
+  border: 1px dotted #ccc;
+  padding: 15px;
+  margin: 10px;
+}
+
+.commentreplies h2 {
+  font-size: 18px;
+  border-bottom: 1px solid #aaa;
+}
+
+.commentreplies {
+  margin-left: 50px;
+  margin-bottom: 50px;
+}
+
+.userinfo ul li {
+  margin-bottom: 10px;
+}
+
+.userinfo pre {
+  color: #666;
+  font-style: italic;
+  margin: 20px;
+}
+
+.userinfo .avatar img {
+  width: 48px;
+  height: 48px;
+}
+
+.userinfo h2 {
+  position: relative;
+  left: 15px;
+  top: -15px;
+  display: inline;
+  font-size: 28px;
+  color: #444;
+}
+
+.userinfo a {
+  text-decoration: underline;
+}
+
+.replies sup {
+  font-size: 12px;
+  color: white;
+  background-color: red;
+  border: red 1px solid;
+  border-radius: 25px;
+  padding-left: 3px;
+  padding-right: 3px;
+  position: relative;
+  top: -7px;
+  left: -5px;
+  opacity: 0.7;
+}
+
+#adminlinks li {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+#adminlinks h3 {
+  margin-top: 20px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.keyboard-help-banner {
+  left: 5%;
+  top: 5%;
+  width: 90%;
+  height: 10em;
+  color: #ffffff;
+  margin: 0;
+  padding: 1em;
+  position: absolute;
+  text-align: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.banner-foreground {
+  text-shadow: 1px 1px 7px #000000;
+  z-index: 1002;
+}
+
+.banner-background {
+  background: none repeat scroll 0 0 #000000;
+  border-radius: 10px 10px 10px 10px;
+  opacity: 0.8;
+  overflow: auto;
+  z-index: 1001;
+}
+
+.banner .primary-message,
+.banner .secondary-message {
   font-family: sans-serif;
+  font-weight: bold;
+  margin: 0;
+}
+
+.banner .primary-message {
+  font-size: 200%;
+}
+
+.banner .secondary-message {
+  border-top: 1px solid #999999;
+  font-size: 150%;
+  padding-top: 0.5em;
+  margin: 0;
+}
+
+#keyboard-help .secondary-message div {
+  float: left;
+}
+
+#keyboard-help .key {
+  font-weight: bold;
+  padding-right: 0.25em;
+  text-align: right;
+  white-space: nowrap;
+  width: 50%;
+  clear: left;
+}
+
+#keyboard-help .desc {
+  font-weight: normal;
+  text-align: left;
+}
+
+#link-menu-mobile {
+  color: #aaa;
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  display: none;
+}
+
+@media only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  header nav {
+    display: none;
+    position: relative !important;
+  }
+
+  header nav.active {
+    display: block;
+  }
+  header nav a {
+    display: block;
+  }
+
+  #link-menu-mobile {
+    display: block;
+  }
+}
+/*****************************************************************************/
+
+body {
+  background: #fff;
+  font-family: 'Verdana';
+  margin: 24px 48px;
+}
+
+html {
+  background: #f2f2f2;
+}
+
+header {
+  background: #af1d1d;
+  border-bottom: 8px solid #9c1919;
+  padding-bottom: 16px;
+}
+header h1 {
+  color: #ff0;
+}
+header h1 a {
+  color: #fff;
+}
+
+nav a {
+  color: #fff;
+  font-weight: bold;
+}
+#account {
+  color: #ff0;
+  padding: 15px 0px 0px 15px;
+}
+
+article h2 a:visited {
+  color: #777;
+}
+
+article .uparrow,
+article .downarrow {
+  font-size: 14px;
+}
+
+article .uparrow,
+article.comment .uparrow,
+article .downarrow,
+article.comment .downarrow {
+  color: #af1d1d;
+}
+article .uparrow.voted,
+article.comment .uparrow.voted,
+article .downarrow.voted,
+article.comment .downarrow.voted {
+  color: #aaa;
+}
+
+footer {
+  background: #af1d1d;
+  border-top: 8px solid #9c1919;
+  color: #ff0;
+  padding: 8px 0;
+}
+footer a {
+  color: #fff;
+}
+
+#sitenews {
+  background: #fee;
+  font-size: 18px;
+  margin-bottom: 16px;
+  padding: 16px;
+}
+.highlight {
+  color: red;
+}
+#sitenews a {
+  border-bottom: 1px dotted;
+}
+
+@media only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px) {
+  body {
+    margin: 0;
+  }
+}
+
+#about li {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+#about h3 {
+  margin-top: 20px;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
