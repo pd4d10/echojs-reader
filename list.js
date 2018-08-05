@@ -1,10 +1,16 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, SafeAreaView } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  SafeAreaView,
+  StatusBar,
+} from 'react-native'
 import { createStackNavigator } from 'react-navigation'
+import SafariView from 'react-native-safari-view'
 import DetailScreen from './detail'
 import { colors } from './utils'
-
-// var SafariView = require('react-native-safari-view')
 
 const PAGE_SIZE = 30
 
@@ -31,26 +37,36 @@ class ListScreen extends React.Component {
     }
   }
 
+  handleClickLink = async url => {
+    const hasSafariView = await SafariView.isAvailable()
+    if (hasSafariView) {
+      SafariView.show({ url })
+    }
+  }
+
+  handleClickDiscuss = item => {
+    this.props.navigation.navigate('Detail', item)
+  }
+
   render() {
     return (
       <SafeAreaView>
-        {/* <StatusBar barStyle="light-content" backgroundColor="#6a51ae" /> */}
+        <StatusBar barStyle="light-content" />
         <Text>Home Screen</Text>
-        <Button
-          title="Go to Details"
-          onPress={() => this.props.navigation.navigate('Detail')}
-        />
         {this.state.items.map(item => (
           <View key={item.id}>
-            <Text
-              onPress={() => {
-                // SafariView.show({
-                //   url: 'https://github.com/pd4d10',
-                // })
-              }}
-            >
+            <Text onPress={() => this.handleClickLink(item.url)}>
               {item.title}
             </Text>
+            <Text>
+              {item.up} up and {item.down} down, posted by {item.username}{' '}
+              {item.ctime}
+            </Text>
+            <View>
+              <Text onPress={() => this.handleClickDiscuss(item)}>
+                {item.comments} comments
+              </Text>
+            </View>
           </View>
         ))}
       </SafeAreaView>
