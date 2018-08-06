@@ -24,7 +24,7 @@ class TopScreen extends React.Component {
     title: 'Top',
   }
   render() {
-    return <ListScreen sort="top" />
+    return <ListScreen {...this.props} sort="top" />
   }
 }
 
@@ -33,7 +33,7 @@ class LatestScreen extends React.Component {
     title: 'Latest',
   }
   render() {
-    return <ListScreen sort="latest" />
+    return <ListScreen {...this.props} sort="latest" />
   }
 }
 
