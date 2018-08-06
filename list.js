@@ -2,11 +2,13 @@ import React from 'react'
 import {
   StyleSheet,
   Text,
+  ActivityIndicator,
   View,
   Button,
   SafeAreaView,
   StatusBar,
   TouchableOpacity,
+  FlatList,
 } from 'react-native'
 import distanceInWords from 'date-fns/distance_in_words'
 import { createStackNavigator } from 'react-navigation'
@@ -19,100 +21,170 @@ import { colors } from './utils'
 
 const PAGE_SIZE = 30
 
+const ListItem = ({ item, onPressComment, time, onPressTitle }) => (
+  <View
+    style={{
+      flexDirection: 'row',
+      padding: 12,
+    }}
+  >
+    <View style={{ flex: 1 }}>
+      <Text
+        onPress={onPressTitle}
+        style={{ fontSize: 16, lineHeight: 24, paddingBottom: 6 }}
+      >
+        {item.title}
+      </Text>
+      <Text style={{ color: colors.secondary, fontSize: 13 }}>
+        at {parse(item.url).host}
+      </Text>
+      <Text style={{ paddingTop: 4, color: colors.secondary }}>
+        <Text style={{ color: colors.author }}>{item.username}</Text> | {time}{' '}
+        ago
+      </Text>
+    </View>
+    <TouchableOpacity style={{ width: 60 }} onPress={onPressComment}>
+      <View style={{ flexDirection: 'row' }}>
+        <Text>{item.up}</Text>
+        <Entypo name="triangle-up" size={20} />
+      </View>
+      <View style={{ flexDirection: 'row' }}>
+        <Text>{item.down}</Text>
+        <Entypo name="triangle-down" size={20} />
+      </View>
+      <View style={{ flexDirection: 'row' }}>
+        <Text>{item.comments}</Text>
+        <FontAwesome name="comment-o" />
+      </View>
+    </TouchableOpacity>
+  </View>
+)
+
 class ListScreen extends React.Component {
   static navigationOptions = {
     title: 'Top',
   }
 
   state = {
+    isRefreshing: false,
+    isLoadingMore: false,
     items: [],
+    isEnd: false,
   }
 
-  async componentDidMount() {
+  fetchData = async (anchor = 0) => {
+    const res = await fetch(
+      `https://echojs.com/api/getnews/top/${anchor}/${PAGE_SIZE}`,
+    )
+    const json = await res.json()
+    return json.news
+  }
+
+  componentDidMount() {
+    this.handleRefresh()
+  }
+
+  handleError = err => {
+    alert(err.message)
+  }
+
+  handleRefresh = async () => {
+    if (this.state.isRefreshing) return
+
     try {
-      const res = await fetch(
-        `https://echojs.com/api/getnews/top/0/${PAGE_SIZE}`,
-      )
-      const json = await res.json()
+      this.setState({ isLoading: true })
+      const items = await this.fetchData()
       this.setState({
-        items: json.news,
+        items,
+        isEnd: items.length < PAGE_SIZE,
       })
     } catch (err) {
-      alert(err.message)
+      this.handleError(err)
+    } finally {
+      this.setState({ isLoading: false })
     }
   }
 
-  handleClickLink = async url => {
-    const hasSafariView = await SafariView.isAvailable()
-    if (hasSafariView) {
-      SafariView.show({ url })
+  handleLoadMore = async () => {
+    if (this.state.isLoadingMore || this.state.isEnd) return
+
+    try {
+      this.setState({ isLoadingMore: true })
+      const items = await this.fetchData(this.state.items.length)
+      this.setState(state => ({
+        items: [...state.items, ...items],
+        isEnd: items.length < PAGE_SIZE,
+      }))
+    } catch (err) {
+      this.handleError(err)
+    } finally {
+      this.setState({ isLoadingMore: false })
     }
   }
 
-  handleClickDiscuss = item => {
-    this.props.navigation.navigate('Detail', item)
-  }
-
-  extractDomain = url => {
-    return parse(url).host
+  renderFooter = () => {
+    if (this.state.isEnd) {
+      return (
+        <View>
+          <Text>No more data</Text>
+        </View>
+      )
+    } else if (this.state.isLoadingMore) {
+      return (
+        <View
+          style={{
+            paddingVertical: 20,
+            borderTopWidth: 1,
+            borderColor: '#CED0CE',
+          }}
+        >
+          <ActivityIndicator animating size="large" />
+        </View>
+      )
+    } else {
+      return null
+    }
   }
 
   render() {
     const now = Date.now()
+
     return (
       <SafeAreaView style={{ backgroundColor: '#fff' }}>
         <StatusBar barStyle="light-content" />
-        <View
-          style={
-            {
-              // flex: 1
-            }
-          }
-        >
-          {this.state.items.map(item => (
-            <View
-              key={item.id}
-              style={{
-                flexDirection: 'row',
-                borderBottomColor: '#aaa',
-                borderBottomWidth: 1,
-                padding: 12,
-              }}
-            >
-              <View style={{ flex: 1 }}>
-                <Text
-                  onPress={() => this.handleClickLink(item.url)}
-                  style={{ fontSize: 16, lineHeight: 24, paddingBottom: 6 }}
-                >
-                  {item.title}
-                </Text>
-                <Text style={{ color: colors.secondary, fontSize: 13 }}>
-                  at {this.extractDomain(item.url)}
-                </Text>
-                <Text style={{ paddingTop: 4, color: colors.secondary }}>
-                  <Text style={{ color: colors.author }}>{item.username}</Text>{' '}
-                  | {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
-                </Text>
-              </View>
-              <TouchableOpacity
-                style={{ width: 60 }}
-                onPress={() => this.handleClickDiscuss(item)}
-              >
-                <View style={{ flexDirection: 'row' }}>
-                  <Text>{item.up}</Text>
-                  <Entypo name="triangle-up" size={20} />
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                  <Text>{item.down}</Text>
-                  <Entypo name="triangle-down" size={20} />
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                  <Text>{item.comments}</Text>
-                  <FontAwesome name="comment-o" />
-                </View>
-              </TouchableOpacity>
-            </View>
-          ))}
+        <View>
+          <FlatList
+            data={this.state.items}
+            renderItem={({ item }) => (
+              <ListItem
+                item={item}
+                time={distanceInWords(parseInt(item.ctime, 10) * 1000, now)}
+                onPressTitle={async () => {
+                  const hasSafariView = await SafariView.isAvailable()
+                  if (hasSafariView) {
+                    SafariView.show({ url: item.url })
+                  }
+                }}
+                onPressComment={() => {
+                  this.props.navigation.navigate('Detail', item)
+                }}
+              />
+            )}
+            keyExtractor={item => item.id}
+            ItemSeparatorComponent={() => (
+              <View
+                style={{
+                  height: 1,
+                  backgroundColor: '#CED0CE',
+                }}
+              />
+            )}
+            refreshing={this.state.isRefreshing}
+            onRefresh={this.handleRefresh}
+            onEndReached={this.handleLoadMore}
+            onEndReachedThreshold={100}
+            ListFooterComponent={this.renderFooter}
+          />
         </View>
       </SafeAreaView>
     )
