@@ -61,10 +61,6 @@ const ListItem = ({ item, onPressComment, time, onPressTitle }) => (
 )
 
 class ListScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Top',
-  }
-
   state = {
     isRefreshing: false,
     isLoadingMore: false,
@@ -74,7 +70,9 @@ class ListScreen extends React.Component {
 
   fetchData = async (anchor = 0) => {
     const res = await fetch(
-      `https://echojs.com/api/getnews/top/${anchor}/${PAGE_SIZE}`,
+      `https://echojs.com/api/getnews/${
+        this.props.sort
+      }/${anchor}/${PAGE_SIZE}`,
     )
     const json = await res.json()
     return json.news
@@ -191,23 +189,4 @@ class ListScreen extends React.Component {
   }
 }
 
-export default createStackNavigator(
-  {
-    Top: {
-      screen: ListScreen,
-    },
-    Detail: DetailScreen,
-  },
-  {
-    initialRouteName: 'Top',
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: colors.primary,
-      },
-      headerTintColor: '#fff',
-      // headerTitleStyle: {
-      //   fontWeight: 'bold',
-      // },
-    },
-  },
-)
+export default ListScreen

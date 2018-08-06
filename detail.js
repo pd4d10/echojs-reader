@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Button, SafeAreaView } from 'react-native'
 export default class DetailScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.getParam('title'),
+      title: navigation.state.title,
     }
   }
 
@@ -15,7 +15,7 @@ export default class DetailScreen extends React.Component {
   async componentDidMount() {
     const { navigation } = this.props
     const res = await fetch(
-      `https://echojs.com/api/getcomments/${navigation.getParam('id')}`,
+      `https://echojs.com/api/getcomments/${navigation.state.id}`,
     )
     const { comments } = await res.json()
     this.setState({ comments })
