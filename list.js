@@ -6,9 +6,14 @@ import {
   Button,
   SafeAreaView,
   StatusBar,
+  TouchableOpacity,
 } from 'react-native'
+import distanceInWords from 'date-fns/distance_in_words'
 import { createStackNavigator } from 'react-navigation'
 import SafariView from 'react-native-safari-view'
+import Entypo from 'react-native-vector-icons/Entypo'
+import { parse } from 'url'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import DetailScreen from './detail'
 import { colors } from './utils'
 
@@ -48,27 +53,67 @@ class ListScreen extends React.Component {
     this.props.navigation.navigate('Detail', item)
   }
 
+  extractDomain = url => {
+    return parse(url).host
+  }
+
   render() {
+    const now = Date.now()
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{ backgroundColor: '#fff' }}>
         <StatusBar barStyle="light-content" />
-        <Text>Home Screen</Text>
-        {this.state.items.map(item => (
-          <View key={item.id}>
-            <Text onPress={() => this.handleClickLink(item.url)}>
-              {item.title}
-            </Text>
-            <Text>
-              {item.up} up and {item.down} down, posted by {item.username}{' '}
-              {item.ctime}
-            </Text>
-            <View>
-              <Text onPress={() => this.handleClickDiscuss(item)}>
-                {item.comments} comments
-              </Text>
+        <View
+          style={
+            {
+              // flex: 1
+            }
+          }
+        >
+          {this.state.items.map(item => (
+            <View
+              key={item.id}
+              style={{
+                flexDirection: 'row',
+                borderBottomColor: '#aaa',
+                borderBottomWidth: 1,
+                padding: 12,
+              }}
+            >
+              <View style={{ flex: 1 }}>
+                <Text
+                  onPress={() => this.handleClickLink(item.url)}
+                  style={{ fontSize: 16, lineHeight: 24, paddingBottom: 6 }}
+                >
+                  {item.title}
+                </Text>
+                <Text style={{ color: colors.secondary, fontSize: 13 }}>
+                  at {this.extractDomain(item.url)}
+                </Text>
+                <Text style={{ paddingTop: 4, color: colors.secondary }}>
+                  <Text style={{ color: colors.author }}>{item.username}</Text>{' '}
+                  | {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
+                </Text>
+              </View>
+              <TouchableOpacity
+                style={{ width: 60 }}
+                onPress={() => this.handleClickDiscuss(item)}
+              >
+                <View style={{ flexDirection: 'row' }}>
+                  <Text>{item.up}</Text>
+                  <Entypo name="triangle-up" size={20} />
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text>{item.down}</Text>
+                  <Entypo name="triangle-down" size={20} />
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text>{item.comments}</Text>
+                  <FontAwesome name="comment-o" />
+                </View>
+              </TouchableOpacity>
             </View>
-          </View>
-        ))}
+          ))}
+        </View>
       </SafeAreaView>
     )
   }
