@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native'
+import { Toast } from 'native-base'
 import distanceInWords from 'date-fns/distance_in_words'
 import { createStackNavigator } from 'react-navigation'
 import SafariView from 'react-native-safari-view'
@@ -90,16 +91,21 @@ class ListScreen extends React.Component {
     if (this.state.isRefreshing) return
 
     try {
-      this.setState({ isLoading: true })
+      this.setState({ isRefreshing: true })
       const items = await this.fetchData()
       this.setState({
         items,
         isEnd: items.length < PAGE_SIZE,
       })
+      Toast.show({
+        text: 'Refresh success',
+        position: 'top',
+        duration: 2000,
+      })
     } catch (err) {
       this.handleError(err)
     } finally {
-      this.setState({ isLoading: false })
+      this.setState({ isRefreshing: false })
     }
   }
 

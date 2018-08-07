@@ -3,6 +3,7 @@ import {
   createBottomTabNavigator,
   createStackNavigator,
 } from 'react-navigation'
+import { Root } from 'native-base'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -36,7 +37,7 @@ class LatestScreen extends React.Component {
   }
 }
 
-export default createBottomTabNavigator(
+const AppNavigator = createBottomTabNavigator(
   {
     Top: createStackNavigator(
       {
@@ -105,4 +106,10 @@ export default createBottomTabNavigator(
       inactiveTintColor: 'gray',
     },
   },
+)
+
+export default () => (
+  <Root>
+    <AppNavigator />
+  </Root>
 )
