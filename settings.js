@@ -29,7 +29,7 @@ export default class SettingsScreen extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={{ backgroundColor: '#fff' }}>
+      <SafeAreaView style={{ backgroundColor: colors.background }}>
         <StatusBar barStyle="light-content" />
         <View>
           <View

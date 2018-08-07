@@ -12,12 +12,9 @@ import {
 } from 'react-native'
 import { Toast } from 'native-base'
 import distanceInWords from 'date-fns/distance_in_words'
-import { createStackNavigator } from 'react-navigation'
 import SafariView from 'react-native-safari-view'
-import Entypo from 'react-native-vector-icons/Entypo'
 import { parse } from 'url'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import DetailScreen from './detail'
 import { colors } from './utils'
 
 const PAGE_SIZE = 30
@@ -26,43 +23,61 @@ const ListItem = ({ item, onPressComment, time, onPressTitle }) => (
   <View
     style={{
       flexDirection: 'row',
-      padding: 12,
+      padding: 10,
     }}
   >
     <View style={{ flex: 1 }}>
       <Text
         onPress={onPressTitle}
-        style={{ fontSize: 16, lineHeight: 24, paddingBottom: 6 }}
+        style={{
+          fontSize: 16,
+          lineHeight: 22,
+        }}
       >
         {item.title}
       </Text>
-      <Text style={{ color: colors.secondary, fontSize: 13 }}>
+      <Text
+        style={{
+          color: colors.secondary,
+          fontSize: 12,
+          marginTop: 6,
+          marginBottom: 6,
+        }}
+      >
         at {parse(item.url).host}
       </Text>
-      <Text style={{ paddingTop: 4, color: colors.secondary }}>
+      <Text style={{ color: colors.secondary }}>
         <Text style={{ color: colors.author }}>{item.username}</Text> | {time}{' '}
         ago
       </Text>
     </View>
-    <TouchableOpacity style={{ width: 60 }} onPress={onPressComment}>
-      <View style={{ flexDirection: 'row' }}>
-        <Text>{item.up}</Text>
-        <Entypo name="triangle-up" size={20} />
+    <View style={{ justifyContent: 'space-between', width: 40, marginTop: 2 }}>
+      <View>
+        <View style={{ flexDirection: 'row' }}>
+          <Text>▲ {item.up}</Text>
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <Text>▼ {item.down}</Text>
+        </View>
       </View>
-      <View style={{ flexDirection: 'row' }}>
-        <Text>{item.down}</Text>
-        <Entypo name="triangle-down" size={20} />
-      </View>
-      <View style={{ flexDirection: 'row' }}>
+      <TouchableOpacity
+        style={{ flexDirection: 'row' }}
+        onPress={onPressComment}
+      >
+        <FontAwesome
+          name="comment-o"
+          size={12}
+          style={{ marginRight: 3, marginTop: 2 }}
+        />
         <Text>{item.comments}</Text>
-        <FontAwesome name="comment-o" />
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   </View>
 )
 
 class ListScreen extends React.Component {
   state = {
+    isFirstTimeLoading: false,
     isRefreshing: false,
     isLoadingMore: false,
     items: [],
@@ -70,6 +85,10 @@ class ListScreen extends React.Component {
   }
 
   fetchData = async (anchor = 0) => {
+    // For slow network testing
+    await new Promise(resolve => {
+      setTimeout(resolve, 3000)
+    })
     const res = await fetch(
       `https://echojs.com/api/getnews/${
         this.props.sort
@@ -80,11 +99,26 @@ class ListScreen extends React.Component {
   }
 
   componentDidMount() {
-    this.handleRefresh()
+    this.handleFirstTimeFetch()
   }
 
   handleError = err => {
     alert(err.message)
+  }
+
+  handleFirstTimeFetch = async () => {
+    try {
+      this.setState({ isFirstTimeLoading: true })
+      const items = await this.fetchData()
+      this.setState({
+        items,
+        isEnd: items.length < PAGE_SIZE,
+      })
+    } catch (err) {
+      this.handleError(err)
+    } finally {
+      this.setState({ isFirstTimeLoading: false })
+    }
   }
 
   handleRefresh = async () => {
@@ -111,7 +145,6 @@ class ListScreen extends React.Component {
 
   handleLoadMore = async () => {
     if (this.state.isLoadingMore || this.state.isEnd) return
-
     try {
       this.setState({ isLoadingMore: true })
       const items = await this.fetchData(this.state.items.length)
@@ -126,37 +159,38 @@ class ListScreen extends React.Component {
     }
   }
 
-  renderFooter = () => {
-    if (this.state.isEnd) {
-      return (
-        <View>
-          <Text>No more data</Text>
-        </View>
-      )
-    } else if (this.state.isLoadingMore) {
-      return (
-        <View
-          style={{
-            paddingVertical: 20,
-            borderTopWidth: 1,
-            borderColor: '#CED0CE',
-          }}
-        >
-          <ActivityIndicator animating size="large" />
-        </View>
-      )
-    } else {
-      return null
-    }
-  }
+  renderFooter = () => (
+    <View
+      style={{
+        paddingVertical: 20,
+        borderTopWidth: 1,
+        borderColor: colors.border,
+        alignItems: 'center',
+      }}
+    >
+      {this.state.isLoadingMore ? (
+        <ActivityIndicator />
+      ) : this.state.isEnd ? (
+        <Text>--- No more data ---</Text>
+      ) : null}
+    </View>
+  )
 
   render() {
     const now = Date.now()
 
     return (
-      <SafeAreaView style={{ backgroundColor: '#fff' }}>
+      <SafeAreaView
+        style={{
+          backgroundColor: colors.background,
+          flex: 1,
+          justifyContent: 'center',
+        }}
+      >
         <StatusBar barStyle="light-content" />
-        <View>
+        {this.state.isFirstTimeLoading ? (
+          <ActivityIndicator size="large" />
+        ) : (
           <FlatList
             data={this.state.items}
             renderItem={({ item }) => (
@@ -179,7 +213,7 @@ class ListScreen extends React.Component {
               <View
                 style={{
                   height: 1,
-                  backgroundColor: '#CED0CE',
+                  backgroundColor: colors.border,
                 }}
               />
             )}
@@ -189,7 +223,7 @@ class ListScreen extends React.Component {
             onEndReachedThreshold={0.1}
             ListFooterComponent={this.renderFooter}
           />
-        </View>
+        )}
       </SafeAreaView>
     )
   }
