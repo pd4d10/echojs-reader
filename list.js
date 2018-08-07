@@ -180,7 +180,7 @@ class ListScreen extends React.Component {
             refreshing={this.state.isRefreshing}
             onRefresh={this.handleRefresh}
             onEndReached={this.handleLoadMore}
-            onEndReachedThreshold={100}
+            onEndReachedThreshold={0.1}
             ListFooterComponent={this.renderFooter}
           />
         </View>

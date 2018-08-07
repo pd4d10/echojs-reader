@@ -1,27 +1,26 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
 import {
   createBottomTabNavigator,
   createStackNavigator,
 } from 'react-navigation'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import ListScreen from './list'
 import { colors } from './utils'
 import DetailScreen from './detail'
+import SettingsScreen from './settings'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
+// https://github.com/facebook/react-native/issues/18868#issuecomment-382671739
+import { YellowBox } from 'react-native'
+YellowBox.ignoreWarnings([
+  'Warning: isMounted(...) is deprecated',
+  'Module RCTImageLoader',
+])
 
 class TopScreen extends React.Component {
   static navigationOptions = {
-    title: 'Top',
+    title: 'Top news',
   }
   render() {
     return <ListScreen {...this.props} sort="top" />
@@ -30,7 +29,7 @@ class TopScreen extends React.Component {
 
 class LatestScreen extends React.Component {
   static navigationOptions = {
-    title: 'Latest',
+    title: 'Latest news',
   }
   render() {
     return <ListScreen {...this.props} sort="latest" />
@@ -69,25 +68,36 @@ export default createBottomTabNavigator(
         },
       },
     ),
+    Settings: createStackNavigator(
+      { Settings: SettingsScreen },
+      {
+        initialRouteName: 'Settings',
+        navigationOptions: {
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        },
+      },
+    ),
   },
   {
+    initialRouteName: 'Settings',
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => {
-        const { routeName } = navigation.state
-        const color = focused ? tintColor : 'gray'
-        let icon
-        if (routeName === 'Top') {
-          icon = (
-            <MaterialCommunityIcons name="chart-line" size={24} color={color} />
-          )
-        } else if (routeName === 'Latest') {
-          icon = <Ionicons name="md-time" size={24} color={color} />
+        const props = {
+          color: focused ? tintColor : 'gray',
+          size: 24,
         }
 
-        return icon
-        // // You can return any component that you like here! We usually use an
-        // // icon component from react-native-vector-icons
-        // return <Ionicons name={iconName} size={25} color={tintColor} />
+        switch (navigation.state.routeName) {
+          case 'Top':
+            return <MaterialCommunityIcons name="chart-line" {...props} />
+          case 'Latest':
+            return <Ionicons name="md-time" {...props} />
+          case 'Settings':
+            return <MaterialIcons name="settings" {...props} />
+        }
       },
     }),
     tabBarOptions: {
