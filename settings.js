@@ -10,10 +10,6 @@ import {
 import { colors } from './utils'
 
 export default class SettingsScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Settings',
-  }
-
   state = { status: false }
 
   componentDidMount() {}

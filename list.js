@@ -86,9 +86,9 @@ class ListScreen extends React.Component {
 
   fetchData = async (anchor = 0) => {
     // For slow network testing
-    await new Promise(resolve => {
-      setTimeout(resolve, 3000)
-    })
+    // await new Promise(resolve => {
+    //   setTimeout(resolve, 3000)
+    // })
     const res = await fetch(
       `https://echojs.com/api/getnews/${
         this.props.sort
@@ -229,4 +229,20 @@ class ListScreen extends React.Component {
   }
 }
 
-export default ListScreen
+export class TopScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Top news',
+  }
+  render() {
+    return <ListScreen {...this.props} sort="top" />
+  }
+}
+
+export class LatestScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Latest news',
+  }
+  render() {
+    return <ListScreen {...this.props} sort="latest" />
+  }
+}
