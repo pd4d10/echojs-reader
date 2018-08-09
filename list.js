@@ -19,61 +19,77 @@ import { colors } from './utils'
 
 const PAGE_SIZE = 30
 
-const ListItem = ({ item, onPressComment, time, onPressTitle }) => (
-  <View
-    style={{
-      flexDirection: 'row',
-      padding: 10,
-    }}
-  >
-    <View style={{ flex: 1 }}>
-      <Text
-        onPress={onPressTitle}
+class ListItem extends React.PureComponent {
+  onPressTitle = async url => {
+    const hasSafariView = await SafariView.isAvailable()
+    if (hasSafariView) {
+      SafariView.show({ url })
+    }
+  }
+
+  render() {
+    const now = Date.now()
+    const { item } = this.props
+
+    return (
+      <View
         style={{
-          fontSize: 16,
-          lineHeight: 22,
+          flexDirection: 'row',
+          padding: 10,
         }}
       >
-        {item.title}
-      </Text>
-      <Text
-        style={{
-          color: colors.secondary,
-          fontSize: 12,
-          marginTop: 6,
-          marginBottom: 6,
-        }}
-      >
-        at {parse(item.url).host}
-      </Text>
-      <Text style={{ color: colors.secondary }}>
-        <Text style={{ color: colors.author }}>{item.username}</Text> | {time}{' '}
-        ago
-      </Text>
-    </View>
-    <View style={{ justifyContent: 'space-between', width: 40, marginTop: 2 }}>
-      <View>
-        <View style={{ flexDirection: 'row' }}>
-          <Text>▲ {item.up}</Text>
+        <View style={{ flex: 1 }}>
+          <Text
+            onPress={() => this.onPressTitle(item.url)}
+            style={{
+              fontSize: 16,
+              lineHeight: 22,
+            }}
+          >
+            {item.title}
+          </Text>
+          <Text
+            style={{
+              color: colors.secondary,
+              fontSize: 12,
+              marginTop: 6,
+              marginBottom: 6,
+            }}
+          >
+            at {parse(item.url).host}
+          </Text>
+          <Text style={{ color: colors.secondary }}>
+            <Text style={{ color: colors.author }}>{item.username}</Text> |{' '}
+            {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
+          </Text>
         </View>
-        <View style={{ flexDirection: 'row' }}>
-          <Text>▼ {item.down}</Text>
+        <View
+          style={{ justifyContent: 'space-between', width: 40, marginTop: 2 }}
+        >
+          <View>
+            <View style={{ flexDirection: 'row' }}>
+              <Text>▲ {item.up}</Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <Text>▼ {item.down}</Text>
+            </View>
+          </View>
+          <TouchableOpacity
+            style={{ flexDirection: 'row' }}
+            onPress={() => this.props.navigation.navigate('Detail', item)}
+          >
+            <FontAwesome
+              name="comment-o"
+              size={12}
+              style={{ marginRight: 3, marginTop: 2 }}
+            />
+            <Text>{item.comments}</Text>
+          </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity
-        style={{ flexDirection: 'row' }}
-        onPress={onPressComment}
-      >
-        <FontAwesome
-          name="comment-o"
-          size={12}
-          style={{ marginRight: 3, marginTop: 2 }}
-        />
-        <Text>{item.comments}</Text>
-      </TouchableOpacity>
-    </View>
-  </View>
-)
+    )
+  }
+}
 
 class ListScreen extends React.Component {
   state = {
@@ -177,8 +193,6 @@ class ListScreen extends React.Component {
   )
 
   render() {
-    const now = Date.now()
-
     return (
       <SafeAreaView
         style={{
@@ -194,19 +208,7 @@ class ListScreen extends React.Component {
           <FlatList
             data={this.state.items}
             renderItem={({ item }) => (
-              <ListItem
-                item={item}
-                time={distanceInWords(parseInt(item.ctime, 10) * 1000, now)}
-                onPressTitle={async () => {
-                  const hasSafariView = await SafariView.isAvailable()
-                  if (hasSafariView) {
-                    SafariView.show({ url: item.url })
-                  }
-                }}
-                onPressComment={() => {
-                  this.props.navigation.navigate('Detail', item)
-                }}
-              />
+              <ListItem item={item} navigation={this.props.navigation} />
             )}
             keyExtractor={item => item.id}
             ItemSeparatorComponent={() => (
