@@ -96,7 +96,7 @@ export const AppNavigator = createDrawerNavigator(
     Settings: SettingsContainerScreen,
   },
   {
-    initialRouteName: 'Settings',
+    initialRouteName: 'Top',
     contentOptions: {
       activeTintColor: colors.primary,
     },

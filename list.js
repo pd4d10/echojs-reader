@@ -19,11 +19,28 @@ import { colors } from './utils'
 
 const PAGE_SIZE = 30
 
-class ListItem extends React.PureComponent {
-  onPressTitle = async url => {
-    const hasSafariView = await SafariView.isAvailable()
-    if (hasSafariView) {
-      SafariView.show({ url })
+export class ListItem extends React.PureComponent {
+  static defaultProps = {
+    hasCommentLink: true,
+  }
+
+  onPressTitle = async item => {
+    if (item.url.startsWith('text://')) {
+      this.props.navigation.navigate('Detail', item)
+      return
+    }
+
+    try {
+      const hasSafariView = await SafariView.isAvailable()
+      if (hasSafariView) {
+        SafariView.show({
+          url: item.url,
+          tintColor: colors.background,
+          barTintColor: colors.primary,
+        })
+      }
+    } catch (err) {
+      // Open in browser
     }
   }
 
@@ -39,25 +56,26 @@ class ListItem extends React.PureComponent {
         }}
       >
         <View style={{ flex: 1 }}>
-          <Text
-            onPress={() => this.onPressTitle(item.url)}
-            style={{
-              fontSize: 16,
-              lineHeight: 22,
-            }}
-          >
-            {item.title}
-          </Text>
-          <Text
-            style={{
-              color: colors.secondary,
-              fontSize: 12,
-              marginTop: 6,
-              marginBottom: 6,
-            }}
-          >
-            at {parse(item.url).host}
-          </Text>
+          <TouchableOpacity onPress={() => this.onPressTitle(item)}>
+            <Text
+              style={{
+                fontSize: 16,
+                lineHeight: 22,
+              }}
+            >
+              {item.title}
+            </Text>
+            <Text
+              style={{
+                color: colors.secondary,
+                fontSize: 12,
+                marginTop: 6,
+                marginBottom: 6,
+              }}
+            >
+              at {parse(item.url).host}
+            </Text>
+          </TouchableOpacity>
           <Text style={{ color: colors.secondary }}>
             <Text style={{ color: colors.author }}>{item.username}</Text> |{' '}
             {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
@@ -74,17 +92,19 @@ class ListItem extends React.PureComponent {
               <Text>▼ {item.down}</Text>
             </View>
           </View>
-          <TouchableOpacity
-            style={{ flexDirection: 'row' }}
-            onPress={() => this.props.navigation.navigate('Detail', item)}
-          >
-            <FontAwesome
-              name="comment-o"
-              size={12}
-              style={{ marginRight: 3, marginTop: 2 }}
-            />
-            <Text>{item.comments}</Text>
-          </TouchableOpacity>
+          {this.props.hasCommentLink && (
+            <TouchableOpacity
+              style={{ flexDirection: 'row' }}
+              onPress={() => this.props.navigation.navigate('Detail', item)}
+            >
+              <FontAwesome
+                name="comment-o"
+                size={12}
+                style={{ marginRight: 3, marginTop: 2 }}
+              />
+              <Text>{item.comments}</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     )
