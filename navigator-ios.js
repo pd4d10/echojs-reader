@@ -9,7 +9,7 @@ import DetailScreen from './detail'
 import SettingsScreen from './settings'
 import { TopIcon, LatestIcon, SettingsIcon } from './icons'
 
-export const AppNavigator = createBottomTabNavigator(
+export default createBottomTabNavigator(
   {
     Top: createStackNavigator(
       {
@@ -55,7 +55,7 @@ export const AppNavigator = createBottomTabNavigator(
     ),
   },
   {
-    initialRouteName: 'Settings',
+    initialRouteName: 'Top',
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => {
         const props = {
@@ -67,7 +67,7 @@ export const AppNavigator = createBottomTabNavigator(
           case 'Top':
             return <TopIcon {...props} />
           case 'Latest':
-            return <LatestIcon {...prop} />
+            return <LatestIcon {...props} />
           case 'Settings':
             return <SettingsIcon {...props} />
         }

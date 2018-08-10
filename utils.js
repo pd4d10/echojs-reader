@@ -5,3 +5,8 @@ export const colors = {
   border: '#ccc',
   background: '#fff',
 }
+
+export const STORAGE_KEYS = {
+  auth: 'echojs-auth',
+  style: 'style',
+}

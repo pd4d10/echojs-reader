@@ -19,24 +19,42 @@ const MenuLeft = ({ navigation }) => (
   />
 )
 
-TopScreen.navigationOptions = ({ navigation }) => ({
-  title: 'Top News',
-  headerLeft: <MenuLeft navigation={navigation} />,
-})
+class TopScreenAndroid extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Top News',
+    headerLeft: <MenuLeft navigation={navigation} />,
+  })
 
-LatestScreen.navigationOptions = ({ navigation }) => ({
-  title: 'Latest News',
-  headerLeft: <MenuLeft navigation={navigation} />,
-})
+  render() {
+    return <TopScreen />
+  }
+}
 
-SettingsScreen.navigationOptions = ({ navigation }) => ({
-  title: 'Settings',
-  headerLeft: <MenuLeft navigation={navigation} />,
-})
+class LatestScreenAndroid extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Latest News',
+    headerLeft: <MenuLeft navigation={navigation} />,
+  })
+
+  render() {
+    return <LatestScreen />
+  }
+}
+
+class SettingsScreenAndroid extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Settings',
+    headerLeft: <MenuLeft navigation={navigation} />,
+  })
+
+  render() {
+    return <SettingsScreen />
+  }
+}
 
 const TopContainerScreen = createStackNavigator(
   {
-    Top: TopScreen,
+    Top: TopScreenAndroid,
     Detail: DetailScreen,
   },
   {
@@ -52,7 +70,7 @@ const TopContainerScreen = createStackNavigator(
 
 const LatestContainerScreen = createStackNavigator(
   {
-    Latest: LatestScreen,
+    Latest: LatestScreenAndroid,
     Detail: DetailScreen,
   },
   {
@@ -67,7 +85,7 @@ const LatestContainerScreen = createStackNavigator(
 )
 
 const SettingsContainerScreen = createStackNavigator(
-  { Settings: SettingsScreen },
+  { Settings: SettingsScreenAndroid },
   {
     initialRouteName: 'Settings',
     navigationOptions: {
@@ -89,7 +107,7 @@ SettingsContainerScreen.navigationOptions = {
   drawerIcon: ({ tintColor }) => <SettingsIcon color={tintColor} size={24} />,
 }
 
-export const AppNavigator = createDrawerNavigator(
+export default createDrawerNavigator(
   {
     Top: TopContainerScreen,
     Latest: LatestContainerScreen,
