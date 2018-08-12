@@ -12,7 +12,7 @@ const MenuLeft = ({ navigation }) => (
     name="menu"
     size={24}
     color={colors.background}
-    style={{ paddingLeft: 8 }}
+    style={{ paddingLeft: 16 }}
     onPress={() => {
       navigation.openDrawer()
     }}

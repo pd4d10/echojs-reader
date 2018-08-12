@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ActivityIndicator,
   Button,
   SafeAreaView,
   ScrollView,
@@ -32,22 +33,31 @@ class CommentItem extends React.PureComponent {
           }}
         >
           <View style={{ flex: 1 }}>
-            <Text style={{ color: colors.secondary, marginBottom: 4 }}>
-              <Text style={{ color: colors.author }}>{item.username}</Text> |{' '}
-              {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
+            <Text style={{ color: colors.secondaryText, marginBottom: 4 }}>
+              <Text
+                style={{
+                  textDecorationLine: 'underline',
+                }}
+              >
+                {item.username}
+              </Text>{' '}
+              | {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
             </Text>
             <Text>{item.body}</Text>
           </View>
           <View
-            style={{ justifyContent: 'space-between', width: 40, marginTop: 2 }}
+            style={{
+              justifyContent: 'space-between',
+              width: 44,
+              marginTop: 2,
+              paddingLeft: 10,
+            }}
           >
             <View>
-              <View style={{ flexDirection: 'row' }}>
-                <Text>▲ {item.up}</Text>
-              </View>
-              <View style={{ flexDirection: 'row' }}>
-                <Text>▼ {item.down || 0}</Text>
-              </View>
+              <Text style={{ color: colors.secondaryText }}>▲ {item.up}</Text>
+              <Text style={{ color: colors.secondaryText }}>
+                ▼ {item.down | 0}
+              </Text>
             </View>
           </View>
         </View>
@@ -59,7 +69,8 @@ class CommentItem extends React.PureComponent {
               level={this.props.level + 1}
               item={reply}
             />
-          ))}}
+          ))}
+        }
       </React.Fragment>
     )
   }
@@ -73,18 +84,28 @@ export default class DetailScreen extends React.Component {
   }
 
   state = {
+    isLoading: false,
     comments: [],
   }
 
   async componentDidMount() {
     const { navigation } = this.props
-    // const id = navigation.getParam('id')
-    const id = 17367
-    const res = await fetch(`https://echojs.com/api/getcomments/${id}`)
-    const json = await res.json()
-    this.setState({
-      comments: json.comments.sort((a, b) => a.ctime - b.ctime),
-    })
+    const id = navigation.getParam('id')
+    // const id = 17367
+    try {
+      this.setState({
+        isLoading: true,
+      })
+      const res = await fetch(`https://echojs.com/api/getcomments/${id}`)
+      const json = await res.json()
+      this.setState({
+        comments: json.comments.sort((a, b) => a.ctime - b.ctime),
+      })
+    } finally {
+      this.setState({
+        isLoading: false,
+      })
+    }
   }
 
   render() {
@@ -92,6 +113,7 @@ export default class DetailScreen extends React.Component {
       <ScrollView
         style={{
           backgroundColor: colors.background,
+          padding: 4,
           // flex: 1,
           // justifyContent: 'center',
         }}
@@ -101,11 +123,21 @@ export default class DetailScreen extends React.Component {
           hasCommentLink={false}
         />
         <View
-          style={{ borderBottomColor: colors.border, borderBottomWidth: 1 }}
+          style={{
+            borderBottomColor: colors.border,
+            borderBottomWidth: 8,
+          }}
         />
-        {this.state.comments.map((comment, index) => (
-          <CommentItem key={comment.ctime + comment.username} item={comment} />
-        ))}
+        {this.state.isLoading ? (
+          <ActivityIndicator style={{ marginTop: 10 }} />
+        ) : (
+          this.state.comments.map((comment, index) => (
+            <CommentItem
+              key={comment.ctime + comment.username}
+              item={comment}
+            />
+          ))
+        )}
       </ScrollView>
     )
   }

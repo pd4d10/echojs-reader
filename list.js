@@ -14,7 +14,7 @@ import { Toast } from 'native-base'
 import distanceInWords from 'date-fns/distance_in_words'
 import SafariView from 'react-native-safari-view'
 import { parse } from 'url'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { colors } from './utils'
 
 const PAGE_SIZE = 30
@@ -24,29 +24,59 @@ export class ListItem extends React.PureComponent {
     hasCommentLink: true,
   }
 
+  isText = () => {
+    return this.props.item.url.startsWith('text://')
+  }
+
   onPressTitle = async item => {
-    if (item.url.startsWith('text://')) {
+    if (this.isText()) {
       this.props.navigation.navigate('Detail', item)
       return
     }
 
+    if (await this.isSafariViewAvailable()) {
+      SafariView.show({
+        url: item.url,
+        tintColor: colors.primary,
+        // barTintColor: colors.background,
+      })
+    } else {
+    }
+  }
+
+  isSafariViewAvailable = async () => {
     try {
-      const hasSafariView = await SafariView.isAvailable()
-      if (hasSafariView) {
-        SafariView.show({
-          url: item.url,
-          tintColor: colors.background,
-          barTintColor: colors.primary,
-        })
-      }
+      return await SafariView.isAvailable()
     } catch (err) {
-      // Open in browser
+      return false
+    }
+  }
+
+  setStatusBarToDark = () => {
+    StatusBar.setBarStyle('dark-content')
+  }
+
+  setStatusBarToLight = () => {
+    StatusBar.setBarStyle('light-content')
+  }
+
+  async componentDidMount() {
+    if (await this.isSafariViewAvailable()) {
+      SafariView.addEventListener('onShow', this.setStatusBarToDark)
+      SafariView.addEventListener('onDismiss', this.setStatusBarToLight)
+    }
+  }
+
+  async componentWillUnmount() {
+    if (await this.isSafariViewAvailable()) {
+      SafariView.removeEventListener('onShow', this.setStatusBarToDark)
+      SafariView.removeEventListener('onDismiss', this.setStatusBarToLight)
     }
   }
 
   render() {
     const now = Date.now()
-    const { item } = this.props
+    const { item, hasCommentLink } = this.props
 
     return (
       <View
@@ -59,50 +89,63 @@ export class ListItem extends React.PureComponent {
           <TouchableOpacity onPress={() => this.onPressTitle(item)}>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 18,
                 lineHeight: 22,
+                color: colors.primaryText,
+                marginBottom: 6,
               }}
             >
               {item.title}
             </Text>
+            {this.isText() || (
+              <Text
+                style={{
+                  color: colors.greyText,
+                  fontSize: 12,
+                  marginBottom: 6,
+                }}
+              >
+                at {parse(item.url).host}
+              </Text>
+            )}
+          </TouchableOpacity>
+          <Text style={{ color: colors.secondaryText, fontSize: 14 }}>
             <Text
               style={{
-                color: colors.secondary,
-                fontSize: 12,
-                marginTop: 6,
-                marginBottom: 6,
+                textDecorationLine: 'underline',
               }}
             >
-              at {parse(item.url).host}
-            </Text>
-          </TouchableOpacity>
-          <Text style={{ color: colors.secondary }}>
-            <Text style={{ color: colors.author }}>{item.username}</Text> |{' '}
-            {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
+              {item.username}
+            </Text>{' '}
+            | {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
           </Text>
         </View>
         <View
-          style={{ justifyContent: 'space-between', width: 40, marginTop: 2 }}
+          style={{
+            justifyContent: 'space-between',
+            width: 44,
+            marginTop: 2,
+            paddingLeft: 10,
+          }}
         >
           <View>
-            <View style={{ flexDirection: 'row' }}>
-              <Text>▲ {item.up}</Text>
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <Text>▼ {item.down}</Text>
-            </View>
+            <Text style={{ color: colors.secondaryText }}>▲ {item.up}</Text>
+            <Text style={{ color: colors.secondaryText }}>▼ {item.down}</Text>
           </View>
-          {this.props.hasCommentLink && (
+          {hasCommentLink && (
             <TouchableOpacity
               style={{ flexDirection: 'row' }}
               onPress={() => this.props.navigation.navigate('Detail', item)}
             >
-              <FontAwesome
-                name="comment-o"
-                size={12}
-                style={{ marginRight: 3, marginTop: 2 }}
+              <MaterialCommunityIcons
+                name="comment-processing-outline"
+                size={14}
+                style={{ marginRight: 2, marginTop: 3 }}
+                color={colors.secondaryText}
               />
-              <Text>{item.comments}</Text>
+              <Text style={{ color: colors.secondaryText }}>
+                {item.comments}
+              </Text>
             </TouchableOpacity>
           )}
         </View>
@@ -205,7 +248,7 @@ class ListScreen extends React.Component {
       }}
     >
       {this.state.isLoadingMore ? (
-        <ActivityIndicator />
+        <ActivityIndicator color={colors.primary} />
       ) : this.state.isEnd ? (
         <Text>--- No more data ---</Text>
       ) : null}
@@ -223,7 +266,7 @@ class ListScreen extends React.Component {
       >
         <StatusBar barStyle="light-content" />
         {this.state.isFirstTimeLoading ? (
-          <ActivityIndicator size="large" />
+          <ActivityIndicator size="large" color={colors.primary} />
         ) : (
           <FlatList
             data={this.state.items}
