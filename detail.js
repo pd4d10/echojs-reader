@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import distanceInWords from 'date-fns/distance_in_words'
 import { ListItem } from './list'
-import { colors } from './utils'
+import { colors, MyActivityIndicator } from './utils'
 
 class CommentItem extends React.PureComponent {
   static defaultProps = {
@@ -43,7 +43,7 @@ class CommentItem extends React.PureComponent {
               </Text>{' '}
               | {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
             </Text>
-            <Text>{item.body}</Text>
+            <Text style={{ color: colors.primaryText }}>{item.body}</Text>
           </View>
           <View
             style={{
@@ -61,16 +61,13 @@ class CommentItem extends React.PureComponent {
             </View>
           </View>
         </View>
-        {item.replies &&
-          item.replies.length &&
-          item.replies.map(reply => (
-            <CommentItem
-              key={reply.ctime + reply.username}
-              level={this.props.level + 1}
-              item={reply}
-            />
-          ))}
-        }
+        {(item.replies || []).map(reply => (
+          <CommentItem
+            key={reply.ctime + reply.username}
+            level={this.props.level + 1}
+            item={reply}
+          />
+        ))}
       </React.Fragment>
     )
   }
@@ -129,7 +126,7 @@ export default class DetailScreen extends React.Component {
           }}
         />
         {this.state.isLoading ? (
-          <ActivityIndicator style={{ marginTop: 10 }} />
+          <MyActivityIndicator style={{ marginTop: 10 }} />
         ) : (
           this.state.comments.map((comment, index) => (
             <CommentItem

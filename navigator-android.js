@@ -26,7 +26,7 @@ class TopScreenAndroid extends React.Component {
   })
 
   render() {
-    return <TopScreen />
+    return <TopScreen {...this.props} />
   }
 }
 
@@ -37,7 +37,7 @@ class LatestScreenAndroid extends React.Component {
   })
 
   render() {
-    return <LatestScreen />
+    return <LatestScreen {...this.props} />
   }
 }
 
@@ -48,7 +48,7 @@ class SettingsScreenAndroid extends React.Component {
   })
 
   render() {
-    return <SettingsScreen />
+    return <SettingsScreen {...this.props} />
   }
 }
 

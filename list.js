@@ -15,7 +15,7 @@ import distanceInWords from 'date-fns/distance_in_words'
 import SafariView from 'react-native-safari-view'
 import { parse } from 'url'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { colors } from './utils'
+import { colors, MyActivityIndicator } from './utils'
 
 const PAGE_SIZE = 30
 
@@ -248,7 +248,7 @@ class ListScreen extends React.Component {
       }}
     >
       {this.state.isLoadingMore ? (
-        <ActivityIndicator color={colors.primary} />
+        <MyActivityIndicator />
       ) : this.state.isEnd ? (
         <Text>--- No more data ---</Text>
       ) : null}
@@ -266,7 +266,7 @@ class ListScreen extends React.Component {
       >
         <StatusBar barStyle="light-content" />
         {this.state.isFirstTimeLoading ? (
-          <ActivityIndicator size="large" color={colors.primary} />
+          <MyActivityIndicator size="large" />
         ) : (
           <FlatList
             data={this.state.items}

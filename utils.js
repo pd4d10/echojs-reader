@@ -1,3 +1,6 @@
+import React from 'react'
+import { ActivityIndicator, Platform } from 'react-native'
+
 export const colors = {
   primary: '#af1d1d',
   border: '#eee',
@@ -12,3 +15,11 @@ export const STORAGE_KEYS = {
   auth: 'echojs-auth',
   style: 'style',
 }
+
+// Use primary color at Android
+export const MyActivityIndicator = props => (
+  <ActivityIndicator
+    color={Platform.OS === 'android' ? colors.primary : undefined}
+    {...props}
+  />
+)
