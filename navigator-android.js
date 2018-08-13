@@ -6,6 +6,7 @@ import { colors } from './utils'
 import DetailScreen from './detail'
 import SettingsScreen from './settings'
 import { TopIcon, SettingsIcon, LatestIcon } from './icons'
+import { LayoutSettings, ThemeSettings } from './settings-screens'
 
 const MenuLeft = ({ navigation }) => (
   <MaterialIcons
@@ -85,7 +86,11 @@ const LatestContainerScreen = createStackNavigator(
 )
 
 const SettingsContainerScreen = createStackNavigator(
-  { Settings: SettingsScreenAndroid },
+  {
+    Settings: SettingsScreenAndroid,
+    Layout: LayoutSettings,
+    Theme: ThemeSettings,
+  },
   {
     initialRouteName: 'Settings',
     navigationOptions: {

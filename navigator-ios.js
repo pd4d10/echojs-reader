@@ -55,7 +55,7 @@ export default createBottomTabNavigator(
     ),
   },
   {
-    initialRouteName: 'Top',
+    initialRouteName: 'Settings',
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => {
         const props = {

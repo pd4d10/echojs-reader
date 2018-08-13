@@ -264,7 +264,6 @@ class ListScreen extends React.Component {
           justifyContent: 'center',
         }}
       >
-        <StatusBar barStyle="light-content" />
         {this.state.isFirstTimeLoading ? (
           <MyActivityIndicator size="large" />
         ) : (
