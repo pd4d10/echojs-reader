@@ -320,19 +320,31 @@ export const MyHeader = props => (
     {({ layout }) => (
       <ThemeContext.Consumer>
         {({ colors }) => {
-          // console.log(props)
           // HACK: This is a hack to dynamic change header's style
           const { descriptor } = props.scene
+          // console.log(descriptor.options)
+
+          let headerLeft
+          if (props.scene.index === 0) {
+            if (layout === 'android') {
+              headerLeft = (
+                <MenuLeft navigation={descriptor.navigation} colors={colors} />
+              )
+            } else {
+              headerLeft = null
+            }
+          } else {
+            // Keep headerLeft to undefined so it will use HeaderBackButton
+            // https://github.com/react-navigation/react-navigation-stack/blob/master/src/views/Header/Header.js#L202
+          }
+
           descriptor.options = {
             ...descriptor.options,
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: colors.primary,
             },
-            headerLeft:
-              layout === 'android' ? (
-                <MenuLeft navigation={descriptor.navigation} colors={colors} />
-              ) : null,
+            headerLeft,
           }
           return <Header {...props} />
         }}
