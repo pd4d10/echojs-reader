@@ -13,15 +13,12 @@ import {
   TextInput,
   Dimensions,
 } from 'react-native'
+import { createStackNavigator } from 'react-navigation'
 import { Cell, Section, TableView } from 'react-native-tableview-simple'
-import { colors } from './utils'
-import { ThemeContext } from './App'
+import { LayoutContext, ThemeContext } from './App'
+import { MyHeader } from './list'
 
-export default class SettingsScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Settings',
-  }
-
+class Settings extends React.Component {
   state = {
     status: false,
   }
@@ -46,44 +43,61 @@ export default class SettingsScreen extends React.Component {
         }}
       >
         <TableView>
-          <Section>
-            <Cell
-              title="Language"
-              accessory="DisclosureIndicator"
-              onPress={() => alert('Heyho!')}
-            />
-            <Cell
-              title="Theme"
-              accessory="DisclosureIndicator"
-              onPress={() => alert('Heyho!')}
-            />
-          </Section>
-          <ThemeContext.Consumer>
+          <LayoutContext.Consumer>
             {({ layout, setLayout }) => (
               <Section header="LAYOUT STYLE">
-                <Cell
-                  title="iOS"
-                  accessory={layout === 'ios' ? 'Checkmark' : undefined}
-                  onPress={() => setLayout('ios')}
-                />
-                <Cell
-                  title="Android"
-                  accessory={layout === 'android' ? 'Checkmark' : undefined}
-                  onPress={() => setLayout('android')}
-                />
+                {['iOS', 'Android'].map(item => (
+                  <Cell
+                    key={item}
+                    title={item}
+                    accessory={
+                      layout === item.toLowerCase() ? 'Checkmark' : undefined
+                    }
+                    onPress={() => setLayout(item.toLowerCase())}
+                  />
+                ))}
+              </Section>
+            )}
+          </LayoutContext.Consumer>
+          <ThemeContext.Consumer>
+            {({ theme, setTheme }) => (
+              <Section header="THEME">
+                {['Light', 'EchoJS', 'Dark'].map(item => (
+                  <Cell
+                    key={item}
+                    title={item}
+                    accessory={
+                      theme === item.toLowerCase() ? 'Checkmark' : undefined
+                    }
+                    onPress={() => setTheme(item.toLowerCase())}
+                  />
+                ))}
               </Section>
             )}
           </ThemeContext.Consumer>
-          <Section header="ABOUT">
-            <Cell
-              title="Source Code"
-              titleTextColor="#007AFF"
-              onPress={() => console.log('open Help/FAQ')}
-            />
-            <Cell accessory="DisclosureIndicator" title="License (MIT)" />
-          </Section>
         </TableView>
+        <Section header="ABOUT">
+          <Cell
+            title="Source Code"
+            titleTextColor="#007AFF"
+            onPress={() => console.log('open Help/FAQ')}
+          />
+          <Cell accessory="DisclosureIndicator" title="License (MIT)" />
+        </Section>
       </ScrollView>
     )
   }
 }
+
+export default createStackNavigator(
+  {
+    Settings: Settings,
+  },
+  {
+    // initialRouteName: 'Settings',
+    navigationOptions: {
+      title: 'Settings',
+      header: MyHeader,
+    },
+  },
+)

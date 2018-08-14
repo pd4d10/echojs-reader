@@ -1,61 +1,30 @@
 import React from 'react'
-import {
-  createBottomTabNavigator,
-  createStackNavigator,
-} from 'react-navigation'
+import { createBottomTabNavigator } from 'react-navigation'
+import { BottomTabBar } from 'react-navigation-tabs'
 import { TopScreen, LatestScreen } from './list'
-import { colors } from './utils'
-import DetailScreen from './detail'
 import SettingsScreen from './settings'
 import { TopIcon, LatestIcon, SettingsIcon } from './icons'
+import { ThemeContext } from './App'
+
+const MyTabBar = props => (
+  <ThemeContext.Consumer>
+    {({ colors }) => (
+      <BottomTabBar
+        activeTintColor={colors.primary}
+        // inactiveTintColor="grey"
+        {...props}
+      />
+    )}
+  </ThemeContext.Consumer>
+)
 
 export default createBottomTabNavigator(
   {
-    Top: createStackNavigator(
-      {
-        Top: TopScreen,
-        Detail: DetailScreen,
-      },
-      {
-        initialRouteName: 'Top',
-        navigationOptions: {
-          headerStyle: {
-            backgroundColor: colors.primary,
-          },
-          headerTintColor: '#fff',
-        },
-      },
-    ),
-    Latest: createStackNavigator(
-      {
-        Latest: LatestScreen,
-        Detail: DetailScreen,
-      },
-      {
-        initialRouteName: 'Latest',
-        navigationOptions: {
-          headerStyle: {
-            backgroundColor: colors.primary,
-          },
-          headerTintColor: '#fff',
-        },
-      },
-    ),
-    Settings: createStackNavigator(
-      { Settings: SettingsScreen },
-      {
-        initialRouteName: 'Settings',
-        navigationOptions: {
-          headerStyle: {
-            backgroundColor: colors.primary,
-          },
-          headerTintColor: '#fff',
-        },
-      },
-    ),
+    Top: TopScreen,
+    Latest: LatestScreen,
+    Settings: SettingsScreen,
   },
   {
-    initialRouteName: 'Settings',
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => {
         const props = {
@@ -73,9 +42,6 @@ export default createBottomTabNavigator(
         }
       },
     }),
-    tabBarOptions: {
-      activeTintColor: colors.primary,
-      inactiveTintColor: 'gray',
-    },
+    tabBarComponent: MyTabBar,
   },
 )

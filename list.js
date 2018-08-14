@@ -10,12 +10,16 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native'
+import { createStackNavigator, Header } from 'react-navigation'
 import { Toast } from 'native-base'
 import distanceInWords from 'date-fns/distance_in_words'
 import SafariView from 'react-native-safari-view'
 import { parse } from 'url'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { colors, MyActivityIndicator } from './utils'
+import { MyActivityIndicator } from './utils'
+import { ThemeContext, LayoutContext } from './App'
+import DetailScreen from './detail'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 const PAGE_SIZE = 30
 
@@ -37,8 +41,8 @@ export class ListItem extends React.PureComponent {
     if (await this.isSafariViewAvailable()) {
       SafariView.show({
         url: item.url,
-        tintColor: colors.primary,
-        // barTintColor: colors.background,
+        tintColor: this.props.colors.primary,
+        // barTintColor: this.props.colors.background,
       })
     } else {
     }
@@ -76,7 +80,7 @@ export class ListItem extends React.PureComponent {
 
   render() {
     const now = Date.now()
-    const { item, hasCommentLink } = this.props
+    const { item, hasCommentLink, colors } = this.props
 
     return (
       <View
@@ -238,75 +242,129 @@ class ListScreen extends React.Component {
     }
   }
 
-  renderFooter = () => (
-    <View
-      style={{
-        paddingVertical: 20,
-        borderTopWidth: 1,
-        borderColor: colors.border,
-        alignItems: 'center',
-      }}
-    >
-      {this.state.isLoadingMore ? (
-        <MyActivityIndicator />
-      ) : this.state.isEnd ? (
-        <Text>--- No more data ---</Text>
-      ) : null}
-    </View>
-  )
-
   render() {
     return (
-      <SafeAreaView
-        style={{
-          backgroundColor: colors.background,
-          flex: 1,
-          justifyContent: 'center',
-        }}
-      >
-        {this.state.isFirstTimeLoading ? (
-          <MyActivityIndicator size="large" />
-        ) : (
-          <FlatList
-            data={this.state.items}
-            renderItem={({ item }) => (
-              <ListItem item={item} navigation={this.props.navigation} />
-            )}
-            keyExtractor={item => item.id}
-            ItemSeparatorComponent={() => (
-              <View
-                style={{
-                  height: 1,
-                  backgroundColor: colors.border,
-                }}
+      <ThemeContext.Consumer>
+        {({ colors }) => (
+          <SafeAreaView
+            style={{
+              backgroundColor: colors.background,
+              flex: 1,
+              justifyContent: 'center',
+            }}
+          >
+            {this.state.isFirstTimeLoading ? (
+              <MyActivityIndicator size="large" />
+            ) : (
+              <FlatList
+                data={this.state.items}
+                renderItem={({ item }) => (
+                  <ListItem
+                    item={item}
+                    navigation={this.props.navigation}
+                    colors={colors}
+                  />
+                )}
+                keyExtractor={item => item.id}
+                ItemSeparatorComponent={() => (
+                  <View
+                    style={{
+                      height: 1,
+                      backgroundColor: colors.border,
+                    }}
+                  />
+                )}
+                refreshing={this.state.isRefreshing}
+                onRefresh={this.handleRefresh}
+                onEndReached={this.handleLoadMore}
+                onEndReachedThreshold={0.1}
+                ListFooterComponent={() => (
+                  <View
+                    style={{
+                      paddingVertical: 20,
+                      borderTopWidth: 1,
+                      borderColor: colors.border,
+                      alignItems: 'center',
+                    }}
+                  >
+                    {this.state.isLoadingMore ? (
+                      <MyActivityIndicator />
+                    ) : this.state.isEnd ? (
+                      <Text>--- No more data ---</Text>
+                    ) : null}
+                  </View>
+                )}
               />
             )}
-            refreshing={this.state.isRefreshing}
-            onRefresh={this.handleRefresh}
-            onEndReached={this.handleLoadMore}
-            onEndReachedThreshold={0.1}
-            ListFooterComponent={this.renderFooter}
-          />
+          </SafeAreaView>
         )}
-      </SafeAreaView>
+      </ThemeContext.Consumer>
     )
   }
 }
 
-export class TopScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Top news',
-  }
-  render() {
-    return <ListScreen {...this.props} sort="top" />
-  }
-}
+const MenuLeft = ({ navigation, colors }) => (
+  <MaterialIcons
+    name="menu"
+    size={24}
+    color={colors.background}
+    style={{ paddingLeft: 16 }}
+    onPress={() => {
+      navigation.openDrawer()
+    }}
+  />
+)
 
-export class LatestScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Latest news',
-  }
-  render() {
-    return <ListScreen {...this.props} sort="latest" />
-  }
-}
+export const MyHeader = props => (
+  <LayoutContext.Consumer>
+    {({ layout }) => (
+      <ThemeContext.Consumer>
+        {({ colors }) => {
+          // console.log(props)
+          // HACK: This is a hack to dynamic change header's style
+          const { descriptor } = props.scene
+          descriptor.options = {
+            ...descriptor.options,
+            headerTintColor: '#fff',
+            headerStyle: {
+              backgroundColor: colors.primary,
+            },
+            headerLeft:
+              layout === 'android' ? (
+                <MenuLeft navigation={descriptor.navigation} colors={colors} />
+              ) : null,
+          }
+          return <Header {...props} />
+        }}
+      </ThemeContext.Consumer>
+    )}
+  </LayoutContext.Consumer>
+)
+
+export const TopScreen = createStackNavigator(
+  {
+    Top: props => <ListScreen {...props} sort="top" />,
+    Detail: DetailScreen,
+  },
+  {
+    initialRouteName: 'Top',
+    navigationOptions: {
+      title: 'Top news',
+      header: MyHeader,
+    },
+  },
+)
+
+export const LatestScreen = createStackNavigator(
+  {
+    Top: props => <ListScreen {...props} sort="latest" />,
+    Detail: DetailScreen,
+  },
+  {
+    initialRouteName: 'Top',
+    navigationOptions: {
+      title: 'Latest news',
+      header: MyHeader,
+    },
+  },
+)

@@ -16,26 +16,55 @@ YellowBox.ignoreWarnings([
 const STORAGE_KEYS = {
   auth: 'echojs-auth',
   layout: 'layout',
+  theme: 'theme',
 }
 
-const LAYOUTS = ['android', 'ios']
+const layouts = ['android', 'ios']
 
+const themeMapping = {
+  light: {
+    primary: undefined,
+    border: '#eee',
+    background: '#fff',
+    primaryText: '#000',
+    secondaryText: '#666',
+    greyText: '#999',
+  },
+  echojs: {
+    primary: '#af1d1d',
+    border: '#eee',
+    background: '#fff',
+    primaryText: '#000',
+    secondaryText: '#666',
+    greyText: '#999',
+  },
+  dark: {
+    primary: '#000',
+    border: '#555',
+    background: '#222',
+    primaryText: '#aaa',
+    secondaryText: '#666',
+    greyText: '#999',
+  },
+}
+
+export const LayoutContext = React.createContext()
 export const ThemeContext = React.createContext()
 
 export default class App extends React.Component {
   state = {
     layout: null,
-    theme: 'light',
+    theme: null,
   }
 
   componentDidMount() {
     this.getLayout()
-    StatusBar.setBarStyle('light-content')
+    this.getTheme()
   }
 
   getLayout = async () => {
     let layout = await AsyncStorage.getItem(STORAGE_KEYS.layout)
-    if (!layout) {
+    if (!layouts.includes(layout)) {
       layout = Platform.OS
     }
     this.setState({ layout })
@@ -46,16 +75,35 @@ export default class App extends React.Component {
     this.setState({ layout })
   }
 
-  render() {
-    const { layout } = this.state
-    const { setLayout } = this
+  getTheme = async () => {
+    let theme = await AsyncStorage.getItem(STORAGE_KEYS.theme)
+    if (!Object.keys(themeMapping).includes(theme)) {
+      theme = 'light'
+    }
+    this.setState({ theme })
+    if (theme !== 'light') {
+      StatusBar.setBarStyle('light-content')
+    }
+  }
 
-    return layout ? (
-      <ThemeContext.Provider value={{ ...this.state, setLayout }}>
-        <Root>
-          {layout === 'android' ? <NavigatorAndroid /> : <NavigatorIos />}
-        </Root>
-      </ThemeContext.Provider>
+  setTheme = async theme => {
+    await AsyncStorage.setItem(STORAGE_KEYS.theme, theme)
+    await this.getTheme()
+  }
+
+  render() {
+    const { layout, theme } = this.state
+    const { setLayout, setTheme } = this
+    const colors = themeMapping[theme]
+
+    return layout && theme ? (
+      <LayoutContext.Provider value={{ layout, setLayout }}>
+        <ThemeContext.Provider value={{ theme, setTheme, colors }}>
+          <Root>
+            {layout === 'android' ? <NavigatorAndroid /> : <NavigatorIos />}
+          </Root>
+        </ThemeContext.Provider>
+      </LayoutContext.Provider>
     ) : (
       <View
         style={{

@@ -7,11 +7,11 @@ import {
   Button,
   SafeAreaView,
   ScrollView,
-  FlatList,
 } from 'react-native'
 import distanceInWords from 'date-fns/distance_in_words'
 import { ListItem } from './list'
-import { colors, MyActivityIndicator } from './utils'
+import { MyActivityIndicator } from './utils'
+import { ThemeContext } from './App'
 
 class CommentItem extends React.PureComponent {
   static defaultProps = {
@@ -20,7 +20,7 @@ class CommentItem extends React.PureComponent {
 
   render() {
     const now = Date.now()
-    const { item } = this.props
+    const { item, colors } = this.props
     return (
       <React.Fragment>
         <View
@@ -66,6 +66,7 @@ class CommentItem extends React.PureComponent {
             key={reply.ctime + reply.username}
             level={this.props.level + 1}
             item={reply}
+            colors={colors}
           />
         ))}
       </React.Fragment>
@@ -107,35 +108,41 @@ export default class DetailScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView
-        style={{
-          backgroundColor: colors.background,
-          padding: 4,
-          // flex: 1,
-          // justifyContent: 'center',
-        }}
-      >
-        <ListItem
-          item={this.props.navigation.state.params}
-          hasCommentLink={false}
-        />
-        <View
-          style={{
-            borderBottomColor: colors.border,
-            borderBottomWidth: 8,
-          }}
-        />
-        {this.state.isLoading ? (
-          <MyActivityIndicator style={{ marginTop: 10 }} />
-        ) : (
-          this.state.comments.map((comment, index) => (
-            <CommentItem
-              key={comment.ctime + comment.username}
-              item={comment}
+      <ThemeContext.Consumer>
+        {({ colors }) => (
+          <ScrollView
+            style={{
+              backgroundColor: colors.background,
+              padding: 4,
+              // flex: 1,
+              // justifyContent: 'center',
+            }}
+          >
+            <ListItem
+              item={this.props.navigation.state.params}
+              hasCommentLink={false}
+              colors={colors}
             />
-          ))
+            <View
+              style={{
+                borderBottomColor: colors.border,
+                borderBottomWidth: 8,
+              }}
+            />
+            {this.state.isLoading ? (
+              <MyActivityIndicator style={{ marginTop: 10 }} />
+            ) : (
+              this.state.comments.map((comment, index) => (
+                <CommentItem
+                  key={comment.ctime + comment.username}
+                  item={comment}
+                  colors={colors}
+                />
+              ))
+            )}
+          </ScrollView>
         )}
-      </ScrollView>
+      </ThemeContext.Consumer>
     )
   }
 }
