@@ -1,11 +1,10 @@
 import React from 'react'
-import { View, Text, AsyncStorage, StatusBar, Platform } from 'react-native'
+import { AsyncStorage, StatusBar, Platform } from 'react-native'
 import NavigatorIos from './navigator-ios'
 import NavigatorAndroid from './navigator-android'
 
 // https://github.com/facebook/react-native/issues/18868#issuecomment-382671739
 import { YellowBox } from 'react-native'
-import { MyActivityIndicator } from './utils'
 
 YellowBox.ignoreWarnings([
   'Warning: isMounted(...) is deprecated',
@@ -35,6 +34,7 @@ const themeMapping = {
       border: '#eee',
       background: '#fff',
       icon: '#222',
+      loading: '#aaa',
     },
     tab: {
       active: undefined,
@@ -60,6 +60,7 @@ const themeMapping = {
       border: '#fee',
       background: '#fff',
       icon: '#222',
+      loading: '#af1d1d',
     },
     tab: {
       active: '#af1d1d',
@@ -85,6 +86,7 @@ const themeMapping = {
       border: '#aaa',
       background: '#222',
       icon: '#aaa',
+      loading: '#fff',
     },
     tab: {
       active: '#aaa',
@@ -144,22 +146,16 @@ export default class App extends React.Component {
     const { setLayout, setTheme } = this
     const colors = themeMapping[theme]
 
-    return layout && theme ? (
-      <LayoutContext.Provider value={{ layout, setLayout }}>
-        <ThemeContext.Provider value={{ theme, setTheme, colors }}>
-          <StatusBar barStyle={colors.header.statusBarStyle} />
-          {layout === 'android' ? <NavigatorAndroid /> : <NavigatorIos />}
-        </ThemeContext.Provider>
-      </LayoutContext.Provider>
-    ) : (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-        }}
-      >
-        <MyActivityIndicator size="large" />
-      </View>
+    return (
+      layout &&
+      theme && (
+        <LayoutContext.Provider value={{ layout, setLayout }}>
+          <ThemeContext.Provider value={{ theme, setTheme, colors }}>
+            <StatusBar barStyle={colors.header.statusBarStyle} />
+            {layout === 'android' ? <NavigatorAndroid /> : <NavigatorIos />}
+          </ThemeContext.Provider>
+        </LayoutContext.Provider>
+      )
     )
   }
 }
