@@ -1,12 +1,11 @@
 import React from 'react'
 import { createBottomTabNavigator } from 'react-navigation'
 import { BottomTabBar } from 'react-navigation-tabs'
-import { TopScreen, LatestScreen } from './list'
-import SettingsScreen from './settings'
-import { TopIcon, LatestIcon, SettingsIcon } from './icons'
-import { ThemeContext } from './App'
+import { TopNavigator, LatestNavigator, SettingsNavigator } from './navigators'
+import { TopIcon, LatestIcon, SettingsIcon } from './components/icons'
+import { ThemeContext } from './context'
 
-const MyTabBar = props => (
+const CustomBottomTabBar = props => (
   <ThemeContext.Consumer>
     {({ colors }) => (
       <BottomTabBar
@@ -20,9 +19,9 @@ const MyTabBar = props => (
 
 export default createBottomTabNavigator(
   {
-    Top: TopScreen,
-    Latest: LatestScreen,
-    Settings: SettingsScreen,
+    Top: TopNavigator,
+    Latest: LatestNavigator,
+    Settings: SettingsNavigator,
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -42,6 +41,6 @@ export default createBottomTabNavigator(
         }
       },
     }),
-    tabBarComponent: MyTabBar,
+    tabBarComponent: CustomBottomTabBar,
   },
 )

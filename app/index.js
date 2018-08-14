@@ -1,5 +1,6 @@
 import React from 'react'
 import { AsyncStorage, StatusBar, Platform } from 'react-native'
+import { LayoutContext, ThemeContext } from './context'
 import NavigatorIos from './navigator-ios'
 import NavigatorAndroid from './navigator-android'
 
@@ -100,9 +101,6 @@ const themeMapping = {
     },
   },
 }
-
-export const LayoutContext = React.createContext()
-export const ThemeContext = React.createContext()
 
 export default class App extends React.Component {
   state = {

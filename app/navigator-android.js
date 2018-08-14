@@ -1,12 +1,11 @@
 import React from 'react'
 import { ScrollView, SafeAreaView } from 'react-native'
 import { createDrawerNavigator, DrawerItems } from 'react-navigation'
-import { TopScreen, LatestScreen } from './list'
-import SettingsScreen from './settings'
-import { LatestIcon, SettingsIcon, TopIcon } from './icons'
-import { ThemeContext } from './App'
+import { TopNavigator, LatestNavigator, SettingsNavigator } from './navigators'
+import { LatestIcon, SettingsIcon, TopIcon } from './components/icons'
+import { ThemeContext } from './context'
 
-const MyDrawer = props => (
+const CustomDrawer = props => (
   <ScrollView>
     <SafeAreaView
       style={{ flex: 1 }}
@@ -42,11 +41,11 @@ const MyDrawer = props => (
 
 export default createDrawerNavigator(
   {
-    Top: TopScreen,
-    Latest: LatestScreen,
-    Settings: SettingsScreen,
+    Top: TopNavigator,
+    Latest: LatestNavigator,
+    Settings: SettingsNavigator,
   },
   {
-    contentComponent: MyDrawer,
+    contentComponent: CustomDrawer,
   },
 )

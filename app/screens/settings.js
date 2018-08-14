@@ -1,39 +1,9 @@
 import React from 'react'
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StatusBar,
-  Switch,
-  Picker,
-  AsyncStorage,
-  Image,
-  ScrollView,
-  ActivityIndicator,
-  TextInput,
-  Dimensions,
-} from 'react-native'
-import { createStackNavigator } from 'react-navigation'
+import { ScrollView } from 'react-native'
 import { Cell, Section, TableView } from 'react-native-tableview-simple'
-import { LayoutContext, ThemeContext } from './App'
-import { MyHeader } from './list'
+import { LayoutContext, ThemeContext } from '../context'
 
-class Settings extends React.Component {
-  state = {
-    status: false,
-  }
-
-  componentDidMount() {}
-
-  getSettings = async () => {
-    const settings = await AsyncStorage.getItem('settings')
-    this.setState({ ...settings })
-  }
-
-  saveSettings = async data => {
-    await AsyncStorage.setItem('settings', JSON.stringify(data))
-  }
-
+export default class Settings extends React.Component {
   render() {
     return (
       <ScrollView
@@ -88,16 +58,3 @@ class Settings extends React.Component {
     )
   }
 }
-
-export default createStackNavigator(
-  {
-    Settings: Settings,
-  },
-  {
-    // initialRouteName: 'Settings',
-    navigationOptions: {
-      title: 'Settings',
-      header: MyHeader,
-    },
-  },
-)
