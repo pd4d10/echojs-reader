@@ -10,9 +10,9 @@ const MyTabBar = props => (
   <ThemeContext.Consumer>
     {({ colors }) => (
       <BottomTabBar
-        activeTintColor={colors.primary}
-        // inactiveTintColor="grey"
         {...props}
+        activeTintColor={colors.tab.active}
+        inactiveTintColor={colors.tab.inactive}
       />
     )}
   </ThemeContext.Consumer>
@@ -28,7 +28,7 @@ export default createBottomTabNavigator(
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => {
         const props = {
-          color: focused ? tintColor : 'gray',
+          color: focused ? tintColor : 'gray', // TODO:
           size: 24,
         }
 

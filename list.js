@@ -42,7 +42,7 @@ export class ListItem extends React.PureComponent {
       SafariView.show({
         url: item.url,
         tintColor: this.props.colors.primary,
-        // barTintColor: this.props.colors.background,
+        // barTintColor: this.props.colors.content.background,
       })
     } else {
     }
@@ -57,11 +57,11 @@ export class ListItem extends React.PureComponent {
   }
 
   setStatusBarToDark = () => {
-    StatusBar.setBarStyle('dark-content')
+    // StatusBar.setBarStyle('dark-content')
   }
 
   setStatusBarToLight = () => {
-    StatusBar.setBarStyle('light-content')
+    // StatusBar.setBarStyle('light-content')
   }
 
   async componentDidMount() {
@@ -95,7 +95,7 @@ export class ListItem extends React.PureComponent {
               style={{
                 fontSize: 18,
                 lineHeight: 22,
-                color: colors.primaryText,
+                color: colors.content.title,
                 marginBottom: 6,
               }}
             >
@@ -104,7 +104,7 @@ export class ListItem extends React.PureComponent {
             {this.isText() || (
               <Text
                 style={{
-                  color: colors.greyText,
+                  color: colors.content.url,
                   fontSize: 12,
                   marginBottom: 6,
                 }}
@@ -113,7 +113,7 @@ export class ListItem extends React.PureComponent {
               </Text>
             )}
           </TouchableOpacity>
-          <Text style={{ color: colors.secondaryText, fontSize: 14 }}>
+          <Text style={{ color: colors.content.user, fontSize: 14 }}>
             <Text
               style={{
                 textDecorationLine: 'underline',
@@ -133,8 +133,8 @@ export class ListItem extends React.PureComponent {
           }}
         >
           <View>
-            <Text style={{ color: colors.secondaryText }}>▲ {item.up}</Text>
-            <Text style={{ color: colors.secondaryText }}>▼ {item.down}</Text>
+            <Text style={{ color: colors.content.icon }}>▲ {item.up}</Text>
+            <Text style={{ color: colors.content.icon }}>▼ {item.down}</Text>
           </View>
           {hasCommentLink && (
             <TouchableOpacity
@@ -145,9 +145,9 @@ export class ListItem extends React.PureComponent {
                 name="comment-processing-outline"
                 size={14}
                 style={{ marginRight: 2, marginTop: 3 }}
-                color={colors.secondaryText}
+                color={colors.content.icon}
               />
-              <Text style={{ color: colors.secondaryText }}>
+              <Text style={{ color: colors.content.icon }}>
                 {item.comments}
               </Text>
             </TouchableOpacity>
@@ -169,15 +169,15 @@ class ListScreen extends React.Component {
 
   fetchData = async (anchor = 0) => {
     // For slow network testing
-    // await new Promise(resolve => {
-    //   setTimeout(resolve, 3000)
-    // })
-    const res = await fetch(
-      `https://echojs.com/api/getnews/${
-        this.props.sort
-      }/${anchor}/${PAGE_SIZE}`,
-    )
-    const json = await res.json()
+    const json = await new Promise(resolve => {
+      setTimeout(() => resolve(require('./mock')), 1000)
+    })
+    // const res = await fetch(
+    //   `https://echojs.com/api/getnews/${
+    //     this.props.sort
+    //   }/${anchor}/${PAGE_SIZE}`,
+    // )
+    // const json = await res.json()
     return json.news
   }
 
@@ -246,9 +246,9 @@ class ListScreen extends React.Component {
     return (
       <ThemeContext.Consumer>
         {({ colors }) => (
-          <SafeAreaView
+          <View
             style={{
-              backgroundColor: colors.background,
+              backgroundColor: colors.content.background,
               flex: 1,
               justifyContent: 'center',
             }}
@@ -270,7 +270,7 @@ class ListScreen extends React.Component {
                   <View
                     style={{
                       height: 1,
-                      backgroundColor: colors.border,
+                      backgroundColor: colors.content.border,
                     }}
                   />
                 )}
@@ -283,7 +283,7 @@ class ListScreen extends React.Component {
                     style={{
                       paddingVertical: 20,
                       borderTopWidth: 1,
-                      borderColor: colors.border,
+                      borderColor: colors.content.border,
                       alignItems: 'center',
                     }}
                   >
@@ -296,24 +296,12 @@ class ListScreen extends React.Component {
                 )}
               />
             )}
-          </SafeAreaView>
+          </View>
         )}
       </ThemeContext.Consumer>
     )
   }
 }
-
-const MenuLeft = ({ navigation, colors }) => (
-  <MaterialIcons
-    name="menu"
-    size={24}
-    color={colors.background}
-    style={{ paddingLeft: 16 }}
-    onPress={() => {
-      navigation.openDrawer()
-    }}
-  />
-)
 
 export const MyHeader = props => (
   <LayoutContext.Consumer>
@@ -328,7 +316,15 @@ export const MyHeader = props => (
           if (props.scene.index === 0) {
             if (layout === 'android') {
               headerLeft = (
-                <MenuLeft navigation={descriptor.navigation} colors={colors} />
+                <MaterialIcons
+                  name="menu"
+                  size={24}
+                  color={colors.header.text}
+                  style={{ paddingLeft: 16 }}
+                  onPress={() => {
+                    descriptor.navigation.openDrawer()
+                  }}
+                />
               )
             } else {
               headerLeft = null
@@ -340,9 +336,9 @@ export const MyHeader = props => (
 
           descriptor.options = {
             ...descriptor.options,
-            headerTintColor: '#fff',
+            headerTintColor: colors.header.text,
             headerStyle: {
-              backgroundColor: colors.primary,
+              backgroundColor: colors.header.background,
             },
             headerLeft,
           }

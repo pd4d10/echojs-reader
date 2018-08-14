@@ -16,7 +16,8 @@ const MyDrawer = props => (
         {({ colors }) => (
           <DrawerItems
             {...props}
-            activeTintColor={colors.primary}
+            activeTintColor={colors.drawer.active}
+            inactiveTintColor={colors.drawer.inactive}
             // activeTintColor: '#2196f3',
             // activeBackgroundColor: 'rgba(0, 0, 0, .04)',
             // inactiveTintColor: 'rgba(0, 0, 0, .87)',

@@ -28,12 +28,12 @@ class CommentItem extends React.PureComponent {
             flexDirection: 'row',
             padding: 10,
             marginLeft: this.props.level * 20,
-            // borderTopColor: colors.border,
+            // borderTopColor: colors.content.border,
             // borderTopWidth: this.props.index === 0 ? 0 : 1,
           }}
         >
           <View style={{ flex: 1 }}>
-            <Text style={{ color: colors.secondaryText, marginBottom: 4 }}>
+            <Text style={{ color: colors.content.user, marginBottom: 4 }}>
               <Text
                 style={{
                   textDecorationLine: 'underline',
@@ -43,7 +43,7 @@ class CommentItem extends React.PureComponent {
               </Text>{' '}
               | {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
             </Text>
-            <Text style={{ color: colors.primaryText }}>{item.body}</Text>
+            <Text style={{ color: colors.content.title }}>{item.body}</Text>
           </View>
           <View
             style={{
@@ -54,8 +54,8 @@ class CommentItem extends React.PureComponent {
             }}
           >
             <View>
-              <Text style={{ color: colors.secondaryText }}>▲ {item.up}</Text>
-              <Text style={{ color: colors.secondaryText }}>
+              <Text style={{ color: colors.content.icon }}>▲ {item.up}</Text>
+              <Text style={{ color: colors.content.icon }}>
                 ▼ {item.down | 0}
               </Text>
             </View>
@@ -112,10 +112,8 @@ export default class DetailScreen extends React.Component {
         {({ colors }) => (
           <ScrollView
             style={{
-              backgroundColor: colors.background,
+              backgroundColor: colors.content.background,
               padding: 4,
-              // flex: 1,
-              // justifyContent: 'center',
             }}
           >
             <ListItem
@@ -125,7 +123,7 @@ export default class DetailScreen extends React.Component {
             />
             <View
               style={{
-                borderBottomColor: colors.border,
+                borderBottomColor: colors.content.border,
                 borderBottomWidth: 8,
               }}
             />

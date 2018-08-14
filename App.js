@@ -21,30 +21,82 @@ const STORAGE_KEYS = {
 
 const layouts = ['android', 'ios']
 
+// undefined means use default value
 const themeMapping = {
   light: {
-    primary: undefined,
-    border: '#eee',
-    background: '#fff',
-    primaryText: '#000',
-    secondaryText: '#666',
-    greyText: '#999',
+    header: {
+      statusBarStyle: 'dark-content',
+      text: undefined,
+      background: undefined,
+    },
+    content: {
+      title: '#000',
+      url: '#999',
+      user: '#666',
+      border: '#eee',
+      background: '#fff',
+      icon: '#222',
+    },
+    tab: {
+      active: undefined,
+      inactive: undefined,
+      background: undefined,
+    },
+    drawer: {
+      active: undefined,
+      inactive: undefined,
+      background: undefined,
+    },
   },
   echojs: {
-    primary: '#af1d1d',
-    border: '#eee',
-    background: '#fff',
-    primaryText: '#000',
-    secondaryText: '#666',
-    greyText: '#999',
+    header: {
+      statusBarStyle: 'light-content',
+      text: '#fff',
+      background: '#af1d1d',
+    },
+    content: {
+      title: '#000',
+      url: '#999',
+      user: '#666',
+      border: '#fee',
+      background: '#fff',
+      icon: '#222',
+    },
+    tab: {
+      active: '#af1d1d',
+      inactive: undefined,
+      background: undefined,
+    },
+    drawer: {
+      active: '#af1d1d',
+      inactive: undefined,
+      background: undefined,
+    },
   },
   dark: {
-    primary: '#000',
-    border: '#555',
-    background: '#222',
-    primaryText: '#aaa',
-    secondaryText: '#666',
-    greyText: '#999',
+    header: {
+      statusBarStyle: 'light-content',
+      text: '#aaa',
+      background: '#222',
+    },
+    content: {
+      title: '#00f',
+      url: '#aaa',
+      user: '#aaa',
+      border: '#aaa',
+      background: '#222',
+      icon: '#aaa',
+    },
+    tab: {
+      active: '#aaa',
+      inactive: '#222',
+      background: '#000',
+    },
+    drawer: {
+      active: '#af1d1d',
+      inactive: undefined,
+      background: undefined,
+    },
   },
 }
 
@@ -81,9 +133,6 @@ export default class App extends React.Component {
       theme = 'light'
     }
     this.setState({ theme })
-    if (theme !== 'light') {
-      StatusBar.setBarStyle('light-content')
-    }
   }
 
   setTheme = async theme => {
@@ -100,6 +149,7 @@ export default class App extends React.Component {
       <LayoutContext.Provider value={{ layout, setLayout }}>
         <ThemeContext.Provider value={{ theme, setTheme, colors }}>
           <Root>
+            <StatusBar barStyle={colors.header.statusBarStyle} />
             {layout === 'android' ? <NavigatorAndroid /> : <NavigatorIos />}
           </Root>
         </ThemeContext.Provider>
