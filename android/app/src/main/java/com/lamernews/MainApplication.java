@@ -1,4 +1,4 @@
-package com.echojs;
+package com.lamernews;
 
 import android.app.Application;
 
