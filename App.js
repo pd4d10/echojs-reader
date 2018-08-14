@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text, AsyncStorage, StatusBar, Platform } from 'react-native'
-import { Root } from 'native-base'
 import NavigatorIos from './navigator-ios'
 import NavigatorAndroid from './navigator-android'
 
@@ -148,10 +147,8 @@ export default class App extends React.Component {
     return layout && theme ? (
       <LayoutContext.Provider value={{ layout, setLayout }}>
         <ThemeContext.Provider value={{ theme, setTheme, colors }}>
-          <Root>
-            <StatusBar barStyle={colors.header.statusBarStyle} />
-            {layout === 'android' ? <NavigatorAndroid /> : <NavigatorIos />}
-          </Root>
+          <StatusBar barStyle={colors.header.statusBarStyle} />
+          {layout === 'android' ? <NavigatorAndroid /> : <NavigatorIos />}
         </ThemeContext.Provider>
       </LayoutContext.Provider>
     ) : (

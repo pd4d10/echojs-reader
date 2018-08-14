@@ -9,9 +9,9 @@ import {
   StatusBar,
   TouchableOpacity,
   FlatList,
+  ToastAndroid,
 } from 'react-native'
 import { createStackNavigator, Header } from 'react-navigation'
-import { Toast } from 'native-base'
 import distanceInWords from 'date-fns/distance_in_words'
 import SafariView from 'react-native-safari-view'
 import { parse } from 'url'
@@ -214,11 +214,11 @@ class ListScreen extends React.Component {
         items,
         isEnd: items.length < PAGE_SIZE,
       })
-      Toast.show({
-        text: 'Refresh success',
-        position: 'top',
-        duration: 2000,
-      })
+      // Toast.show({
+      //   text: 'Refresh success',
+      //   position: 'top',
+      //   duration: 2000,
+      // })
     } catch (err) {
       this.handleError(err)
     } finally {
