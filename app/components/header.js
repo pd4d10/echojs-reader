@@ -1,24 +1,10 @@
 import React from 'react'
-import {
-  StyleSheet,
-  Text,
-  ActivityIndicator,
-  View,
-  Button,
-  SafeAreaView,
-  StatusBar,
-  TouchableOpacity,
-  FlatList,
-  ToastAndroid,
-} from 'react-native'
-import { createStackNavigator, Header } from 'react-navigation'
-import { ThemeContext, LayoutContext } from './context'
-import DetailScreen from './screens/detail'
+import { Header } from 'react-navigation'
+import { ThemeContext, LayoutContext } from '../context'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import ListScreen from './screens/list'
-import Settings from './screens/settings'
 
-export const MyHeader = props => (
+// Notice this must be a function instead of a class
+export default props => (
   <LayoutContext.Consumer>
     {({ layout }) => (
       <ThemeContext.Consumer>
@@ -62,44 +48,4 @@ export const MyHeader = props => (
       </ThemeContext.Consumer>
     )}
   </LayoutContext.Consumer>
-)
-
-export const TopNavigator = createStackNavigator(
-  {
-    Top: props => <ListScreen {...props} sort="top" />,
-    Detail: DetailScreen,
-  },
-  {
-    initialRouteName: 'Top',
-    navigationOptions: {
-      title: 'Top news',
-      header: MyHeader,
-    },
-  },
-)
-
-export const LatestNavigator = createStackNavigator(
-  {
-    Top: props => <ListScreen {...props} sort="latest" />,
-    Detail: DetailScreen,
-  },
-  {
-    initialRouteName: 'Top',
-    navigationOptions: {
-      title: 'Latest news',
-      header: MyHeader,
-    },
-  },
-)
-
-export const SettingsNavigator = createStackNavigator(
-  {
-    Settings: Settings,
-  },
-  {
-    navigationOptions: {
-      title: 'Settings',
-      header: MyHeader,
-    },
-  },
 )

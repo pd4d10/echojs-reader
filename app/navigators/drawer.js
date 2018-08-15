@@ -1,9 +1,9 @@
 import React from 'react'
 import { ScrollView, SafeAreaView } from 'react-native'
 import { createDrawerNavigator, DrawerItems } from 'react-navigation'
-import { TopNavigator, LatestNavigator, SettingsNavigator } from './navigators'
-import { LatestIcon, SettingsIcon, TopIcon } from './components/icons'
-import { ThemeContext } from './context'
+import { TopNavigator, LatestNavigator, SettingsNavigator } from './screens'
+import { LatestIcon, SettingsIcon, TopIcon } from '../components/icons'
+import { ThemeContext } from '../context'
 
 const CustomDrawer = props => (
   <ScrollView>

@@ -1,9 +1,9 @@
 import React from 'react'
 import { createBottomTabNavigator } from 'react-navigation'
 import { BottomTabBar } from 'react-navigation-tabs'
-import { TopNavigator, LatestNavigator, SettingsNavigator } from './navigators'
-import { TopIcon, LatestIcon, SettingsIcon } from './components/icons'
-import { ThemeContext } from './context'
+import { TopNavigator, LatestNavigator, SettingsNavigator } from './screens'
+import { TopIcon, LatestIcon, SettingsIcon } from '../components/icons'
+import { ThemeContext } from '../context'
 
 const CustomBottomTabBar = props => (
   <ThemeContext.Consumer>

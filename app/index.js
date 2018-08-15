@@ -1,8 +1,8 @@
 import React from 'react'
 import { AsyncStorage, StatusBar, Platform } from 'react-native'
 import { LayoutContext, ThemeContext } from './context'
-import NavigatorIos from './navigator-ios'
-import NavigatorAndroid from './navigator-android'
+import NavigatorBottomTab from './navigators/bottom-tab'
+import NavigatorDrawer from './navigators/drawer'
 
 // https://github.com/facebook/react-native/issues/18868#issuecomment-382671739
 import { YellowBox } from 'react-native'
@@ -150,7 +150,11 @@ export default class App extends React.Component {
         <LayoutContext.Provider value={{ layout, setLayout }}>
           <ThemeContext.Provider value={{ theme, setTheme, colors }}>
             <StatusBar barStyle={colors.header.statusBarStyle} />
-            {layout === 'android' ? <NavigatorAndroid /> : <NavigatorIos />}
+            {layout === 'android' ? (
+              <NavigatorDrawer />
+            ) : (
+              <NavigatorBottomTab />
+            )}
           </ThemeContext.Provider>
         </LayoutContext.Provider>
       )
