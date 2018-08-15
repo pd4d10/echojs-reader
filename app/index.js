@@ -1,5 +1,5 @@
 import React from 'react'
-import { AsyncStorage, StatusBar, Platform } from 'react-native'
+import { AsyncStorage, StatusBar } from 'react-native'
 import {
   LayoutContext,
   ThemeContext,
@@ -10,6 +10,7 @@ import {
 // https://github.com/facebook/react-native/issues/18868#issuecomment-382671739
 import { YellowBox } from 'react-native'
 import { STORAGE_KEYS, layoutMapping, themeMapping } from './constants'
+import { isAndroid } from './utils'
 
 YellowBox.ignoreWarnings([
   'Warning: isMounted(...) is deprecated',
@@ -46,7 +47,7 @@ export default class App extends React.Component {
     if (Object.keys(layoutMapping).includes(layout)) {
       return layout
     } else {
-      return Platform.OS === 'android' ? 'drawer' : 'bottom-tab'
+      return isAndroid ? 'drawer' : 'bottom-tab'
     }
   }
 

@@ -57,6 +57,7 @@ export const themeMapping = {
       text: undefined,
       background: undefined,
     },
+    settings: {},
   },
   echojs: {
     title: 'EchoJS',
@@ -89,6 +90,10 @@ export const themeMapping = {
       text: '#af1d1d',
       background: undefined,
     },
+    settings: {
+      active: '#af1d1d',
+      androidActiveBackground: '#fee',
+    },
   },
   dark: {
     title: 'Dark',
@@ -116,5 +121,6 @@ export const themeMapping = {
       inactive: undefined,
       background: undefined,
     },
+    settings: {},
   },
 }
