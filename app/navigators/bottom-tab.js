@@ -1,46 +1,40 @@
 import React from 'react'
 import { createBottomTabNavigator } from 'react-navigation'
-import { BottomTabBar } from 'react-navigation-tabs'
-import { TopNavigator, LatestNavigator, SettingsNavigator } from './screens'
+import {
+  createTopNavigator,
+  createLatestNavigator,
+  createSettingsNavigator,
+} from './stack'
 import { TopIcon, LatestIcon, SettingsIcon } from '../components/icons'
-import { ThemeContext } from '../context'
 
-const CustomBottomTabBar = props => (
-  <ThemeContext.Consumer>
-    {({ colors }) => (
-      <BottomTabBar
-        {...props}
-        activeTintColor={colors.tab.active}
-        inactiveTintColor={colors.tab.inactive}
-      />
-    )}
-  </ThemeContext.Consumer>
-)
+export default ({ colors }) =>
+  createBottomTabNavigator(
+    {
+      Top: createTopNavigator({ colors }),
+      Latest: createLatestNavigator({ colors }),
+      Settings: createSettingsNavigator({ colors }),
+    },
+    {
+      navigationOptions: ({ navigation }) => ({
+        tabBarIcon: ({ focused }) => {
+          const props = {
+            color: focused ? colors.tab.active : colors.tab.inactive, // TODO:
+            size: 24,
+          }
 
-export default createBottomTabNavigator(
-  {
-    Top: TopNavigator,
-    Latest: LatestNavigator,
-    Settings: SettingsNavigator,
-  },
-  {
-    navigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, tintColor }) => {
-        const props = {
-          color: focused ? tintColor : 'gray', // TODO:
-          size: 24,
-        }
-
-        switch (navigation.state.routeName) {
-          case 'Top':
-            return <TopIcon {...props} />
-          case 'Latest':
-            return <LatestIcon {...props} />
-          case 'Settings':
-            return <SettingsIcon {...props} />
-        }
+          switch (navigation.state.routeName) {
+            case 'Top':
+              return <TopIcon {...props} />
+            case 'Latest':
+              return <LatestIcon {...props} />
+            case 'Settings':
+              return <SettingsIcon {...props} />
+          }
+        },
+      }),
+      tabBarOptions: {
+        activeTintColor: colors.tab.active,
+        inactiveTintColor: colors.tab.inactive,
       },
-    }),
-    tabBarComponent: CustomBottomTabBar,
-  },
-)
+    },
+  )

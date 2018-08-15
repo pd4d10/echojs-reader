@@ -50,7 +50,7 @@ export default class App extends React.Component {
 
   render() {
     const { layout, theme } = this.state
-    console.log(layout)
+    // console.log(layout)
 
     if (!layout || !theme) {
       return null
@@ -58,12 +58,13 @@ export default class App extends React.Component {
 
     const { setLayout, setTheme } = this
     const colors = themeMapping[theme]
-    const { component: Layout } = layoutMapping[layout]
+    const LayoutContainer = layoutMapping[layout].factory({ colors })
+
     return (
       <LayoutContext.Provider value={{ layout, setLayout }}>
         <ThemeContext.Provider value={{ theme, setTheme, colors }}>
           <StatusBar barStyle={colors.header.statusBarStyle} />
-          <Layout />
+          <LayoutContainer />
         </ThemeContext.Provider>
       </LayoutContext.Provider>
     )

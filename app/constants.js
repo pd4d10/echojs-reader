@@ -1,6 +1,6 @@
-import NavigatorBottomTab from './navigators/bottom-tab'
-import NavigatorDrawer from './navigators/drawer'
-import NavigatorMaterialBottomTab from './navigators/material-bottom-tab'
+import createBottomTab from './navigators/bottom-tab'
+import createDrawer from './navigators/drawer'
+// import NavigatorMaterialBottomTab from './navigators/material-bottom-tab'
 
 export const STORAGE_KEYS = {
   auth: 'echojs-auth',
@@ -11,15 +11,15 @@ export const STORAGE_KEYS = {
 export const layoutMapping = {
   'bottom-tab': {
     name: 'Bottom Tab',
-    component: NavigatorBottomTab,
+    factory: createBottomTab,
   },
   // 'material-bottom-tab': {
   //   name: 'Material Bottom Tab',
   //   component: NavigatorMaterialBottomTab,
   // },
   drawer: {
-    name: 'Darwer',
-    component: NavigatorDrawer,
+    name: 'Drawer',
+    factory: createDrawer,
   },
 }
 
@@ -68,7 +68,7 @@ export const themeMapping = {
     },
     tab: {
       active: '#af1d1d',
-      inactive: undefined,
+      inactive: '#888',
       background: undefined,
     },
     drawer: {
