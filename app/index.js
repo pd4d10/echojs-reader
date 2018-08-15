@@ -1,106 +1,15 @@
 import React from 'react'
 import { AsyncStorage, StatusBar, Platform } from 'react-native'
 import { LayoutContext, ThemeContext } from './context'
-import NavigatorBottomTab from './navigators/bottom-tab'
-import NavigatorDrawer from './navigators/drawer'
 
 // https://github.com/facebook/react-native/issues/18868#issuecomment-382671739
 import { YellowBox } from 'react-native'
+import { STORAGE_KEYS, layoutMapping, themeMapping } from './constants'
 
 YellowBox.ignoreWarnings([
   'Warning: isMounted(...) is deprecated',
   'Module RCTImageLoader',
 ])
-
-const STORAGE_KEYS = {
-  auth: 'echojs-auth',
-  layout: 'layout',
-  theme: 'theme',
-}
-
-const layouts = ['android', 'ios']
-
-// undefined means use default value
-const themeMapping = {
-  light: {
-    header: {
-      statusBarStyle: 'dark-content',
-      text: undefined,
-      background: undefined,
-    },
-    content: {
-      title: '#000',
-      url: '#999',
-      user: '#666',
-      border: '#eee',
-      background: '#fff',
-      icon: '#222',
-      loading: '#aaa',
-    },
-    tab: {
-      active: undefined,
-      inactive: undefined,
-      background: undefined,
-    },
-    drawer: {
-      active: undefined,
-      inactive: undefined,
-      background: undefined,
-    },
-  },
-  echojs: {
-    header: {
-      statusBarStyle: 'light-content',
-      text: '#fff',
-      background: '#af1d1d',
-    },
-    content: {
-      title: '#000',
-      url: '#999',
-      user: '#666',
-      border: '#fee',
-      background: '#fff',
-      icon: '#222',
-      loading: '#af1d1d',
-    },
-    tab: {
-      active: '#af1d1d',
-      inactive: undefined,
-      background: undefined,
-    },
-    drawer: {
-      active: '#af1d1d',
-      inactive: undefined,
-      background: undefined,
-    },
-  },
-  dark: {
-    header: {
-      statusBarStyle: 'light-content',
-      text: '#aaa',
-      background: '#222',
-    },
-    content: {
-      title: '#00f',
-      url: '#aaa',
-      user: '#aaa',
-      border: '#aaa',
-      background: '#222',
-      icon: '#aaa',
-      loading: '#fff',
-    },
-    tab: {
-      active: '#aaa',
-      inactive: '#222',
-      background: '#000',
-    },
-    drawer: {
-      active: '#af1d1d',
-      inactive: undefined,
-      background: undefined,
-    },
-  },
-}
 
 export default class App extends React.Component {
   state = {
@@ -115,8 +24,8 @@ export default class App extends React.Component {
 
   getLayout = async () => {
     let layout = await AsyncStorage.getItem(STORAGE_KEYS.layout)
-    if (!layouts.includes(layout)) {
-      layout = Platform.OS
+    if (!Object.keys(layoutMapping).includes(layout)) {
+      layout = Platform.OS === 'android' ? 'drawer' : 'bottom-tab'
     }
     this.setState({ layout })
   }
@@ -141,23 +50,22 @@ export default class App extends React.Component {
 
   render() {
     const { layout, theme } = this.state
+    console.log(layout)
+
+    if (!layout || !theme) {
+      return null
+    }
+
     const { setLayout, setTheme } = this
     const colors = themeMapping[theme]
-
+    const { component: Layout } = layoutMapping[layout]
     return (
-      layout &&
-      theme && (
-        <LayoutContext.Provider value={{ layout, setLayout }}>
-          <ThemeContext.Provider value={{ theme, setTheme, colors }}>
-            <StatusBar barStyle={colors.header.statusBarStyle} />
-            {layout === 'android' ? (
-              <NavigatorDrawer />
-            ) : (
-              <NavigatorBottomTab />
-            )}
-          </ThemeContext.Provider>
-        </LayoutContext.Provider>
-      )
+      <LayoutContext.Provider value={{ layout, setLayout }}>
+        <ThemeContext.Provider value={{ theme, setTheme, colors }}>
+          <StatusBar barStyle={colors.header.statusBarStyle} />
+          <Layout />
+        </ThemeContext.Provider>
+      </LayoutContext.Provider>
     )
   }
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import { ScrollView } from 'react-native'
 import { Cell, Section, TableView } from 'react-native-tableview-simple'
 import { LayoutContext, ThemeContext } from '../context'
+import { layoutMapping } from '../constants'
 
 export default class Settings extends React.Component {
   render() {
@@ -16,14 +17,12 @@ export default class Settings extends React.Component {
           <LayoutContext.Consumer>
             {({ layout, setLayout }) => (
               <Section header="LAYOUT STYLE">
-                {['iOS', 'Android'].map(item => (
+                {Object.keys(layoutMapping).map(item => (
                   <Cell
                     key={item}
-                    title={item}
-                    accessory={
-                      layout === item.toLowerCase() ? 'Checkmark' : undefined
-                    }
-                    onPress={() => setLayout(item.toLowerCase())}
+                    title={layoutMapping[item].name}
+                    accessory={layout === item ? 'Checkmark' : undefined}
+                    onPress={() => setLayout(item)}
                   />
                 ))}
               </Section>
