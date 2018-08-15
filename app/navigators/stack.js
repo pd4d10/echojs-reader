@@ -7,10 +7,10 @@ import TopScreen from '../screens/top'
 import LatestScreen from '../screens/latest'
 import WebViewScreen from '../screens/web'
 
-const createNavigatorFactory = (routeConfigMap, title) => ({
-  colors,
-  hasDrawer,
-}) => {
+const createNavigatorFactory = (
+  routeConfigMap,
+  { title, initialRouteName },
+) => ({ colors, hasDrawer }) => {
   return createStackNavigator(routeConfigMap, {
     navigationOptions: ({ navigation }) => ({
       title,
@@ -18,19 +18,20 @@ const createNavigatorFactory = (routeConfigMap, title) => ({
       headerStyle: {
         backgroundColor: colors.header.background,
       },
-      headerLeft: hasDrawer ? (
-        <MaterialIcons
-          name="menu"
-          size={24}
-          color={colors.header.text}
-          style={{ paddingLeft: 16 }}
-          onPress={() => {
-            navigation.openDrawer()
-          }}
-        />
-      ) : (
-        undefined
-      ),
+      headerLeft:
+        hasDrawer && navigation.state.routeName === initialRouteName ? (
+          <MaterialIcons
+            name="menu"
+            size={24}
+            color={colors.header.text}
+            style={{ paddingLeft: 16 }}
+            onPress={() => {
+              navigation.openDrawer()
+            }}
+          />
+        ) : (
+          undefined
+        ),
     }),
   })
 }
@@ -41,7 +42,10 @@ export const createTopNavigator = createNavigatorFactory(
     Detail: DetailScreen,
     WebView: WebViewScreen,
   },
-  'Top news',
+  {
+    initialRouteName: 'Top',
+    title: 'Top news',
+  },
 )
 
 export const createLatestNavigator = createNavigatorFactory(
@@ -50,7 +54,10 @@ export const createLatestNavigator = createNavigatorFactory(
     Detail: DetailScreen,
     WebView: WebViewScreen,
   },
-  'Latest news',
+  {
+    initialRouteName: 'Latest',
+    title: 'Latest news',
+  },
 )
 
 export const createSettingsNavigator = createNavigatorFactory(
@@ -58,5 +65,8 @@ export const createSettingsNavigator = createNavigatorFactory(
     Settings: SettingsScreen,
     WebView: WebViewScreen,
   },
-  'Settings',
+  {
+    initialRouteName: 'Settings',
+    title: 'Settings',
+  },
 )
