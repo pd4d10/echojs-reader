@@ -27,6 +27,7 @@ export const layoutMapping = {
 // undefined means use default value
 export const themeMapping = {
   light: {
+    title: 'Light',
     header: {
       statusBarStyle: 'dark-content',
       text: undefined,
@@ -58,6 +59,7 @@ export const themeMapping = {
     },
   },
   echojs: {
+    title: 'EchoJS',
     header: {
       statusBarStyle: 'light-content',
       text: '#fff',
@@ -89,6 +91,7 @@ export const themeMapping = {
     },
   },
   dark: {
+    title: 'Dark',
     header: {
       statusBarStyle: 'light-content',
       text: '#aaa',

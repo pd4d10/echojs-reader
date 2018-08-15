@@ -65,6 +65,9 @@ export default class App extends React.Component {
   }
 
   setTheme = async theme => {
+    if (this.state.theme === theme) {
+      return
+    }
     await AsyncStorage.setItem(STORAGE_KEYS.theme, theme)
     theme = this.ensureThemeCorrect(theme)
     this.setState({ theme })

@@ -2,7 +2,7 @@ import React from 'react'
 import { ScrollView, Switch } from 'react-native'
 import { Cell, Section, TableView } from 'react-native-tableview-simple'
 import { LayoutContext, ThemeContext, SettingsConsumer } from '../context'
-import { layoutMapping } from '../constants'
+import { layoutMapping, themeMapping } from '../constants'
 
 export default class SettingsScreen extends React.Component {
   render() {
@@ -31,14 +31,12 @@ export default class SettingsScreen extends React.Component {
           <ThemeContext.Consumer>
             {({ theme, setTheme }) => (
               <Section header="THEME">
-                {['Light', 'EchoJS', 'Dark'].map(item => (
+                {Object.keys(themeMapping).map(item => (
                   <Cell
                     key={item}
-                    title={item}
-                    accessory={
-                      theme === item.toLowerCase() ? 'Checkmark' : undefined
-                    }
-                    onPress={() => setTheme(item.toLowerCase())}
+                    title={themeMapping[item].title}
+                    accessory={theme === item ? 'Checkmark' : undefined}
+                    onPress={() => setTheme(item)}
                   />
                 ))}
               </Section>
