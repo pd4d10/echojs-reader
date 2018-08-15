@@ -1,10 +1,9 @@
 import React from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
 import distanceInWords from 'date-fns/distance_in_words'
-import SafariView from 'react-native-safari-view'
 import { parse } from 'url'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { SettingsContext } from '../context'
+import { SettingsConsumer } from '../context'
 
 export default class PostItem extends React.PureComponent {
   static defaultProps = {
@@ -13,36 +12,6 @@ export default class PostItem extends React.PureComponent {
 
   isText = () => {
     return this.props.item.url.startsWith('text://')
-  }
-
-  isSafariViewAvailable = async () => {
-    try {
-      return await SafariView.isAvailable()
-    } catch (err) {
-      return false
-    }
-  }
-
-  setStatusBarToDark = () => {
-    // StatusBar.setBarStyle('dark-content')
-  }
-
-  setStatusBarToLight = () => {
-    // StatusBar.setBarStyle('light-content')
-  }
-
-  async componentDidMount() {
-    if (await this.isSafariViewAvailable()) {
-      SafariView.addEventListener('onShow', this.setStatusBarToDark)
-      SafariView.addEventListener('onDismiss', this.setStatusBarToLight)
-    }
-  }
-
-  async componentWillUnmount() {
-    if (await this.isSafariViewAvailable()) {
-      SafariView.removeEventListener('onShow', this.setStatusBarToDark)
-      SafariView.removeEventListener('onDismiss', this.setStatusBarToLight)
-    }
   }
 
   render() {
@@ -57,7 +26,7 @@ export default class PostItem extends React.PureComponent {
         }}
       >
         <View style={{ flex: 1 }}>
-          <SettingsContext.Consumer>
+          <SettingsConsumer>
             {({ openLink }) => (
               <TouchableOpacity
                 onPress={async () => {
@@ -66,7 +35,7 @@ export default class PostItem extends React.PureComponent {
                     return
                   }
 
-                  openLink(item.url, () => {
+                  openLink(item.url, colors, () => {
                     this.props.navigation.navigate('WebView', item)
                   })
                 }}
@@ -94,7 +63,7 @@ export default class PostItem extends React.PureComponent {
                 )}
               </TouchableOpacity>
             )}
-          </SettingsContext.Consumer>
+          </SettingsConsumer>
           <Text style={{ color: colors.content.user, fontSize: 14 }}>
             <Text
               style={{

@@ -51,6 +51,11 @@ export const themeMapping = {
       inactive: undefined,
       background: undefined,
     },
+    safari: {
+      statusBarStyle: 'dark-content',
+      text: undefined,
+      background: undefined,
+    },
   },
   echojs: {
     header: {
@@ -75,6 +80,11 @@ export const themeMapping = {
     drawer: {
       active: '#af1d1d',
       inactive: undefined,
+      background: undefined,
+    },
+    safari: {
+      statusBarStyle: 'dark-content',
+      text: '#af1d1d',
       background: undefined,
     },
   },

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ScrollView, Switch } from 'react-native'
 import { Cell, Section, TableView } from 'react-native-tableview-simple'
-import { LayoutContext, ThemeContext, SettingsContext } from '../context'
+import { LayoutContext, ThemeContext, SettingsConsumer } from '../context'
 import { layoutMapping } from '../constants'
 
 export default class SettingsScreen extends React.Component {
@@ -44,7 +44,7 @@ export default class SettingsScreen extends React.Component {
               </Section>
             )}
           </ThemeContext.Consumer>
-          <SettingsContext.Consumer>
+          <SettingsConsumer>
             {({ openInBrowser, setOpenInBrowser }) => (
               <Section>
                 <Cell
@@ -58,7 +58,7 @@ export default class SettingsScreen extends React.Component {
                 />
               </Section>
             )}
-          </SettingsContext.Consumer>
+          </SettingsConsumer>
         </TableView>
         <Section header="ABOUT">
           <Cell
