@@ -5,7 +5,7 @@ import DetailScreen from '../screens/detail'
 import SettingsScreen from '../screens/settings'
 import TopScreen from '../screens/top'
 import LatestScreen from '../screens/latest'
-import WebScreen from '../screens/web'
+import WebViewScreen from '../screens/web'
 
 const createNavigatorFactory = (routeConfigMap, title) => ({
   colors,
@@ -39,7 +39,7 @@ export const createTopNavigator = createNavigatorFactory(
   {
     Top: TopScreen,
     Detail: DetailScreen,
-    Web: WebScreen,
+    WebView: WebViewScreen,
   },
   'Top news',
 )
@@ -48,7 +48,7 @@ export const createLatestNavigator = createNavigatorFactory(
   {
     Latest: LatestScreen,
     Detail: DetailScreen,
-    Web: WebScreen,
+    WebView: WebViewScreen,
   },
   'Latest news',
 )
@@ -56,7 +56,7 @@ export const createLatestNavigator = createNavigatorFactory(
 export const createSettingsNavigator = createNavigatorFactory(
   {
     Settings: SettingsScreen,
-    Web: WebScreen,
+    WebView: WebViewScreen,
   },
   'Settings',
 )

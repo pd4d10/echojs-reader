@@ -1,6 +1,7 @@
 import React from 'react'
-import { AsyncStorage, StatusBar, Platform } from 'react-native'
-import { LayoutContext, ThemeContext } from './context'
+import { AsyncStorage, Linking, StatusBar, Platform } from 'react-native'
+import SafariView from 'react-native-safari-view'
+import { LayoutContext, ThemeContext, SettingsContext } from './context'
 
 // https://github.com/facebook/react-native/issues/18868#issuecomment-382671739
 import { YellowBox } from 'react-native'
@@ -15,6 +16,7 @@ export default class App extends React.Component {
   state = {
     layout: null,
     theme: null,
+    openInBrowser: false,
   }
 
   componentDidMount() {
@@ -22,13 +24,26 @@ export default class App extends React.Component {
   }
 
   getInitialSettings = async () => {
-    let [layout, theme] = await AsyncStorage.multiGet([
+    let [
+      [, layout],
+      [, theme],
+      [, openInBrowser],
+    ] = await AsyncStorage.multiGet([
       STORAGE_KEYS.layout,
       STORAGE_KEYS.theme,
+      STORAGE_KEYS.openInBrowser,
     ])
+    console.log(layout, theme, openInBrowser)
+
     layout = this.ensureLayoutCorrect(layout)
     theme = this.ensureThemeCorrect(theme)
-    this.setState({ layout, theme })
+    openInBrowser = this.ensureOpenInBrowserCorrect(openInBrowser)
+
+    this.setState({
+      layout,
+      theme,
+      openInBrowser,
+    })
   }
 
   ensureLayoutCorrect = layout => {
@@ -47,6 +62,10 @@ export default class App extends React.Component {
     }
   }
 
+  ensureOpenInBrowserCorrect = openInBrowser => {
+    return openInBrowser === 'true'
+  }
+
   setLayout = async layout => {
     await AsyncStorage.setItem(STORAGE_KEYS.layout, layout)
     layout = this.ensureLayoutCorrect(layout)
@@ -59,22 +78,55 @@ export default class App extends React.Component {
     this.setState({ theme })
   }
 
+  setOpenInBrowser = async openInBrowser => {
+    await AsyncStorage.setItem(
+      STORAGE_KEYS.openInBrowser,
+      openInBrowser.toString(),
+    )
+    openInBrowser = this.ensureOpenInBrowserCorrect(openInBrowser)
+    this.setState({ openInBrowser })
+  }
+
+  openLink = async (url, openInWebView) => {
+    if (this.state.openInBrowser) {
+      Linking.openURL(url)
+    } else {
+      try {
+        const isAvailable = await SafariView.isAvailable()
+        if (!isAvailable) {
+          throw new Error('No Safari View')
+        }
+        SafariView.show({
+          url,
+          // tintColor: this.props.colors.primary,
+          // barTintColor: this.props.colors.content.background,
+        })
+      } catch (err) {
+        openInWebView()
+      }
+    }
+  }
+
   render() {
-    const { layout, theme } = this.state
+    const { layout, theme, openInBrowser } = this.state
 
     if (!layout || !theme) {
       return null
     }
 
-    const { setLayout, setTheme } = this
+    const { setLayout, setTheme, setOpenInBrowser, openLink } = this
     const colors = themeMapping[theme]
     const LayoutContainer = layoutMapping[layout].factory({ colors })
 
     return (
       <LayoutContext.Provider value={{ layout, setLayout }}>
         <ThemeContext.Provider value={{ theme, setTheme, colors }}>
-          <StatusBar barStyle={colors.header.statusBarStyle} />
-          <LayoutContainer />
+          <SettingsContext.Provider
+            value={{ openInBrowser, setOpenInBrowser, openLink }}
+          >
+            <StatusBar barStyle={colors.header.statusBarStyle} />
+            <LayoutContainer />
+          </SettingsContext.Provider>
         </ThemeContext.Provider>
       </LayoutContext.Provider>
     )

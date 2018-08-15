@@ -1,7 +1,7 @@
 import React from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, Switch } from 'react-native'
 import { Cell, Section, TableView } from 'react-native-tableview-simple'
-import { LayoutContext, ThemeContext } from '../context'
+import { LayoutContext, ThemeContext, SettingsContext } from '../context'
 import { layoutMapping } from '../constants'
 
 export default class SettingsScreen extends React.Component {
@@ -44,6 +44,21 @@ export default class SettingsScreen extends React.Component {
               </Section>
             )}
           </ThemeContext.Consumer>
+          <SettingsContext.Consumer>
+            {({ openInBrowser, setOpenInBrowser }) => (
+              <Section>
+                <Cell
+                  cellAccessoryView={
+                    <Switch
+                      value={openInBrowser}
+                      onValueChange={setOpenInBrowser}
+                    />
+                  }
+                  title="Open In Browser"
+                />
+              </Section>
+            )}
+          </SettingsContext.Consumer>
         </TableView>
         <Section header="ABOUT">
           <Cell

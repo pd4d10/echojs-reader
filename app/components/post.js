@@ -4,7 +4,7 @@ import distanceInWords from 'date-fns/distance_in_words'
 import SafariView from 'react-native-safari-view'
 import { parse } from 'url'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { openUrl } from '../utils'
+import { SettingsContext } from '../context'
 
 export default class PostItem extends React.PureComponent {
   static defaultProps = {
@@ -13,25 +13,6 @@ export default class PostItem extends React.PureComponent {
 
   isText = () => {
     return this.props.item.url.startsWith('text://')
-  }
-
-  onPressTitle = async item => {
-    if (this.isText()) {
-      this.props.navigation.navigate('Detail', item)
-      return
-    }
-
-    this.props.navigation.navigate('Web', item)
-
-    // openUrl(item.url)
-    // if (await this.isSafariViewAvailable()) {
-    //   SafariView.show({
-    //     url: item.url,
-    //     tintColor: this.props.colors.primary,
-    //     // barTintColor: this.props.colors.content.background,
-    //   })
-    // } else {
-    // }
   }
 
   isSafariViewAvailable = async () => {
@@ -76,29 +57,44 @@ export default class PostItem extends React.PureComponent {
         }}
       >
         <View style={{ flex: 1 }}>
-          <TouchableOpacity onPress={() => this.onPressTitle(item)}>
-            <Text
-              style={{
-                fontSize: 18,
-                lineHeight: 22,
-                color: colors.content.title,
-                marginBottom: 6,
-              }}
-            >
-              {item.title}
-            </Text>
-            {this.isText() || (
-              <Text
-                style={{
-                  color: colors.content.url,
-                  fontSize: 12,
-                  marginBottom: 6,
+          <SettingsContext.Consumer>
+            {({ openLink }) => (
+              <TouchableOpacity
+                onPress={async () => {
+                  if (this.isText()) {
+                    this.props.navigation.navigate('Detail', item)
+                    return
+                  }
+
+                  openLink(item.url, () => {
+                    this.props.navigation.navigate('WebView', item)
+                  })
                 }}
               >
-                at {parse(item.url).host}
-              </Text>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    lineHeight: 22,
+                    color: colors.content.title,
+                    marginBottom: 6,
+                  }}
+                >
+                  {item.title}
+                </Text>
+                {this.isText() || (
+                  <Text
+                    style={{
+                      color: colors.content.url,
+                      fontSize: 12,
+                      marginBottom: 6,
+                    }}
+                  >
+                    at {parse(item.url).host}
+                  </Text>
+                )}
+              </TouchableOpacity>
             )}
-          </TouchableOpacity>
+          </SettingsContext.Consumer>
           <Text style={{ color: colors.content.user, fontSize: 14 }}>
             <Text
               style={{

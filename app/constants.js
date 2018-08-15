@@ -6,6 +6,7 @@ export const STORAGE_KEYS = {
   auth: 'echojs-auth',
   layout: 'layout',
   theme: 'theme',
+  openInBrowser: 'open-in-browser',
 }
 
 export const layoutMapping = {
