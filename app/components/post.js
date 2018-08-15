@@ -4,6 +4,7 @@ import distanceInWords from 'date-fns/distance_in_words'
 import SafariView from 'react-native-safari-view'
 import { parse } from 'url'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { openUrl } from '../utils'
 
 export default class PostItem extends React.PureComponent {
   static defaultProps = {
@@ -20,14 +21,17 @@ export default class PostItem extends React.PureComponent {
       return
     }
 
-    if (await this.isSafariViewAvailable()) {
-      SafariView.show({
-        url: item.url,
-        tintColor: this.props.colors.primary,
-        // barTintColor: this.props.colors.content.background,
-      })
-    } else {
-    }
+    this.props.navigation.navigate('Web', item)
+
+    // openUrl(item.url)
+    // if (await this.isSafariViewAvailable()) {
+    //   SafariView.show({
+    //     url: item.url,
+    //     tintColor: this.props.colors.primary,
+    //     // barTintColor: this.props.colors.content.background,
+    //   })
+    // } else {
+    // }
   }
 
   isSafariViewAvailable = async () => {

@@ -4,7 +4,7 @@ import { Cell, Section, TableView } from 'react-native-tableview-simple'
 import { LayoutContext, ThemeContext } from '../context'
 import { layoutMapping } from '../constants'
 
-export default class Settings extends React.Component {
+export default class SettingsScreen extends React.Component {
   render() {
     return (
       <ScrollView

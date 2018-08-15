@@ -6,7 +6,7 @@ import PostItem from '../components/post'
 
 const PAGE_SIZE = 30
 
-export default class ListScreen extends React.Component {
+export default class List extends React.Component {
   state = {
     isFirstTimeLoading: false,
     isRefreshing: false,

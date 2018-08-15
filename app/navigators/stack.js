@@ -2,8 +2,10 @@ import React from 'react'
 import { createStackNavigator } from 'react-navigation'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import DetailScreen from '../screens/detail'
-import ListScreen from '../screens/list'
-import Settings from '../screens/settings'
+import SettingsScreen from '../screens/settings'
+import TopScreen from '../screens/top'
+import LatestScreen from '../screens/latest'
+import WebScreen from '../screens/web'
 
 const createNavigatorFactory = (routeConfigMap, title) => ({
   colors,
@@ -35,23 +37,26 @@ const createNavigatorFactory = (routeConfigMap, title) => ({
 
 export const createTopNavigator = createNavigatorFactory(
   {
-    Top: props => <ListScreen {...props} sort="top" />,
+    Top: TopScreen,
     Detail: DetailScreen,
+    Web: WebScreen,
   },
   'Top news',
 )
 
 export const createLatestNavigator = createNavigatorFactory(
   {
-    Latest: props => <ListScreen {...props} sort="latest" />,
+    Latest: LatestScreen,
     Detail: DetailScreen,
+    Web: WebScreen,
   },
   'Latest news',
 )
 
 export const createSettingsNavigator = createNavigatorFactory(
   {
-    Settings: Settings,
+    Settings: SettingsScreen,
+    Web: WebScreen,
   },
   'Settings',
 )
