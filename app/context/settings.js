@@ -1,11 +1,11 @@
 import React from 'react'
-import { AsyncStorage, Linking, StatusBar, Platform } from 'react-native'
+import { AsyncStorage, Linking } from 'react-native'
 import SafariView from 'react-native-safari-view'
-import { STORAGE_KEYS } from './constants'
+import { STORAGE_KEYS } from '../constants'
 
-export const LayoutContext = React.createContext()
-export const ThemeContext = React.createContext()
 const SettingsContext = React.createContext()
+
+export const SettingsConsumer = SettingsContext.Consumer
 
 export class SettingsProvider extends React.Component {
   state = {
@@ -94,5 +94,3 @@ export class SettingsProvider extends React.Component {
     )
   }
 }
-
-export const SettingsConsumer = SettingsContext.Consumer

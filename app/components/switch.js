@@ -1,11 +1,11 @@
 import React from 'react'
 import { Switch } from 'react-native'
 import { isAndroid } from '../utils'
-import { ThemeContext } from '../context'
+import { ThemeConsumer } from '../context'
 
 export default function CustomSwitch({ ...props }) {
   return (
-    <ThemeContext.Consumer>
+    <ThemeConsumer>
       {({ colors }) => (
         <Switch
           onTintColor={
@@ -17,6 +17,6 @@ export default function CustomSwitch({ ...props }) {
           {...props}
         />
       )}
-    </ThemeContext.Consumer>
+    </ThemeConsumer>
   )
 }

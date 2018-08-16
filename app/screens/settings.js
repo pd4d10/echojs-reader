@@ -1,14 +1,14 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
 import { Cell, Section, TableView } from 'react-native-tableview-simple'
-import { LayoutContext, ThemeContext, SettingsConsumer } from '../context'
+import { SettingsConsumer, ThemeConsumer, LayoutConsumer } from '../context'
 import { layoutMapping, themeMapping } from '../constants'
 import CustomSwitch from '../components/switch'
 
 export default class SettingsScreen extends React.Component {
   render() {
     return (
-      <ThemeContext.Consumer>
+      <ThemeConsumer>
         {({ theme, setTheme, colors }) => (
           <ScrollView
             contentContainerStyle={{
@@ -17,7 +17,7 @@ export default class SettingsScreen extends React.Component {
             }}
           >
             <TableView>
-              <LayoutContext.Consumer>
+              <LayoutConsumer>
                 {({ layout, setLayout }) => (
                   <Section header="LAYOUT STYLE">
                     {Object.keys(layoutMapping).map(item => (
@@ -31,7 +31,7 @@ export default class SettingsScreen extends React.Component {
                     ))}
                   </Section>
                 )}
-              </LayoutContext.Consumer>
+              </LayoutConsumer>
               <Section header="THEME">
                 {Object.keys(themeMapping).map(item => (
                   <Cell
@@ -79,7 +79,7 @@ export default class SettingsScreen extends React.Component {
             </SettingsConsumer>
           </ScrollView>
         )}
-      </ThemeContext.Consumer>
+      </ThemeConsumer>
     )
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, ScrollView } from 'react-native'
 import { MyActivityIndicator } from '../components/icons'
-import { ThemeContext } from '../context'
+import { ThemeConsumer } from '../context'
 import PostItem from '../components/post'
 import CommentItem from '../components/comment'
 
@@ -39,7 +39,7 @@ export default class DetailScreen extends React.Component {
 
   render() {
     return (
-      <ThemeContext.Consumer>
+      <ThemeConsumer>
         {({ colors }) => (
           <ScrollView
             style={{
@@ -71,7 +71,7 @@ export default class DetailScreen extends React.Component {
             )}
           </ScrollView>
         )}
-      </ThemeContext.Consumer>
+      </ThemeConsumer>
     )
   }
 }

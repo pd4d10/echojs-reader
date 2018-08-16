@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View, FlatList } from 'react-native'
 import { MyActivityIndicator } from '../components/icons'
-import { ThemeContext } from '../context'
+import { ThemeConsumer } from '../context'
 import PostItem from '../components/post'
 
 const PAGE_SIZE = 30
@@ -92,7 +92,7 @@ export default class List extends React.Component {
 
   render() {
     return (
-      <ThemeContext.Consumer>
+      <ThemeConsumer>
         {({ colors }) => (
           <View
             style={{
@@ -146,7 +146,7 @@ export default class List extends React.Component {
             )}
           </View>
         )}
-      </ThemeContext.Consumer>
+      </ThemeConsumer>
     )
   }
 }
