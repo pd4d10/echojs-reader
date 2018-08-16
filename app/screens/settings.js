@@ -5,7 +5,7 @@ import { SettingsConsumer, ThemeConsumer, LayoutConsumer } from '../context'
 import { layoutMapping, themeMapping } from '../constants'
 import CustomSwitch from '../components/switch'
 
-export default class SettingsScreen extends React.Component {
+export class SettingsScreen extends React.Component {
   render() {
     return (
       <ThemeConsumer>

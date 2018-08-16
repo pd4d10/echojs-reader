@@ -5,7 +5,7 @@ import { ThemeConsumer } from '../context'
 import PostItem from '../components/post'
 import CommentItem from '../components/comment'
 
-export default class DetailScreen extends React.Component {
+export class DetailScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: navigation.getParam('title'),

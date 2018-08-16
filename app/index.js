@@ -8,6 +8,11 @@ import {
   LayoutConsumer,
   ThemeConsumer,
 } from './context'
+import {
+  BottomTabNavigator,
+  DrawerNavigator,
+  MaterialBottomTabNavigator,
+} from './navigators'
 
 // https://github.com/facebook/react-native/issues/18868#issuecomment-382671739
 YellowBox.ignoreWarnings([
@@ -38,10 +43,16 @@ export default class App extends React.Component {
                     </SettingsConsumer>
 
                     <LayoutConsumer>
-                      {({ layoutDetail }) =>
-                        layoutDetail &&
-                        React.createElement(layoutDetail.factory({ colors }))
-                      }
+                      {({ layout }) => {
+                        switch (layout) {
+                          case 'drawer':
+                            return <DrawerNavigator />
+                          case 'bottom-tab':
+                            return <BottomTabNavigator />
+                          case 'material-bottom-tab':
+                            return <MaterialBottomTabNavigator />
+                        }
+                      }}
                     </LayoutConsumer>
                   </React.Fragment>
                 )

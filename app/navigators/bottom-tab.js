@@ -1,28 +1,24 @@
 import React from 'react'
 import { createBottomTabNavigator } from 'react-navigation'
-import {
-  createTopNavigator,
-  createLatestNavigator,
-  createSettingsNavigator,
-} from './stack'
+import { BottomTabBar } from 'react-navigation-tabs'
+import { TopNavigator, LatestNavigator, SettingsNavigator } from './stack'
 import { TopIcon, LatestIcon, SettingsIcon } from '../components/icons'
+import { ThemeConsumer } from '../context'
 
-export default ({ colors }) =>
-  createBottomTabNavigator(
-    {
-      Top: createTopNavigator({ colors }),
-      Latest: createLatestNavigator({ colors }),
-      Settings: createSettingsNavigator({ colors }),
-    },
-    {
-      navigationOptions: ({ navigation }) => ({
-        tabBarIcon: ({ focused }) => {
+const CustomBottomTabBar = props => (
+  <ThemeConsumer>
+    {({ colors }) => (
+      <BottomTabBar
+        {...props}
+        activeTintColor={colors.tab.active}
+        inactiveTintColor={colors.tab.inactive}
+        renderIcon={({ route, focused }) => {
           const props = {
-            color: focused ? colors.tab.active : colors.tab.inactive, // TODO:
+            color: focused ? colors.tab.active : colors.tab.inactive,
             size: 24,
           }
 
-          switch (navigation.state.routeName) {
+          switch (route.routeName) {
             case 'Top':
               return <TopIcon {...props} />
             case 'Latest':
@@ -30,11 +26,19 @@ export default ({ colors }) =>
             case 'Settings':
               return <SettingsIcon {...props} />
           }
-        },
-      }),
-      tabBarOptions: {
-        activeTintColor: colors.tab.active,
-        inactiveTintColor: colors.tab.inactive,
-      },
-    },
-  )
+        }}
+      />
+    )}
+  </ThemeConsumer>
+)
+
+export const BottomTabNavigator = createBottomTabNavigator(
+  {
+    Top: TopNavigator,
+    Latest: LatestNavigator,
+    Settings: SettingsNavigator,
+  },
+  {
+    tabBarComponent: CustomBottomTabBar,
+  },
+)

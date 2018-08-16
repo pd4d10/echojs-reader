@@ -1,5 +1,4 @@
-import createBottomTab from './navigators/bottom-tab'
-import createDrawer from './navigators/drawer'
+import { BottomTabNavigator, DrawerNavigator } from './navigators'
 // import NavigatorMaterialBottomTab from './navigators/material-bottom-tab'
 
 export const STORAGE_KEYS = {
@@ -12,7 +11,7 @@ export const STORAGE_KEYS = {
 export const layoutMapping = {
   'bottom-tab': {
     name: 'Bottom Tab',
-    factory: createBottomTab,
+    component: BottomTabNavigator,
   },
   // 'material-bottom-tab': {
   //   name: 'Material Bottom Tab',
@@ -20,7 +19,7 @@ export const layoutMapping = {
   // },
   drawer: {
     name: 'Drawer',
-    factory: createDrawer,
+    component: DrawerNavigator,
   },
 }
 

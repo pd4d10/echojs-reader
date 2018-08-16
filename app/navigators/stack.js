@@ -1,72 +1,108 @@
 import React from 'react'
-import { createStackNavigator } from 'react-navigation'
+import { createStackNavigator, Header } from 'react-navigation'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import DetailScreen from '../screens/detail'
-import SettingsScreen from '../screens/settings'
-import TopScreen from '../screens/top'
-import LatestScreen from '../screens/latest'
-import WebViewScreen from '../screens/web'
+import {
+  TopScreen,
+  LatestScreen,
+  DetailScreen,
+  SettingsScreen,
+  WebViewScreen,
+} from '../screens'
+import { LayoutConsumer, ThemeConsumer } from '../context'
 
-const createNavigatorFactory = (
-  routeConfigMap,
-  { title, initialRouteName },
-) => ({ colors, hasDrawer }) => {
-  return createStackNavigator(routeConfigMap, {
-    navigationOptions: ({ navigation }) => ({
-      title,
-      headerTintColor: colors.header.text,
-      headerStyle: {
-        backgroundColor: colors.header.background,
-      },
-      headerLeft:
-        hasDrawer && navigation.state.routeName === initialRouteName ? (
-          <MaterialIcons
-            name="menu"
-            size={24}
-            color={colors.header.text}
-            style={{ paddingLeft: 16 }}
-            onPress={() => {
-              navigation.openDrawer()
-            }}
-          />
-        ) : (
-          undefined
-        ),
-    }),
-  })
-}
+// HACK: This is a hack to dynamic change header's style
+const CustomHeader = props => (
+  <LayoutConsumer>
+    {({ layout }) => (
+      <ThemeConsumer>
+        {({ colors }) => {
+          let headerLeft
+          if (props.scene.index === 0 && layout === 'drawer') {
+            headerLeft = (
+              <MaterialIcons
+                name="menu"
+                size={24}
+                color={colors.header.text}
+                style={{ paddingLeft: 16 }}
+                onPress={() => {
+                  props.scene.descriptor.navigation.openDrawer()
+                }}
+              />
+            )
+          } else {
+            // Keep headerLeft to undefined so it will use HeaderBackButton
+            // https://github.com/react-navigation/react-navigation-stack/blob/master/src/views/Header/Header.js#L202
+          }
 
-export const createTopNavigator = createNavigatorFactory(
+          const addOptionsToScene = scene => ({
+            ...scene,
+            descriptor: {
+              ...scene.descriptor,
+              options: {
+                ...scene.descriptor.options,
+                headerTintColor: colors.header.text,
+                headerStyle: {
+                  backgroundColor: colors.header.background,
+                },
+                headerLeft,
+              },
+            },
+          })
+
+          const propsNew = {
+            ...props,
+            scene: addOptionsToScene(props.scene),
+            scenes: [
+              ...props.scenes.slice(0, -1),
+              addOptionsToScene(props.scenes[props.scenes.length - 1]),
+            ],
+          }
+
+          // console.log(propsNew.scenes)
+          return <Header {...propsNew} />
+        }}
+      </ThemeConsumer>
+    )}
+  </LayoutConsumer>
+)
+
+export const TopNavigator = createStackNavigator(
   {
     Top: TopScreen,
     Detail: DetailScreen,
     WebView: WebViewScreen,
   },
   {
-    initialRouteName: 'Top',
-    title: 'Top news',
+    navigationOptions: {
+      title: 'Top news',
+      header: CustomHeader,
+    },
   },
 )
 
-export const createLatestNavigator = createNavigatorFactory(
+export const LatestNavigator = createStackNavigator(
   {
     Latest: LatestScreen,
     Detail: DetailScreen,
     WebView: WebViewScreen,
   },
   {
-    initialRouteName: 'Latest',
-    title: 'Latest news',
+    navigationOptions: {
+      title: 'Latest news',
+      header: CustomHeader,
+    },
   },
 )
 
-export const createSettingsNavigator = createNavigatorFactory(
+export const SettingsNavigator = createStackNavigator(
   {
     Settings: SettingsScreen,
     WebView: WebViewScreen,
   },
   {
-    initialRouteName: 'Settings',
-    title: 'Settings',
+    navigationOptions: {
+      title: 'Settings',
+      header: CustomHeader,
+    },
   },
 )
