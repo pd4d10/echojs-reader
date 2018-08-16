@@ -83,24 +83,26 @@ export default class PostItem extends React.PureComponent {
             paddingLeft: 10,
           }}
         >
-          <View>
+          <View style={{ flex: 1 }}>
             <Text style={{ color: colors.content.icon }}>▲ {item.up}</Text>
             <Text style={{ color: colors.content.icon }}>▼ {item.down}</Text>
           </View>
           {hasCommentLink && (
             <TouchableOpacity
-              style={{ flexDirection: 'row' }}
+              style={{ flex: 1, justifyContent: 'flex-end' }}
               onPress={() => this.props.navigation.navigate('Detail', item)}
             >
-              <MaterialCommunityIcons
-                name="comment-processing-outline"
-                size={14}
-                style={{ marginRight: 2, marginTop: 3 }}
-                color={colors.content.icon}
-              />
-              <Text style={{ color: colors.content.icon }}>
-                {item.comments}
-              </Text>
+              <View style={{ flexDirection: 'row' }}>
+                <MaterialCommunityIcons
+                  name="comment-processing-outline"
+                  size={14}
+                  style={{ marginRight: 2, marginTop: 3 }}
+                  color={colors.content.icon}
+                />
+                <Text style={{ color: colors.content.icon }}>
+                  {item.comments}
+                </Text>
+              </View>
             </TouchableOpacity>
           )}
         </View>
