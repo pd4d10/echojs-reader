@@ -131,7 +131,7 @@ export default class List extends React.Component {
                   <View
                     style={{
                       paddingVertical: 20,
-                      height: 10,
+                      height: 56,
                       borderTopWidth: 1,
                       borderColor: colors.content.border,
                       alignItems: 'center',

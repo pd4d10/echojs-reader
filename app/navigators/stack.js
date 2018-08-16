@@ -52,10 +52,7 @@ const CustomHeader = props => (
           const propsNew = {
             ...props,
             scene: addOptionsToScene(props.scene),
-            scenes: [
-              ...props.scenes.slice(0, -1),
-              addOptionsToScene(props.scenes[props.scenes.length - 1]),
-            ],
+            scenes: props.scenes.map(addOptionsToScene),
           }
 
           // console.log(propsNew.scenes)
