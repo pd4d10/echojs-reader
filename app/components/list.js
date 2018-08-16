@@ -16,16 +16,17 @@ export default class List extends React.Component {
   }
 
   fetchData = async (anchor = 0) => {
-    // For slow network testing
-    const json = await new Promise(resolve => {
-      setTimeout(() => resolve(require('../../mock')), 1000)
-    })
-    // const res = await fetch(
-    //   `https://echojs.com/api/getnews/${
-    //     this.props.sort
-    //   }/${anchor}/${PAGE_SIZE}`,
-    // )
-    // const json = await res.json()
+    // // For slow network testing
+    // const json = await new Promise(resolve => {
+    //   setTimeout(() => resolve(require('../../mock')), 1000)
+    // })
+    // return json.news.map(x => ({ ...x, id: Math.random().toString() }))
+    const res = await fetch(
+      `https://echojs.com/api/getnews/${
+        this.props.sort
+      }/${anchor}/${PAGE_SIZE}`,
+    )
+    const json = await res.json()
     return json.news
   }
 
@@ -130,6 +131,7 @@ export default class List extends React.Component {
                   <View
                     style={{
                       paddingVertical: 20,
+                      height: 10,
                       borderTopWidth: 1,
                       borderColor: colors.content.border,
                       alignItems: 'center',
