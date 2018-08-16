@@ -50,6 +50,7 @@ export class DetailScreen extends React.Component {
             <PostItem
               item={this.props.navigation.state.params}
               hasCommentLink={false}
+              navigation={this.props.navigation}
               colors={colors}
             />
             <View
