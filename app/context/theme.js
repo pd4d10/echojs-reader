@@ -23,7 +23,7 @@ export class ThemeProvider extends React.Component {
     if (Object.keys(themeMapping).includes(theme)) {
       return theme
     } else {
-      return 'light'
+      return 'echojs'
     }
   }
 

@@ -12,14 +12,14 @@ export class SettingsScreen extends React.Component {
         {({ theme, setTheme, colors }) => (
           <ScrollView
             contentContainerStyle={{
-              backgroundColor: '#EFEFF4',
               paddingVertical: 20,
+              backgroundColor: colors.settings.background,
             }}
           >
             <TableView>
               <LayoutConsumer>
                 {({ layout, setLayout }) => (
-                  <Section header="LAYOUT STYLE">
+                  <Section header="LAYOUT STYLE" sectionTintColor="transparent">
                     {Object.keys(layoutMapping).map(item => (
                       <Cell
                         key={item}
@@ -32,18 +32,21 @@ export class SettingsScreen extends React.Component {
                   </Section>
                 )}
               </LayoutConsumer>
-              <Section header="THEME">
+              <Section header="THEME" sectionTintColor="transparent">
                 {Object.keys(themeMapping).map(item => (
                   <Cell
                     key={item}
-                    title={themeMapping[item].title}
+                    title={themeMapping[item].name}
                     accessory={theme === item ? 'Checkmark' : undefined}
                     accessoryColor={colors.settings.active}
                     onPress={() => setTheme(item)}
                   />
                 ))}
               </Section>
-              <Section>
+              <Section
+                footer="Open links in system browser instead of SafariView or WebView."
+                sectionTintColor="transparent"
+              >
                 <Cell
                   cellAccessoryView={
                     <SettingsConsumer>
@@ -55,13 +58,13 @@ export class SettingsScreen extends React.Component {
                       )}
                     </SettingsConsumer>
                   }
-                  title="Open In Browser"
+                  title="Open Links In Browser"
                 />
               </Section>
             </TableView>
             <SettingsConsumer>
               {({ openLink }) => (
-                <Section header="ABOUT">
+                <Section header="ABOUT" sectionTintColor="transparent">
                   <Cell
                     title="Source Code"
                     accessory="DisclosureIndicator"
@@ -69,6 +72,7 @@ export class SettingsScreen extends React.Component {
                       const url = 'https://github.com/pd4d10/lamernews-app'
                       openLink(url, colors, () => {
                         this.props.navigation.navigate('WebView', {
+                          title: 'Source Code',
                           url,
                         })
                       })

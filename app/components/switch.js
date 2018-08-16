@@ -8,12 +8,18 @@ export default function CustomSwitch({ ...props }) {
     <ThemeConsumer>
       {({ colors }) => (
         <Switch
+          // iOS: border, Android: inactive background
+          tintColor={undefined}
+          // iOS: background, Android: active background
           onTintColor={
             isAndroid
-              ? colors.settings.androidActiveBackground
+              ? colors.settings.androidSwitchActiveBackground
               : colors.settings.active
           }
-          thumbTintColor={isAndroid ? colors.settings.active : undefined}
+          // Thumb
+          thumbTintColor={
+            isAndroid && props.value ? colors.settings.active : undefined
+          }
           {...props}
         />
       )}

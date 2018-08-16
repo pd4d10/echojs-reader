@@ -25,8 +25,47 @@ export const layoutMapping = {
 
 // undefined means use default value
 export const themeMapping = {
+  echojs: {
+    name: 'EchoJS',
+    header: {
+      statusBarStyle: 'light-content',
+      text: '#fff',
+      background: '#af1d1d',
+    },
+    content: {
+      title: '#000',
+      url: '#999',
+      user: '#666',
+      border: '#eee',
+      background: '#fff',
+      icon: '#444',
+      loading: '#af1d1d',
+    },
+    tab: {
+      active: '#af1d1d',
+      inactive: '#888',
+      activeBackground: undefined,
+      inactiveBackground: undefined,
+    },
+    drawer: {
+      active: '#af1d1d',
+      inactive: '#444',
+      activeBackground: undefined,
+      inactiveBackground: undefined,
+    },
+    safari: {
+      statusBarStyle: 'dark-content',
+      text: '#af1d1d',
+      background: undefined,
+    },
+    settings: {
+      background: undefined,
+      active: '#af1d1d',
+      androidSwitchActiveBackground: '#faa',
+    },
+  },
   light: {
-    title: 'Light',
+    name: 'Light',
     header: {
       statusBarStyle: 'dark-content',
       text: undefined,
@@ -42,84 +81,65 @@ export const themeMapping = {
       loading: '#aaa',
     },
     tab: {
-      active: undefined,
-      inactive: undefined,
-      background: undefined,
+      active: '#007aff',
+      inactive: '#888',
+      activeBackground: undefined,
+      inactiveBackground: undefined,
     },
     drawer: {
-      active: undefined,
-      inactive: undefined,
-      background: undefined,
+      active: '#007aff',
+      inactive: '#444',
+      activeBackground: undefined,
+      inactiveBackground: undefined,
     },
     safari: {
       statusBarStyle: 'dark-content',
       text: undefined,
       background: undefined,
     },
-    settings: {},
-  },
-  echojs: {
-    title: 'EchoJS',
-    header: {
-      statusBarStyle: 'light-content',
-      text: '#fff',
-      background: '#af1d1d',
-    },
-    content: {
-      title: '#000',
-      url: '#999',
-      user: '#666',
-      border: '#fee',
-      background: '#fff',
-      icon: '#222',
-      loading: '#af1d1d',
-    },
-    tab: {
-      active: '#af1d1d',
-      inactive: '#888',
-      background: undefined,
-    },
-    drawer: {
-      active: '#af1d1d',
-      inactive: undefined,
-      background: undefined,
-    },
-    safari: {
-      statusBarStyle: 'dark-content',
-      text: '#af1d1d',
-      background: undefined,
-    },
     settings: {
-      active: '#af1d1d',
-      androidActiveBackground: '#fee',
-    },
-  },
-  dark: {
-    title: 'Dark',
-    header: {
-      statusBarStyle: 'light-content',
-      text: '#aaa',
-      background: '#222',
-    },
-    content: {
-      title: '#00f',
-      url: '#aaa',
-      user: '#aaa',
-      border: '#aaa',
-      background: '#222',
-      icon: '#aaa',
-      loading: '#fff',
-    },
-    tab: {
-      active: '#aaa',
-      inactive: '#222',
-      background: '#000',
-    },
-    drawer: {
-      active: '#af1d1d',
-      inactive: undefined,
       background: undefined,
+      active: '#007aff',
+      androidSwitchActiveBackground: '#adf',
     },
-    settings: {},
   },
+  // dark: {
+  //   name: 'Dark',
+  //   header: {
+  //     statusBarStyle: 'light-content',
+  //     text: '#aaa',
+  //     background: '#222',
+  //   },
+  //   content: {
+  //     title: '#00f',
+  //     url: '#aaa',
+  //     user: '#aaa',
+  //     border: '#aaa',
+  //     background: '#222',
+  //     icon: '#aaa',
+  //     loading: '#fff',
+  //   },
+  //   tab: {
+  //     active: '#007aff',
+  //     inactive: '#888',
+  //     activeBackground: undefined,
+  //     inactiveBackground: undefined,
+  //   },
+  //   drawer: {
+  //     active: '#007aff',
+  //     inactive: '#444',
+  //     activeBackground: undefined,
+  //     inactiveBackground: undefined,
+  //   },
+  //   safari: {
+  //     statusBarStyle: 'dark-content',
+  //     text: undefined,
+  //     background: undefined,
+  //   },
+  //   settings: {
+  //     background: '#222',
+  //     active: '#007aff',
+  //     androidSwitchActiveBackground: '#adf',
+  //   },
+  // },
 }

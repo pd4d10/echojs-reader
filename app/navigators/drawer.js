@@ -17,10 +17,8 @@ const CustomDrawer = props => (
             {...props}
             activeTintColor={colors.drawer.active}
             inactiveTintColor={colors.drawer.inactive}
-            // activeTintColor: '#2196f3',
-            // activeBackgroundColor: 'rgba(0, 0, 0, .04)',
-            // inactiveTintColor: 'rgba(0, 0, 0, .87)',
-            // inactiveBackgroundColor: 'transparent',
+            activeBackgroundColor={colors.drawer.activeBackground}
+            inactiveBackgroundColor={colors.drawer.inactiveBackground}
             renderIcon={({ tintColor, route }) => {
               const iconProps = { color: tintColor, size: 24 }
               switch (route.routeName) {

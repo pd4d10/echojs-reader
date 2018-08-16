@@ -12,6 +12,8 @@ const CustomBottomTabBar = props => (
         {...props}
         activeTintColor={colors.tab.active}
         inactiveTintColor={colors.tab.inactive}
+        activeBackgroundColor={colors.tab.activeBackground}
+        inactiveBackgroundColor={colors.tab.inactiveBackground}
         renderIcon={({ route, focused }) => {
           const props = {
             color: focused ? colors.tab.active : colors.tab.inactive,
