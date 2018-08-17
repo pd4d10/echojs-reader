@@ -2,7 +2,8 @@ import { BottomTabNavigator, DrawerNavigator } from './navigators'
 // import NavigatorMaterialBottomTab from './navigators/material-bottom-tab'
 
 export const STORAGE_KEYS = {
-  auth: 'echojs-auth',
+  auth: 'auth',
+  username: 'username',
   layout: 'layout',
   theme: 'theme',
   openInBrowser: 'open-in-browser',
@@ -40,6 +41,7 @@ export const themeMapping = {
       background: '#fff',
       icon: '#444',
       loading: '#af1d1d',
+      digg: '#af1d1d',
     },
     tab: {
       active: '#af1d1d',
@@ -79,6 +81,7 @@ export const themeMapping = {
       background: '#fff',
       icon: '#222',
       loading: '#aaa',
+      digg: '#007aff',
     },
     tab: {
       active: '#007aff',
@@ -118,6 +121,7 @@ export const themeMapping = {
   //     background: '#222',
   //     icon: '#aaa',
   //     loading: '#fff',
+  //     digg: '#007aff',
   //   },
   //   tab: {
   //     active: '#007aff',

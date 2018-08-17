@@ -7,6 +7,8 @@ import {
   SettingsConsumer,
   LayoutConsumer,
   ThemeConsumer,
+  AuthProvider,
+  AuthConsumer,
 } from './context'
 import {
   BottomTabNavigator,
@@ -20,47 +22,62 @@ YellowBox.ignoreWarnings([
   'Module RCTImageLoader',
 ])
 
+const CustomStatusBar = () => (
+  <ThemeConsumer>
+    {({ colors }) =>
+      colors && (
+        <SettingsConsumer>
+          {({ isInSafariView }) => (
+            <StatusBar
+              barStyle={
+                isInSafariView
+                  ? colors.safari.statusBarStyle
+                  : colors.header.statusBarStyle
+              }
+            />
+          )}
+        </SettingsConsumer>
+      )
+    }
+  </ThemeConsumer>
+)
+
+const Navigator = () => (
+  <AuthConsumer>
+    {({ isLoaded }) =>
+      // Make sure user auth is loaded
+      // So all fetch in componentDidMount works correctly
+      isLoaded && (
+        <LayoutConsumer>
+          {({ layout }) => {
+            switch (layout) {
+              case 'drawer':
+                return <DrawerNavigator />
+              case 'bottom-tab':
+                return <BottomTabNavigator />
+              case 'material-bottom-tab':
+                return <MaterialBottomTabNavigator />
+            }
+          }}
+        </LayoutConsumer>
+      )
+    }
+  </AuthConsumer>
+)
+
 export default class App extends React.Component {
   render() {
     return (
-      <LayoutProvider>
-        <ThemeProvider>
-          <SettingsProvider>
-            <ThemeConsumer>
-              {({ colors }) =>
-                colors && (
-                  <React.Fragment>
-                    <SettingsConsumer>
-                      {({ isInSafariView }) => (
-                        <StatusBar
-                          barStyle={
-                            isInSafariView
-                              ? colors.safari.statusBarStyle
-                              : colors.header.statusBarStyle
-                          }
-                        />
-                      )}
-                    </SettingsConsumer>
-
-                    <LayoutConsumer>
-                      {({ layout }) => {
-                        switch (layout) {
-                          case 'drawer':
-                            return <DrawerNavigator />
-                          case 'bottom-tab':
-                            return <BottomTabNavigator />
-                          case 'material-bottom-tab':
-                            return <MaterialBottomTabNavigator />
-                        }
-                      }}
-                    </LayoutConsumer>
-                  </React.Fragment>
-                )
-              }
-            </ThemeConsumer>
-          </SettingsProvider>
-        </ThemeProvider>
-      </LayoutProvider>
+      <AuthProvider>
+        <LayoutProvider>
+          <ThemeProvider>
+            <SettingsProvider>
+              <CustomStatusBar />
+              <Navigator />
+            </SettingsProvider>
+          </ThemeProvider>
+        </LayoutProvider>
+      </AuthProvider>
     )
   }
 }
