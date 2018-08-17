@@ -1,10 +1,9 @@
 import React from 'react'
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, Platform } from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { ThemeConsumer } from '../context'
-import { isAndroid } from '../utils'
 
 export const TopIcon = props => <Entypo name="bar-graph" {...props} />
 
@@ -19,7 +18,7 @@ export const MyActivityIndicator = props => (
   <ThemeConsumer>
     {({ colors }) => (
       <ActivityIndicator
-        color={isAndroid ? colors.content.loading : undefined}
+        color={Platform.select({ android: colors.content.loading })}
         {...props}
       />
     )}

@@ -1,6 +1,5 @@
 import React from 'react'
-import { Switch } from 'react-native'
-import { isAndroid } from '../utils'
+import { Switch, Platform } from 'react-native'
 import { ThemeConsumer } from '../context'
 
 export default function CustomSwitch({ ...props }) {
@@ -8,18 +7,16 @@ export default function CustomSwitch({ ...props }) {
     <ThemeConsumer>
       {({ colors }) => (
         <Switch
-          // iOS: border, Android: inactive background
-          tintColor={undefined}
-          // iOS: background, Android: active background
-          onTintColor={
-            isAndroid
-              ? colors.settings.androidSwitchActiveBackground
-              : colors.settings.active
-          }
-          // Thumb
-          thumbTintColor={
-            isAndroid && props.value ? colors.settings.active : undefined
-          }
+          // tintColor: iOS: border, Android: inactive background
+          {...Platform.select({
+            ios: {
+              onTintColor: colors.settings.active, // iOS: background, Android: active background
+            },
+            android: {
+              onTintColor: colors.settings.androidSwitchActiveBackground,
+              thumbTintColor: props.value ? colors.settings.active : undefined,
+            },
+          })}
           {...props}
         />
       )}

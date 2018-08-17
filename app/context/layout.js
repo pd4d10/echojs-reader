@@ -1,7 +1,6 @@
 import React from 'react'
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, Platform } from 'react-native'
 import { STORAGE_KEYS, layoutMapping } from '../constants'
-import { isAndroid } from '../utils'
 
 const LayoutContext = React.createContext()
 
@@ -23,7 +22,7 @@ export class LayoutProvider extends React.Component {
     if (Object.keys(layoutMapping).includes(layout)) {
       return layout
     } else {
-      return isAndroid ? 'drawer' : 'bottom-tab'
+      return Platform.select({ ios: 'drawer', android: 'bottom-tab' })
     }
   }
 
