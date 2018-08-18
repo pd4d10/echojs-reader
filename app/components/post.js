@@ -90,7 +90,12 @@ export default class PostItem extends React.PureComponent {
               style={{ flex: 1 }}
               onPress={() => {
                 if (!this.props.auth) {
-                  alert('Please login first')
+                  alert('Please login')
+                  return
+                }
+
+                if (item.voted) {
+                  alert(`You already vote ${item.voted}`)
                   return
                 }
 
@@ -98,6 +103,10 @@ export default class PostItem extends React.PureComponent {
                   `Vote for ${item.username}'s post`,
                   '',
                   [
+                    {
+                      text: 'Cancel',
+                      style: 'cancel',
+                    },
                     {
                       text: 'Up',
                       onPress: async () => {
@@ -120,10 +129,6 @@ export default class PostItem extends React.PureComponent {
                         }
                       },
                     },
-                    {
-                      text: 'Cancel',
-                      style: 'cancel',
-                    },
                   ],
                   { cancelable: true },
                 )
@@ -139,9 +144,9 @@ export default class PostItem extends React.PureComponent {
             >
               <View style={{ flexDirection: 'row' }}>
                 <MaterialCommunityIcons
-                  name="comment-processing-outline"
+                  name="comment-text-outline"
                   size={14}
-                  style={{ marginRight: 2, marginTop: 3 }}
+                  style={{ marginRight: 2, marginTop: 2 }}
                   color={colors.content.icon}
                 />
                 <Text style={{ color: colors.content.icon }}>
