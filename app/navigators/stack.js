@@ -9,6 +9,7 @@ import {
   WebViewScreen,
 } from '../screens'
 import { LayoutConsumer, ThemeConsumer } from '../context'
+import { LoginScreen } from '../screens/login'
 
 // HACK: This is a hack to dynamic change header's style
 const CustomHeader = props => (
@@ -68,6 +69,7 @@ export const TopNavigator = createStackNavigator(
     Top: TopScreen,
     Detail: DetailScreen,
     WebView: WebViewScreen,
+    Login: LoginScreen,
   },
   {
     navigationOptions: {
@@ -79,9 +81,10 @@ export const TopNavigator = createStackNavigator(
 
 export const LatestNavigator = createStackNavigator(
   {
-    Latest: LatestScreen,
+    Top: TopScreen,
     Detail: DetailScreen,
     WebView: WebViewScreen,
+    Login: LoginScreen,
   },
   {
     navigationOptions: {
@@ -95,6 +98,7 @@ export const SettingsNavigator = createStackNavigator(
   {
     Settings: SettingsScreen,
     WebView: WebViewScreen,
+    Login: LoginScreen,
   },
   {
     navigationOptions: {

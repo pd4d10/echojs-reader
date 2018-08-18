@@ -18,7 +18,7 @@ export class AuthProvider extends React.Component {
       STORAGE_KEYS.auth,
       STORAGE_KEYS.username,
     ])
-    // console.log(auth, username)
+    console.log(auth, username)
     this.setState({ auth, username, isLoaded: true })
   }
 
@@ -77,13 +77,21 @@ export class AuthProvider extends React.Component {
   }
 
   render() {
-    const { isLoaded, username } = this.state
+    const { auth, isLoaded, username } = this.state
     const { login, logout, getNews, getComments } = this
 
     return (
       isLoaded && (
         <AuthContext.Provider
-          value={{ isLoaded, username, login, logout, getNews, getComments }}
+          value={{
+            auth,
+            isLoaded,
+            username,
+            login,
+            logout,
+            getNews,
+            getComments,
+          }}
         >
           {this.props.children}
         </AuthContext.Provider>
