@@ -41,7 +41,10 @@ export class AuthProvider extends React.Component {
       const { auth } = await this.fetchWithAuth(
         `/login?username=${username}&password=${password}`,
       )
-      await AsyncStorage.setItem(STORAGE_KEYS.auth, auth)
+      await AsyncStorage.multiSet(
+        [STORAGE_KEYS.auth, auth],
+        [STORAGE_KEYS.username, username],
+      )
       this.setState({ auth, username })
     } catch (err) {
       alert(err.message)
