@@ -1,9 +1,10 @@
 import React from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity, Alert } from 'react-native'
 import distanceInWords from 'date-fns/distance_in_words'
 import { parse } from 'url'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { SettingsConsumer } from '../context'
+import { Vote } from './vote'
 
 export default class PostItem extends React.PureComponent {
   static defaultProps = {
@@ -75,22 +76,66 @@ export default class PostItem extends React.PureComponent {
             | {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
           </Text>
         </View>
-        <View
-          style={{
-            justifyContent: 'space-between',
-            width: 44,
-            marginTop: 2,
-            paddingLeft: 10,
-          }}
-        >
-          <View style={{ flex: 1 }}>
-            <Text style={{ color: colors.content.icon }}>▲ {item.up}</Text>
-            <Text style={{ color: colors.content.icon }}>▼ {item.down}</Text>
-          </View>
-          {hasCommentLink && (
+
+        {hasCommentLink && (
+          <View
+            style={{
+              justifyContent: 'space-between',
+              width: 44,
+              marginTop: 2,
+              paddingLeft: 10,
+            }}
+          >
+            <TouchableOpacity
+              style={{ flex: 1 }}
+              onPress={() => {
+                if (!this.props.auth) {
+                  alert('Please login first')
+                  return
+                }
+
+                Alert.alert(
+                  `Vote for ${item.username}'s post`,
+                  '',
+                  [
+                    {
+                      text: 'Up',
+                      onPress: async () => {
+                        try {
+                          await this.props.voteNews(item.id, 'up')
+                          this.props.updateVote(item.id, 'up')
+                        } catch (err) {
+                          alert(err.message)
+                        }
+                      },
+                    },
+                    {
+                      text: 'Down',
+                      onPress: async () => {
+                        try {
+                          await this.props.voteNews(item.id, 'down')
+                          this.props.updateVote(item.id, 'down')
+                        } catch (err) {
+                          alert(err.message)
+                        }
+                      },
+                    },
+                    {
+                      text: 'Cancel',
+                      style: 'cancel',
+                    },
+                  ],
+                  { cancelable: true },
+                )
+              }}
+            >
+              <Vote colors={colors} item={item} />
+            </TouchableOpacity>
             <TouchableOpacity
               style={{ flex: 1, justifyContent: 'flex-end' }}
-              onPress={() => this.props.navigation.navigate('Detail', item)}
+              onPress={() =>
+                this.props.navigation.navigate('Detail', { ...item })
+              }
             >
               <View style={{ flexDirection: 'row' }}>
                 <MaterialCommunityIcons
@@ -104,8 +149,8 @@ export default class PostItem extends React.PureComponent {
                 </Text>
               </View>
             </TouchableOpacity>
-          )}
-        </View>
+          </View>
+        )}
       </View>
     )
   }

@@ -76,7 +76,7 @@ export class AuthProvider extends React.Component {
     return json.news.map(x => ({ ...x, id: Math.random().toString() }))
 
     // const { news } = await this.fetchWithAuth(
-    //   `/api/getnews/${sort}/${start}/${count}`,
+    //   `/getnews/${sort}/${start}/${count}`,
     // )
     // return news
   }
@@ -86,9 +86,20 @@ export class AuthProvider extends React.Component {
     return comments.sort((a, b) => a.ctime - b.ctime) // Sort by time
   }
 
+  voteNews = async (id, type) => {
+    return await this.fetchWithAuth(
+      `/votenews?news_id=${id}&vote_type=${type}&apisecret=${
+        this.state.apisecret
+      }`,
+      {
+        method: 'POST',
+      },
+    )
+  }
+
   render() {
     const { auth, isLoaded, username } = this.state
-    const { login, logout, getNews, getComments } = this
+    const { login, logout, getNews, getComments, voteNews } = this
 
     return (
       isLoaded && (
@@ -101,6 +112,7 @@ export class AuthProvider extends React.Component {
             logout,
             getNews,
             getComments,
+            voteNews,
           }}
         >
           {this.props.children}

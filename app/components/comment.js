@@ -1,6 +1,7 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, TouchableOpacity, Alert } from 'react-native'
 import distanceInWords from 'date-fns/distance_in_words'
+import { Vote } from './vote'
 
 export default class CommentItem extends React.PureComponent {
   static defaultProps = {
@@ -42,12 +43,7 @@ export default class CommentItem extends React.PureComponent {
               paddingLeft: 10,
             }}
           >
-            <View>
-              <Text style={{ color: colors.content.icon }}>▲ {item.up}</Text>
-              <Text style={{ color: colors.content.icon }}>
-                ▼ {item.down | 0}
-              </Text>
-            </View>
+            <Vote colors={colors} item={item} />
           </View>
         </View>
         {(item.replies || []).map(reply => (

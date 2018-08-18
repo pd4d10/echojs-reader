@@ -23,6 +23,18 @@ class List extends React.Component {
     alert(err.message)
   }
 
+  updateVote = (id, type) => {
+    this.setState({
+      items: items.map(item => {
+        if (item.id === id) {
+          return { ...item, voted: type }
+        } else {
+          return item
+        }
+      }),
+    })
+  }
+
   fetchData = (anchor = 0) => {
     return this.props.getNews(this.props.sort, anchor, PAGE_SIZE)
   }
@@ -81,7 +93,7 @@ class List extends React.Component {
   }
 
   render() {
-    const { colors } = this.props
+    const { colors, voteNews, auth } = this.props
     return (
       <View
         style={{
@@ -100,6 +112,9 @@ class List extends React.Component {
                 item={item}
                 navigation={this.props.navigation}
                 colors={colors}
+                voteNews={voteNews}
+                updateVote={this.updateVote}
+                auth={auth}
               />
             )}
             keyExtractor={item => item.id}
@@ -143,7 +158,9 @@ const ListWithProps = props => (
   <ThemeConsumer>
     {({ colors }) => (
       <AuthConsumer>
-        {({ getNews }) => <List {...{ colors, getNews, ...props }} />}
+        {({ getNews, voteNews, auth }) => (
+          <List {...{ colors, getNews, voteNews, auth, ...props }} />
+        )}
       </AuthConsumer>
     )}
   </ThemeConsumer>

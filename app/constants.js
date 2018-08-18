@@ -43,7 +43,7 @@ export const themeMapping = {
       background: '#fff',
       icon: '#444',
       loading: '#af1d1d',
-      digg: '#af1d1d',
+      voted: '#af1d1d',
     },
     tab: {
       active: '#af1d1d',
@@ -83,7 +83,7 @@ export const themeMapping = {
       background: '#fff',
       icon: '#222',
       loading: '#aaa',
-      digg: '#007aff',
+      voted: '#007aff',
     },
     tab: {
       active: '#007aff',
@@ -123,7 +123,7 @@ export const themeMapping = {
   //     background: '#222',
   //     icon: '#aaa',
   //     loading: '#fff',
-  //     digg: '#007aff',
+  //     voted: '#007aff',
   //   },
   //   tab: {
   //     active: '#007aff',

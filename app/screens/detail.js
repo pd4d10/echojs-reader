@@ -28,7 +28,7 @@ class Detail extends React.Component {
   }
 
   render() {
-    const { colors } = this.props
+    const { colors, voteNews, auth } = this.props
     return (
       <ScrollView
         style={{
@@ -41,6 +41,8 @@ class Detail extends React.Component {
           hasCommentLink={false}
           navigation={this.props.navigation}
           colors={colors}
+          voteNews={voteNews}
+          auth={auth}
         />
         <View
           style={{
@@ -66,9 +68,11 @@ class Detail extends React.Component {
 
 export const DetailScreen = props => (
   <AuthConsumer>
-    {({ getComments }) => (
+    {({ getComments, voteNews, auth }) => (
       <ThemeConsumer>
-        {({ colors }) => <Detail {...{ colors, getComments }} {...props} />}
+        {({ colors }) => (
+          <Detail {...{ colors, getComments, voteNews, auth }} {...props} />
+        )}
       </ThemeConsumer>
     )}
   </AuthConsumer>

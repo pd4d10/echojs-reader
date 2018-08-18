@@ -41,7 +41,7 @@ export const BottomTabNavigator = createBottomTabNavigator(
     Settings: SettingsNavigator,
   },
   {
-    initialRouteName: 'Settings',
+    // initialRouteName: 'Settings',
     tabBarComponent: CustomBottomTabBar,
   },
 )
