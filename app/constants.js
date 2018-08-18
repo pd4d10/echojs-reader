@@ -4,6 +4,8 @@ import { BottomTabNavigator, DrawerNavigator } from './navigators'
 export const STORAGE_KEYS = {
   auth: 'auth',
   username: 'username',
+  apisecret: 'apisecret',
+
   layout: 'layout',
   theme: 'theme',
   openInBrowser: 'open-in-browser',

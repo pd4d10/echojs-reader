@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View, Button, TextInput } from 'react-native'
+import { ScrollView, View, Button, Text } from 'react-native'
 import { Cell, Section, TableView } from 'react-native-tableview-simple'
 import {
   SettingsConsumer,
@@ -9,6 +9,7 @@ import {
 } from '../context'
 import { layoutMapping, themeMapping } from '../constants'
 import CustomSwitch from '../components/switch'
+import { confirm } from '../utils'
 
 export class SettingsScreen extends React.Component {
   render() {
@@ -23,24 +24,40 @@ export class SettingsScreen extends React.Component {
           >
             <TableView>
               <Section sectionTintColor="transparent">
-                <Cell
-                  cellContentView={
-                    <AuthConsumer>
-                      {({ auth, username, logout }) =>
-                        auth ? (
-                          <Button title="Logout" onPress={logout} />
-                        ) : (
+                <AuthConsumer>
+                  {({ auth, username, logout }) =>
+                    auth ? (
+                      <Cell
+                        cellContentView={
+                          <View style={{ flex: 1 }}>
+                            <Text style={{ fontSize: 16 }}>{username}</Text>
+                          </View>
+                        }
+                        cellAccessoryView={
                           <Button
-                            title="Login"
+                            title="Logout"
                             onPress={() => {
-                              this.props.navigation.navigate('Login')
+                              confirm('Are you sure to logout?', logout)
                             }}
                           />
-                        )
-                      }
-                    </AuthConsumer>
+                        }
+                      />
+                    ) : (
+                      <Cell
+                        cellContentView={
+                          <View style={{ flex: 1 }}>
+                            <Button
+                              title="Login"
+                              onPress={() => {
+                                this.props.navigation.navigate('Login')
+                              }}
+                            />
+                          </View>
+                        }
+                      />
+                    )
                   }
-                />
+                </AuthConsumer>
               </Section>
               <LayoutConsumer>
                 {({ layout, setLayout }) => (

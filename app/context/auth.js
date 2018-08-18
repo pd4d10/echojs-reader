@@ -10,16 +10,16 @@ export class AuthProvider extends React.Component {
   state = {
     auth: null,
     username: null,
+    apisecret: null,
     isLoaded: false,
   }
 
   async componentDidMount() {
-    const [[, auth], [, username]] = await AsyncStorage.multiGet([
-      STORAGE_KEYS.auth,
-      STORAGE_KEYS.username,
-    ])
-    console.log(auth, username)
-    this.setState({ auth, username, isLoaded: true })
+    const [[, auth], [, username], [, apisecret]] = await AsyncStorage.multiGet(
+      [STORAGE_KEYS.auth, STORAGE_KEYS.username, STORAGE_KEYS.apisecret],
+    )
+    console.log(auth, username, apisecret)
+    this.setState({ auth, username, apisecret, isLoaded: true })
   }
 
   fetchWithAuth = async (url, opts = {}) => {
@@ -38,14 +38,15 @@ export class AuthProvider extends React.Component {
 
   login = async (username, password) => {
     try {
-      const { auth } = await this.fetchWithAuth(
+      const { auth, apisecret } = await this.fetchWithAuth(
         `/login?username=${username}&password=${password}`,
       )
-      await AsyncStorage.multiSet(
+      await AsyncStorage.multiSet([
         [STORAGE_KEYS.auth, auth],
         [STORAGE_KEYS.username, username],
-      )
-      this.setState({ auth, username })
+        [STORAGE_KEYS.apisecret, apisecret],
+      ])
+      this.setState({ auth, username, apisecret })
     } catch (err) {
       alert(err.message)
     }
@@ -53,9 +54,15 @@ export class AuthProvider extends React.Component {
 
   logout = async () => {
     try {
-      await this.fetchWithAuth('/logout', { method: 'POST' })
-      await AsyncStorage.removeItem(STORAGE_KEYS.auth)
-      this.setState({ auth: null })
+      await this.fetchWithAuth(`/logout?apisecret=${this.state.apisecret}`, {
+        method: 'POST',
+      })
+      await AsyncStorage.multiRemove([
+        STORAGE_KEYS.auth,
+        STORAGE_KEYS.username,
+        STORAGE_KEYS.apisecret,
+      ])
+      this.setState({ auth: null, username: null, apisecret: null })
     } catch (err) {
       alert(err.message)
     }

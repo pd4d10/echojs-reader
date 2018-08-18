@@ -9,7 +9,6 @@ export class LoginScreen extends React.Component {
   }
 
   state = {
-    // modalVisible: false,
     username: '',
     password: '',
   }

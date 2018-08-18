@@ -81,7 +81,7 @@ export const TopNavigator = createStackNavigator(
 
 export const LatestNavigator = createStackNavigator(
   {
-    Top: TopScreen,
+    Latest: LatestScreen,
     Detail: DetailScreen,
     WebView: WebViewScreen,
     Login: LoginScreen,
