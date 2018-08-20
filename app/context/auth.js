@@ -69,16 +69,16 @@ export class AuthProvider extends React.Component {
   }
 
   getNews = async (sort, start, count) => {
-    // For slow network testing
-    const json = await new Promise(resolve => {
-      setTimeout(() => resolve(require('../../mock')), 1000)
-    })
-    return json.news.map(x => ({ ...x, id: Math.random().toString() }))
+    // // For slow network testing
+    // const json = await new Promise(resolve => {
+    //   setTimeout(() => resolve(require('../../mock')), 1000)
+    // })
+    // return json.news.map(x => ({ ...x, id: Math.random().toString() }))
 
-    // const { news } = await this.fetchWithAuth(
-    //   `/getnews/${sort}/${start}/${count}`,
-    // )
-    // return news
+    const { news } = await this.fetchWithAuth(
+      `/getnews/${sort}/${start}/${count}`,
+    )
+    return news
   }
 
   getComments = async id => {

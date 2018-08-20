@@ -88,7 +88,7 @@ export default class PostItem extends React.PureComponent {
               style={{ flex: 1 }}
               onPress={() => {
                 if (!this.props.auth) {
-                  alert('Please login')
+                  this.props.navigation.navigate('Login')
                   return
                 }
 
@@ -99,7 +99,7 @@ export default class PostItem extends React.PureComponent {
 
                 Alert.alert(
                   `Vote for ${item.username}'s post`,
-                  '',
+                  item.title,
                   [
                     {
                       text: 'Cancel',

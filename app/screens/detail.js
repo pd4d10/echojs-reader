@@ -12,8 +12,8 @@ class Detail extends React.Component {
   }
 
   async componentDidMount() {
-    // const id = this.props.navigation.getParam('id')
-    const id = 22273
+    const id = this.props.navigation.getParam('id')
+    // const id = 22273
     try {
       this.setState({
         isLoading: true,
