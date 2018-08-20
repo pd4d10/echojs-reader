@@ -62,32 +62,34 @@ export class SettingsProvider extends React.Component {
     })
   }
 
-  openLink = async (url, colors, openInWebView) => {
-    if (this.state.openInBrowser) {
-      Linking.openURL(url)
-    } else {
-      if (this.state.isSafariViewAvailable) {
-        // This is to avoid press 2 times
-        if (this.state.isSafariViewStarted) return
+  openLink = async (url, colors) => {
+    if (this.state.isSafariViewAvailable && !this.state.openInBrowser) {
+      // This is to avoid press multi times
+      if (this.state.isSafariViewStarted) return
 
-        this.setState({ isSafariViewStarted: true })
-        SafariView.show({
-          url,
-          tintColor: colors.safari.text,
-          barTintColor: colors.safari.background,
-        })
-      } else {
-        openInWebView()
-      }
+      this.setState({ isSafariViewStarted: true })
+      SafariView.show({
+        url,
+        tintColor: colors.safari.text,
+        barTintColor: colors.safari.background,
+      })
+    } else {
+      Linking.openURL(url)
     }
   }
 
   render() {
-    const { isInSafariView, openInBrowser } = this.state
+    const { isInSafariView, openInBrowser, isSafariViewAvailable } = this.state
     const { setOpenInBrowser, openLink } = this
     return (
       <SettingsContext.Provider
-        value={{ isInSafariView, openInBrowser, setOpenInBrowser, openLink }}
+        value={{
+          isInSafariView,
+          openInBrowser,
+          isSafariViewAvailable,
+          setOpenInBrowser,
+          openLink,
+        }}
       >
         {this.props.children}
       </SettingsContext.Provider>

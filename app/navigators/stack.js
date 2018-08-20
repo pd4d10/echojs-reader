@@ -6,7 +6,6 @@ import {
   LatestScreen,
   DetailScreen,
   SettingsScreen,
-  WebViewScreen,
 } from '../screens'
 import { LayoutConsumer, ThemeConsumer } from '../context'
 import { LoginScreen } from '../screens/login'
@@ -68,7 +67,6 @@ export const TopNavigator = createStackNavigator(
   {
     Top: TopScreen,
     Detail: DetailScreen,
-    WebView: WebViewScreen,
     Login: LoginScreen,
   },
   {
@@ -83,7 +81,6 @@ export const LatestNavigator = createStackNavigator(
   {
     Latest: LatestScreen,
     Detail: DetailScreen,
-    WebView: WebViewScreen,
     Login: LoginScreen,
   },
   {
@@ -97,7 +94,6 @@ export const LatestNavigator = createStackNavigator(
 export const SettingsNavigator = createStackNavigator(
   {
     Settings: SettingsScreen,
-    WebView: WebViewScreen,
     Login: LoginScreen,
   },
   {

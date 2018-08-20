@@ -85,24 +85,26 @@ export class SettingsScreen extends React.Component {
                   />
                 ))}
               </Section>
-              <Section
-                footer="Open links in system browser instead of SafariView or WebView."
-                sectionTintColor="transparent"
-              >
-                <Cell
-                  cellAccessoryView={
-                    <SettingsConsumer>
-                      {({ openInBrowser, setOpenInBrowser }) => (
-                        <CustomSwitch
-                          value={openInBrowser}
-                          onValueChange={setOpenInBrowser}
-                        />
-                      )}
-                    </SettingsConsumer>
-                  }
-                  title="Open Links In Browser"
-                />
-              </Section>
+              <SettingsConsumer>
+                {({ openInBrowser, isSafariViewAvailable, setOpenInBrowser }) =>
+                  isSafariViewAvailable && (
+                    <Section
+                      footer="Open links in system browser instead of Safari View Controller."
+                      sectionTintColor="transparent"
+                    >
+                      <Cell
+                        cellAccessoryView={
+                          <CustomSwitch
+                            value={openInBrowser}
+                            onValueChange={setOpenInBrowser}
+                          />
+                        }
+                        title="Open Links In Browser"
+                      />
+                    </Section>
+                  )
+                }
+              </SettingsConsumer>
             </TableView>
             <SettingsConsumer>
               {({ openLink }) => (
@@ -111,13 +113,10 @@ export class SettingsScreen extends React.Component {
                     title="Source Code"
                     accessory="DisclosureIndicator"
                     onPress={() => {
-                      const url = 'https://github.com/pd4d10/lamernews-app'
-                      openLink(url, colors, () => {
-                        this.props.navigation.navigate('WebView', {
-                          title: 'Source Code',
-                          url,
-                        })
-                      })
+                      openLink(
+                        'https://github.com/pd4d10/lamernews-app',
+                        colors,
+                      )
                     }}
                   />
                 </Section>
@@ -129,7 +128,3 @@ export class SettingsScreen extends React.Component {
     )
   }
 }
-
-// export const SettingsScreen = props => (
-
-// )

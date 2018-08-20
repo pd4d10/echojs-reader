@@ -36,9 +36,7 @@ export default class PostItem extends React.PureComponent {
                     return
                   }
 
-                  openLink(item.url, colors, () => {
-                    this.props.navigation.navigate('WebView', item)
-                  })
+                  openLink(item.url, colors)
                 }}
               >
                 <Text
