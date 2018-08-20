@@ -24,15 +24,20 @@ class List extends React.Component {
   }
 
   updateVote = (id, type) => {
-    this.setState({
+    this.setState(({ items }) => ({
       items: items.map(item => {
         if (item.id === id) {
-          return { ...item, voted: type }
+          return {
+            ...item,
+            voted: type,
+            up: type === 'up' ? parseInt(item.up, 10) + 1 : item.up,
+            down: type === 'down' ? parseInt(item.down, 10) + 1 : item.down,
+          }
         } else {
           return item
         }
       }),
-    })
+    }))
   }
 
   fetchData = (anchor = 0) => {
