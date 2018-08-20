@@ -22,7 +22,10 @@ export class LayoutProvider extends React.Component {
     if (Object.keys(layoutMapping).includes(layout)) {
       return layout
     } else {
-      return Platform.select({ ios: 'drawer', android: 'bottom-tab' })
+      return Platform.select({
+        ios: 'bottom-tab',
+        android: 'drawer',
+      })
     }
   }
 
