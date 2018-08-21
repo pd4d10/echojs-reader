@@ -34,6 +34,7 @@ export const themeMapping = {
       statusBarStyle: 'light-content',
       text: '#fff',
       background: '#af1d1d',
+      androidBar: '#831616',
     },
     content: {
       title: '#000',
@@ -47,7 +48,7 @@ export const themeMapping = {
     },
     tab: {
       active: '#af1d1d',
-      inactive: '#888',
+      inactive: 'grey',
       activeBackground: undefined,
       inactiveBackground: undefined,
     },
@@ -74,6 +75,7 @@ export const themeMapping = {
       statusBarStyle: 'dark-content',
       text: undefined,
       background: undefined,
+      androidBar: 'grey',
     },
     content: {
       title: '#000',
@@ -87,7 +89,7 @@ export const themeMapping = {
     },
     tab: {
       active: '#007aff',
-      inactive: '#888',
+      inactive: 'grey',
       activeBackground: undefined,
       inactiveBackground: undefined,
     },

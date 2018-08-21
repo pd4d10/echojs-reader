@@ -1,5 +1,5 @@
 import React from 'react'
-import { StatusBar, YellowBox } from 'react-native'
+import { StatusBar, YellowBox, Platform } from 'react-native'
 import {
   LayoutProvider,
   ThemeProvider,
@@ -29,11 +29,14 @@ const CustomStatusBar = () => (
         <SettingsConsumer>
           {({ isInSafariView }) => (
             <StatusBar
-              barStyle={
-                isInSafariView
+              barStyle={Platform.select({
+                ios: isInSafariView
                   ? colors.safari.statusBarStyle
-                  : colors.header.statusBarStyle
-              }
+                  : colors.header.statusBarStyle,
+              })}
+              backgroundColor={Platform.select({
+                android: colors.header.androidBar,
+              })}
             />
           )}
         </SettingsConsumer>

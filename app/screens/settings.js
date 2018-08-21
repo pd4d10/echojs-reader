@@ -48,6 +48,7 @@ export class SettingsScreen extends React.Component {
                           <View style={{ flex: 1 }}>
                             <Button
                               title="Login"
+                              color={colors.settings.active}
                               onPress={() => {
                                 this.props.navigation.navigate('Login')
                               }}

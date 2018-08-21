@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Button, TextInput } from 'react-native'
 import { Cell, Section } from 'react-native-tableview-simple'
-import { AuthConsumer } from '../context'
+import { AuthConsumer, ThemeConsumer } from '../context'
 
 export class LoginScreen extends React.Component {
   static navigationOptions = {
@@ -44,18 +44,23 @@ export class LoginScreen extends React.Component {
                 }
               />
             </Section>
-            <Button
-              title="Login"
-              onPress={async () => {
-                const { username, password } = this.state
-                if (!username || !password) {
-                  alert('Please input username and password')
-                  return
-                }
-                await login(username, password)
-                this.props.navigation.goBack()
-              }}
-            />
+            <ThemeConsumer>
+              {({ colors }) => (
+                <Button
+                  title="Login"
+                  color={colors.settings.active}
+                  onPress={async () => {
+                    const { username, password } = this.state
+                    if (!username || !password) {
+                      alert('Please input username and password')
+                      return
+                    }
+                    await login(username, password)
+                    this.props.navigation.goBack()
+                  }}
+                />
+              )}
+            </ThemeConsumer>
           </View>
         )}
       </AuthConsumer>
