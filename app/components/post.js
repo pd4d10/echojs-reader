@@ -1,10 +1,10 @@
 import React from 'react'
 import { Text, View, TouchableOpacity, Alert } from 'react-native'
 import distanceInWords from 'date-fns/distance_in_words'
-import { parse } from 'url'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { SettingsConsumer } from '../context'
 import { Vote } from './vote'
+import { getHostFromUrl } from '../utils'
 
 export default class PostItem extends React.PureComponent {
   static defaultProps = {
@@ -57,7 +57,7 @@ export default class PostItem extends React.PureComponent {
                       marginBottom: 6,
                     }}
                   >
-                    at {parse(item.url).host}
+                    at {getHostFromUrl(item.url)}
                   </Text>
                 )}
               </TouchableOpacity>
