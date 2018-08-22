@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, TouchableOpacity, Alert } from 'react-native'
+import { Text, View, TouchableOpacity, Alert, Platform } from 'react-native'
 import distanceInWords from 'date-fns/distance_in_words'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { SettingsConsumer } from '../context'
@@ -144,7 +144,10 @@ export default class PostItem extends React.PureComponent {
                 <MaterialCommunityIcons
                   name="comment-text-outline"
                   size={14}
-                  style={{ marginRight: 2, marginTop: 2 }}
+                  style={Platform.select({
+                    ios: { marginRight: 2, marginTop: 2 },
+                    android: { marginRight: 3, marginTop: 3 },
+                  })}
                   color={colors.content.icon}
                 />
                 <Text style={{ color: colors.content.icon }}>

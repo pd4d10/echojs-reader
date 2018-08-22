@@ -36,6 +36,7 @@ export class SettingsScreen extends React.Component {
                         cellAccessoryView={
                           <Button
                             title="Logout"
+                            color={colors.settings.active}
                             onPress={() => {
                               confirm('Are you sure to logout?', logout)
                             }}
