@@ -85,10 +85,21 @@ class List extends React.Component {
     if (this.state.isLoadingMore || this.state.isEnd) return
     try {
       this.setState({ isLoadingMore: true })
-      const items = await this.fetchData(this.state.items.length)
+      let items = await this.fetchData(this.state.items.length)
+      const isEnd = items.length < PAGE_SIZE
+
+      // Remove duplicated items
+      const idMapper = this.state.items.reduce(
+        (obj, item) => ({ ...obj, [item.id]: true }),
+        {},
+      )
+      // console.log(idMapper)
+      items = items.filter(({ id }) => !idMapper[id])
+      // console.log(items.length)
+
       this.setState(state => ({
         items: [...state.items, ...items],
-        isEnd: items.length < PAGE_SIZE,
+        isEnd,
       }))
     } catch (err) {
       this.handleError(err)
