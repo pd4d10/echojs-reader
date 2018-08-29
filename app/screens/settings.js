@@ -88,20 +88,17 @@ export class SettingsScreen extends React.Component {
                 ))}
               </Section>
               <SettingsConsumer>
-                {({ openInBrowser, isSafariViewAvailable, setOpenInBrowser }) =>
+                {({ useSafariView, isSafariViewAvailable, setUseSafariView }) =>
                   isSafariViewAvailable && (
-                    <Section
-                      footer="Open links in system browser instead of Safari View Controller."
-                      sectionTintColor="transparent"
-                    >
+                    <Section sectionTintColor="transparent">
                       <Cell
                         cellAccessoryView={
                           <CustomSwitch
-                            value={openInBrowser}
-                            onValueChange={setOpenInBrowser}
+                            value={useSafariView}
+                            onValueChange={setUseSafariView}
                           />
                         }
-                        title="Open Links In Browser"
+                        title="Open Links In Safari View"
                       />
                     </Section>
                   )

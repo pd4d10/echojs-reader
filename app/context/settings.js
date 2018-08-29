@@ -9,15 +9,15 @@ export const SettingsConsumer = SettingsContext.Consumer
 
 export class SettingsProvider extends React.Component {
   state = {
-    openInBrowser: false,
+    useSafariView: false,
     isInSafariView: false,
     isSafariViewAvailable: false,
     isSafariViewStarted: false,
   }
 
   async componentDidMount() {
-    let openInBrowser = await AsyncStorage.getItem(STORAGE_KEYS.openInBrowser)
-    openInBrowser = openInBrowser === 'true'
+    let useSafariView = await AsyncStorage.getItem(STORAGE_KEYS.useSafariView)
+    useSafariView = useSafariView === 'true'
 
     let isSafariViewAvailable
     try {
@@ -31,7 +31,7 @@ export class SettingsProvider extends React.Component {
     }
 
     this.setState({
-      openInBrowser,
+      useSafariView,
       isSafariViewAvailable,
     })
   }
@@ -43,12 +43,12 @@ export class SettingsProvider extends React.Component {
     }
   }
 
-  setOpenInBrowser = async openInBrowser => {
+  setUseSafariView = async useSafariView => {
     await AsyncStorage.setItem(
-      STORAGE_KEYS.openInBrowser,
-      openInBrowser.toString(),
+      STORAGE_KEYS.useSafariView,
+      useSafariView.toString(),
     )
-    this.setState({ openInBrowser })
+    this.setState({ useSafariView })
   }
 
   setInSafariView = () => {
@@ -63,7 +63,7 @@ export class SettingsProvider extends React.Component {
   }
 
   openLink = async (url, colors) => {
-    if (this.state.isSafariViewAvailable && !this.state.openInBrowser) {
+    if (this.state.isSafariViewAvailable && this.state.useSafariView) {
       // This is to avoid press multi times
       if (this.state.isSafariViewStarted) return
 
@@ -79,15 +79,15 @@ export class SettingsProvider extends React.Component {
   }
 
   render() {
-    const { isInSafariView, openInBrowser, isSafariViewAvailable } = this.state
-    const { setOpenInBrowser, openLink } = this
+    const { isInSafariView, useSafariView, isSafariViewAvailable } = this.state
+    const { setUseSafariView, openLink } = this
     return (
       <SettingsContext.Provider
         value={{
           isInSafariView,
-          openInBrowser,
+          useSafariView,
           isSafariViewAvailable,
-          setOpenInBrowser,
+          setUseSafariView,
           openLink,
         }}
       >

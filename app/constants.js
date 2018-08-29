@@ -11,7 +11,7 @@ export const STORAGE_KEYS = {
 
   layout: 'layout',
   theme: 'theme',
-  openInBrowser: 'open-in-browser',
+  useSafariView: 'use-safari-view',
 }
 
 export const layoutMapping = {
