@@ -11,6 +11,12 @@ A mobile app for [EchoJS](https://echojs.com/) and other [LamerNews](https://git
   </a>
 </p>
 
+## Installation
+
+Click badges above to install it from Apple App Store or Google Play.
+
+Android users can also download APK file from [release page](https://github.com/pd4d10/lamernews-app/releases) and install it manually.
+
 ## Screenshots
 
 <img src="assets/phones.png" />
