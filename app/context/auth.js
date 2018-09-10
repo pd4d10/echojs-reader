@@ -63,14 +63,14 @@ export class AuthProvider extends React.Component {
       await this.fetchWithAuth(`/logout?apisecret=${this.state.apisecret}`, {
         method: 'POST',
       })
+    } catch (err) {
+    } finally {
       await AsyncStorage.multiRemove([
         STORAGE_KEYS.auth,
         STORAGE_KEYS.username,
         STORAGE_KEYS.apisecret,
       ])
       this.setState({ auth: null, username: null, apisecret: null })
-    } catch (err) {
-      alert(err.message)
     }
   }
 
