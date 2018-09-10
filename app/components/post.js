@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, View, TouchableOpacity, Alert, Platform } from 'react-native'
 import distanceInWords from 'date-fns/distance_in_words'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import ActionSheet from 'react-native-actionsheet'
 import { SettingsConsumer } from '../context'
 import { Vote } from './vote'
 import { getHostFromUrl } from '../utils'
@@ -10,6 +11,8 @@ export default class PostItem extends React.PureComponent {
   static defaultProps = {
     hasCommentLink: true,
   }
+
+  ActionSheet = null
 
   isText = () => {
     return this.props.item.url.startsWith('text://')
@@ -101,42 +104,32 @@ export default class PostItem extends React.PureComponent {
                   return
                 }
 
-                Alert.alert(
-                  `Vote for ${item.username}'s post`,
-                  item.title,
-                  [
-                    {
-                      text: 'Cancel',
-                      style: 'cancel',
-                    },
-                    {
-                      text: 'Up',
-                      onPress: async () => {
-                        try {
-                          await this.props.voteNews(item.id, 'up')
-                          this.props.updateVote(item.id, 'up')
-                        } catch (err) {
-                          alert(err.message)
-                        }
-                      },
-                    },
-                    {
-                      text: 'Down',
-                      onPress: async () => {
-                        try {
-                          await this.props.voteNews(item.id, 'down')
-                          this.props.updateVote(item.id, 'down')
-                        } catch (err) {
-                          alert(err.message)
-                        }
-                      },
-                    },
-                  ],
-                  { cancelable: true },
-                )
+                this.ActionSheet.show()
               }}
             >
               <Vote colors={colors} item={item} />
+              <ActionSheet
+                ref={el => {
+                  this.ActionSheet = el
+                }}
+                title={`Vote for ${item.username}'s post`}
+                options={['Up', 'Down', 'cancel']}
+                cancelButtonIndex={2}
+                onPress={async index => {
+                  try {
+                    switch (index) {
+                      case 0:
+                        await this.props.voteNews(item.id, 'up')
+                        this.props.updateVote(item.id, 'up')
+                      case 1:
+                        await this.props.voteNews(item.id, 'down')
+                        this.props.updateVote(item.id, 'down')
+                    }
+                  } catch (err) {
+                    alert(err.message)
+                  }
+                }}
+              />
             </TouchableOpacity>
             <TouchableOpacity
               style={{ flex: 1, justifyContent: 'flex-end' }}
