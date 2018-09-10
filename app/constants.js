@@ -19,11 +19,10 @@ export const layoutMapping = {
     name: 'Bottom Tab',
     component: BottomTabNavigator,
   },
-  // TODO:
-  // 'material-bottom-tab': {
-  //   name: 'Material Bottom Tab',
-  //   component: MaterialBottomTabNavigator,
-  // },
+  'material-bottom-tab': {
+    name: 'Material Bottom Tab',
+    component: MaterialBottomTabNavigator,
+  },
   drawer: {
     name: 'Drawer',
     component: DrawerNavigator,
