@@ -48,7 +48,7 @@ export class SettingsScreen extends React.Component {
                         cellContentView={
                           <View style={{ flex: 1 }}>
                             <Button
-                              title="Login"
+                              title="Login / Create account"
                               color={colors.settings.active}
                               onPress={() => {
                                 this.props.navigation.navigate('Login')

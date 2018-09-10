@@ -37,19 +37,25 @@ export class AuthProvider extends React.Component {
   }
 
   login = async (username, password) => {
-    try {
-      const { auth, apisecret } = await this.fetchWithAuth(
-        `/login?username=${username}&password=${password}`,
-      )
-      await AsyncStorage.multiSet([
-        [STORAGE_KEYS.auth, auth],
-        [STORAGE_KEYS.username, username],
-        [STORAGE_KEYS.apisecret, apisecret],
-      ])
-      this.setState({ auth, username, apisecret })
-    } catch (err) {
-      alert(err.message)
-    }
+    const { auth, apisecret } = await this.fetchWithAuth(
+      `/login?username=${username}&password=${password}`,
+    )
+    await AsyncStorage.multiSet([
+      [STORAGE_KEYS.auth, auth],
+      [STORAGE_KEYS.username, username],
+      [STORAGE_KEYS.apisecret, apisecret],
+    ])
+    this.setState({ auth, username, apisecret })
+  }
+
+  createAccount = async (username, password) => {
+    const { auth, apisecret } = await this.fetchWithAuth(
+      `/create_account?username=${username}&password=${password}`,
+      { method: 'POST' },
+    )
+    // Seems EchoJS's create account API does not return apisecret
+    // So don't use any data from this API
+    // Just create account and call login API again to login
   }
 
   logout = async () => {
@@ -99,7 +105,14 @@ export class AuthProvider extends React.Component {
 
   render() {
     const { auth, isLoaded, username } = this.state
-    const { login, logout, getNews, getComments, voteNews } = this
+    const {
+      login,
+      createAccount,
+      logout,
+      getNews,
+      getComments,
+      voteNews,
+    } = this
 
     return (
       isLoaded && (
@@ -109,6 +122,7 @@ export class AuthProvider extends React.Component {
             isLoaded,
             username,
             login,
+            createAccount,
             logout,
             getNews,
             getComments,
