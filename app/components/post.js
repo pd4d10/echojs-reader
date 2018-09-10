@@ -26,9 +26,9 @@ export default class PostItem extends React.PureComponent {
           padding: 10,
         }}
       >
-        <View style={{ flex: 1 }}>
-          <SettingsConsumer>
-            {({ openLink }) => (
+        <SettingsConsumer>
+          {({ openLink }) => (
+            <View style={{ flex: 1 }}>
               <TouchableOpacity
                 onPress={async () => {
                   if (this.isText()) {
@@ -61,19 +61,23 @@ export default class PostItem extends React.PureComponent {
                   </Text>
                 )}
               </TouchableOpacity>
-            )}
-          </SettingsConsumer>
-          <Text style={{ color: colors.content.user, fontSize: 14 }}>
-            <Text
-              style={{
-                textDecorationLine: 'underline',
-              }}
-            >
-              {item.username}
-            </Text>{' '}
-            | {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
-          </Text>
-        </View>
+
+              <Text style={{ color: colors.content.user, fontSize: 14 }}>
+                <Text
+                  style={{
+                    textDecorationLine: 'underline',
+                  }}
+                  onPress={() => {
+                    openLink(`https://echojs.com/user/${item.username}`, colors)
+                  }}
+                >
+                  {item.username}
+                </Text>{' '}
+                | {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
+              </Text>
+            </View>
+          )}
+        </SettingsConsumer>
 
         {hasCommentLink && (
           <View
