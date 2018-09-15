@@ -123,16 +123,24 @@ class List extends React.Component {
         ) : (
           <FlatList
             data={this.state.items}
-            renderItem={({ item }) => (
-              <PostItem
-                item={item}
-                navigation={this.props.navigation}
-                colors={colors}
-                voteNews={voteNews}
-                updateVote={this.updateVote}
-                auth={auth}
-              />
-            )}
+            renderItem={({ item }) =>
+              item.del ? (
+                <View style={{ padding: 10 }}>
+                  <Text style={{ color: colors.content.user, fontSize: 16 }}>
+                    [deleted news]
+                  </Text>
+                </View>
+              ) : (
+                <PostItem
+                  item={item}
+                  navigation={this.props.navigation}
+                  colors={colors}
+                  voteNews={voteNews}
+                  updateVote={this.updateVote}
+                  auth={auth}
+                />
+              )
+            }
             keyExtractor={item => item.id}
             ItemSeparatorComponent={() => (
               <View
