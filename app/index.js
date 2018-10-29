@@ -1,5 +1,5 @@
 import React from 'react'
-import { StatusBar, YellowBox, Platform } from 'react-native'
+import { StatusBar, Platform } from 'react-native'
 import {
   LayoutProvider,
   ThemeProvider,
@@ -15,12 +15,6 @@ import {
   DrawerNavigator,
   MaterialBottomTabNavigator,
 } from './navigators'
-
-// https://github.com/facebook/react-native/issues/18868#issuecomment-382671739
-YellowBox.ignoreWarnings([
-  'Warning: isMounted(...) is deprecated',
-  'Module RCTImageLoader',
-])
 
 const CustomStatusBar = () => (
   <ThemeConsumer>
