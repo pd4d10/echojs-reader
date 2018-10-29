@@ -1,8 +1,8 @@
-import {
-  BottomTabNavigator,
-  DrawerNavigator,
-  MaterialBottomTabNavigator,
-} from './navigators'
+// import {
+//   BottomTabNavigator,
+//   DrawerNavigator,
+//   MaterialBottomTabNavigator,
+// } from './navigators'
 
 export const STORAGE_KEYS = {
   auth: 'auth',
@@ -17,15 +17,15 @@ export const STORAGE_KEYS = {
 export const layoutMapping = {
   'bottom-tab': {
     name: 'Bottom Tab',
-    component: BottomTabNavigator,
+    // component: BottomTabNavigator,
   },
   'material-bottom-tab': {
     name: 'Material Bottom Tab',
-    component: MaterialBottomTabNavigator,
+    // component: MaterialBottomTabNavigator,
   },
   drawer: {
     name: 'Drawer',
-    component: DrawerNavigator,
+    // component: DrawerNavigator,
   },
 }
 
