@@ -1,4 +1,4 @@
-package com.lamernews;
+package io.github.pd4d10.echojser;
 
 import android.app.Application;
 

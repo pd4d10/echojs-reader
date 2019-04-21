@@ -112,10 +112,7 @@ export class SettingsScreen extends React.Component {
                     title="Source Code"
                     accessory="DisclosureIndicator"
                     onPress={() => {
-                      openLink(
-                        'https://github.com/pd4d10/lamernews-app',
-                        colors,
-                      )
+                      openLink('https://github.com/pd4d10/echojser', colors)
                     }}
                   />
                 </Section>

@@ -1,4 +1,4 @@
-package com.lamernews;
+package io.github.pd4d10.echojser;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "LamerNews";
+        return "EchoJSer";
     }
 }

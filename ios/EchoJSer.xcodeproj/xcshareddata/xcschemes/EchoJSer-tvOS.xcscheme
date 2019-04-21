@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "LamerNews-tvOS.app"
-               BlueprintName = "LamerNews-tvOS"
-               ReferencedContainer = "container:LamerNews.xcodeproj">
+               BuildableName = "EchoJSer-tvOS.app"
+               BlueprintName = "EchoJSer-tvOS"
+               ReferencedContainer = "container:EchoJSer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "LamerNews-tvOSTests.xctest"
-               BlueprintName = "LamerNews-tvOSTests"
-               ReferencedContainer = "container:LamerNews.xcodeproj">
+               BuildableName = "EchoJSer-tvOSTests.xctest"
+               BlueprintName = "EchoJSer-tvOSTests"
+               ReferencedContainer = "container:EchoJSer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "LamerNews-tvOSTests.xctest"
-               BlueprintName = "LamerNews-tvOSTests"
-               ReferencedContainer = "container:LamerNews.xcodeproj">
+               BuildableName = "EchoJSer-tvOSTests.xctest"
+               BlueprintName = "EchoJSer-tvOSTests"
+               ReferencedContainer = "container:EchoJSer.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "LamerNews-tvOS.app"
-            BlueprintName = "LamerNews-tvOS"
-            ReferencedContainer = "container:LamerNews.xcodeproj">
+            BuildableName = "EchoJSer-tvOS.app"
+            BlueprintName = "EchoJSer-tvOS"
+            ReferencedContainer = "container:EchoJSer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "LamerNews-tvOS.app"
-            BlueprintName = "LamerNews-tvOS"
-            ReferencedContainer = "container:LamerNews.xcodeproj">
+            BuildableName = "EchoJSer-tvOS.app"
+            BlueprintName = "EchoJSer-tvOS"
+            ReferencedContainer = "container:EchoJSer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "LamerNews-tvOS.app"
-            BlueprintName = "LamerNews-tvOS"
-            ReferencedContainer = "container:LamerNews.xcodeproj">
+            BuildableName = "EchoJSer-tvOS.app"
+            BlueprintName = "EchoJSer-tvOS"
+            ReferencedContainer = "container:EchoJSer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
