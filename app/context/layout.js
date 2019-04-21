@@ -1,5 +1,6 @@
 import React from 'react'
-import { AsyncStorage, Platform } from 'react-native'
+import { Platform } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import { STORAGE_KEYS, layoutMapping } from '../constants'
 
 const LayoutContext = React.createContext()
