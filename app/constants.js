@@ -1,8 +1,4 @@
-import {
-  BottomTabNavigator,
-  DrawerNavigator,
-  MaterialBottomTabNavigator,
-} from './navigators'
+import { BottomTabNavigator, MaterialBottomTabNavigator } from './navigators'
 
 export const STORAGE_KEYS = {
   auth: 'auth',
@@ -22,10 +18,6 @@ export const layoutMapping = {
   'material-bottom-tab': {
     name: 'Material Bottom Tab',
     component: MaterialBottomTabNavigator,
-  },
-  drawer: {
-    name: 'Drawer',
-    component: DrawerNavigator,
   },
 }
 
@@ -52,12 +44,6 @@ export const themeMapping = {
     tab: {
       active: '#af1d1d',
       inactive: 'grey',
-      activeBackground: undefined,
-      inactiveBackground: undefined,
-    },
-    drawer: {
-      active: '#af1d1d',
-      inactive: '#444',
       activeBackground: undefined,
       inactiveBackground: undefined,
     },
@@ -96,12 +82,6 @@ export const themeMapping = {
       activeBackground: undefined,
       inactiveBackground: undefined,
     },
-    drawer: {
-      active: '#007aff',
-      inactive: '#444',
-      activeBackground: undefined,
-      inactiveBackground: undefined,
-    },
     safari: {
       statusBarStyle: 'dark-content',
       text: undefined,
@@ -133,12 +113,6 @@ export const themeMapping = {
   //   tab: {
   //     active: '#007aff',
   //     inactive: '#888',
-  //     activeBackground: undefined,
-  //     inactiveBackground: undefined,
-  //   },
-  //   drawer: {
-  //     active: '#007aff',
-  //     inactive: '#444',
   //     activeBackground: undefined,
   //     inactiveBackground: undefined,
   //   },

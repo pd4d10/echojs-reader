@@ -18,24 +18,6 @@ const CustomHeader = props => {
   return (
     <ThemeConsumer>
       {({ colors }) => {
-        let headerLeft
-        if (props.scene.index === 0 && layout === 'drawer') {
-          headerLeft = (
-            <MaterialIcons
-              name="menu"
-              size={24}
-              color={colors.header.text}
-              style={{ paddingLeft: 16 }}
-              onPress={() => {
-                props.scene.descriptor.navigation.openDrawer()
-              }}
-            />
-          )
-        } else {
-          // Keep headerLeft to undefined so it will use HeaderBackButton
-          // https://github.com/react-navigation/react-navigation-stack/blob/master/src/views/Header/Header.js#L202
-        }
-
         const addOptionsToScene = scene => ({
           ...scene,
           descriptor: {
@@ -46,7 +28,6 @@ const CustomHeader = props => {
               headerStyle: {
                 backgroundColor: colors.header.background,
               },
-              headerLeft,
             },
           },
         })

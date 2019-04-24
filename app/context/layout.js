@@ -23,7 +23,7 @@ export class LayoutProvider extends React.Component {
     } else {
       return Platform.select({
         ios: 'bottom-tab',
-        android: 'drawer',
+        android: 'material-bottom-tab',
       })
     }
   }

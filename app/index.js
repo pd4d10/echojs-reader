@@ -10,11 +10,7 @@ import {
   LayoutContext,
   SettingsContext,
 } from './context'
-import {
-  BottomTabNavigator,
-  DrawerNavigator,
-  MaterialBottomTabNavigator,
-} from './navigators'
+import { BottomTabNavigator, MaterialBottomTabNavigator } from './navigators'
 
 const CustomStatusBar = () => (
   <ThemeConsumer>
@@ -48,8 +44,6 @@ const Navigator = () => (
         <LayoutContext.Consumer>
           {({ layout }) => {
             switch (layout) {
-              case 'drawer':
-                return <DrawerNavigator />
               case 'bottom-tab':
                 return <BottomTabNavigator />
               case 'material-bottom-tab':
@@ -71,8 +65,6 @@ const Navigator = () => (
 //   const { layout } = React.useContext(LayoutContext)
 
 //   switch (layout) {
-//     case 'drawer':
-//       return <DrawerNavigator />
 //     case 'bottom-tab':
 //       return <BottomTabNavigator />
 //     case 'material-bottom-tab':
