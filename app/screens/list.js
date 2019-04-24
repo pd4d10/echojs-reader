@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, View, FlatList } from 'react-native'
 import { ThemeConsumer, AuthConsumer } from '../context'
 import { MyActivityIndicator } from '../components/icons'
-import PostItem from '../components/post'
+import { PostItem } from '../components/post'
 
 const PAGE_SIZE = 30
 

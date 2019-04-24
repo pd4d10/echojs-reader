@@ -4,11 +4,11 @@ import {
   LayoutProvider,
   ThemeProvider,
   SettingsProvider,
-  SettingsConsumer,
-  LayoutConsumer,
   ThemeConsumer,
   AuthProvider,
   AuthConsumer,
+  LayoutContext,
+  SettingsContext,
 } from './context'
 import {
   BottomTabNavigator,
@@ -20,7 +20,7 @@ const CustomStatusBar = () => (
   <ThemeConsumer>
     {({ colors }) =>
       colors && (
-        <SettingsConsumer>
+        <SettingsContext.Consumer>
           {({ isInSafariView }) => (
             <StatusBar
               barStyle={Platform.select({
@@ -33,7 +33,7 @@ const CustomStatusBar = () => (
               })}
             />
           )}
-        </SettingsConsumer>
+        </SettingsContext.Consumer>
       )
     }
   </ThemeConsumer>
@@ -45,7 +45,7 @@ const Navigator = () => (
       // Make sure user auth is loaded
       // So all fetch in componentDidMount works correctly
       isLoaded && (
-        <LayoutConsumer>
+        <LayoutContext.Consumer>
           {({ layout }) => {
             switch (layout) {
               case 'drawer':
@@ -56,11 +56,33 @@ const Navigator = () => (
                 return <MaterialBottomTabNavigator />
             }
           }}
-        </LayoutConsumer>
+        </LayoutContext.Consumer>
       )
     }
   </AuthConsumer>
 )
+
+// const Navigator = () => {
+//   const { isLoaded } = React.useContext(AuthContext)
+//   // Make sure user auth is loaded
+//   // So all fetch in componentDidMount works correctly
+//   if (!isLoaded) return null
+
+//   const { layout } = React.useContext(LayoutContext)
+
+//   switch (layout) {
+//     case 'drawer':
+//       return <DrawerNavigator />
+//     case 'bottom-tab':
+//       return <BottomTabNavigator />
+//     case 'material-bottom-tab':
+//       return <MaterialBottomTabNavigator />
+//     default:
+//       return null
+//   }
+//   // console.log(isLoaded, layout)
+//   // return isLoaded && layout && <BottomTabNavigator />
+// }
 
 export default class App extends React.Component {
   render() {

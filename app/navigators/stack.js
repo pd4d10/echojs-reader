@@ -7,61 +7,62 @@ import {
   DetailScreen,
   SettingsScreen,
 } from '../screens'
-import { LayoutConsumer, ThemeConsumer } from '../context'
+import { ThemeConsumer, LayoutContext } from '../context'
 import { LoginScreen } from '../screens/login'
 
 // HACK: This is a hack to dynamic change header's style
-const CustomHeader = props => (
-  <LayoutConsumer>
-    {({ layout }) => (
-      <ThemeConsumer>
-        {({ colors }) => {
-          let headerLeft
-          if (props.scene.index === 0 && layout === 'drawer') {
-            headerLeft = (
-              <MaterialIcons
-                name="menu"
-                size={24}
-                color={colors.header.text}
-                style={{ paddingLeft: 16 }}
-                onPress={() => {
-                  props.scene.descriptor.navigation.openDrawer()
-                }}
-              />
-            )
-          } else {
-            // Keep headerLeft to undefined so it will use HeaderBackButton
-            // https://github.com/react-navigation/react-navigation-stack/blob/master/src/views/Header/Header.js#L202
-          }
+const CustomHeader = props => {
+  // const { layout } = React.useContext(LayoutContext)
+  const layout = '' // FIXME:
 
-          const addOptionsToScene = scene => ({
-            ...scene,
-            descriptor: {
-              ...scene.descriptor,
-              options: {
-                ...scene.descriptor.options,
-                headerTintColor: colors.header.text,
-                headerStyle: {
-                  backgroundColor: colors.header.background,
-                },
-                headerLeft,
+  return (
+    <ThemeConsumer>
+      {({ colors }) => {
+        let headerLeft
+        if (props.scene.index === 0 && layout === 'drawer') {
+          headerLeft = (
+            <MaterialIcons
+              name="menu"
+              size={24}
+              color={colors.header.text}
+              style={{ paddingLeft: 16 }}
+              onPress={() => {
+                props.scene.descriptor.navigation.openDrawer()
+              }}
+            />
+          )
+        } else {
+          // Keep headerLeft to undefined so it will use HeaderBackButton
+          // https://github.com/react-navigation/react-navigation-stack/blob/master/src/views/Header/Header.js#L202
+        }
+
+        const addOptionsToScene = scene => ({
+          ...scene,
+          descriptor: {
+            ...scene.descriptor,
+            options: {
+              ...scene.descriptor.options,
+              headerTintColor: colors.header.text,
+              headerStyle: {
+                backgroundColor: colors.header.background,
               },
+              headerLeft,
             },
-          })
+          },
+        })
 
-          const propsNew = {
-            ...props,
-            scene: addOptionsToScene(props.scene),
-            scenes: props.scenes.map(addOptionsToScene),
-          }
+        const propsNew = {
+          ...props,
+          scene: addOptionsToScene(props.scene),
+          scenes: props.scenes.map(addOptionsToScene),
+        }
 
-          // console.log(propsNew.scenes)
-          return <Header {...propsNew} />
-        }}
-      </ThemeConsumer>
-    )}
-  </LayoutConsumer>
-)
+        // console.log(propsNew.scenes)
+        return <Header {...propsNew} />
+      }}
+    </ThemeConsumer>
+  )
+}
 
 export const TopNavigator = createStackNavigator(
   {

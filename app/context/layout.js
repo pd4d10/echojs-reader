@@ -3,9 +3,7 @@ import { Platform } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { STORAGE_KEYS, layoutMapping } from '../constants'
 
-const LayoutContext = React.createContext()
-
-export const LayoutConsumer = LayoutContext.Consumer
+export const LayoutContext = React.createContext()
 
 export class LayoutProvider extends React.Component {
   state = {
@@ -43,7 +41,11 @@ export class LayoutProvider extends React.Component {
 
     return (
       <LayoutContext.Provider
-        value={{ layout, setLayout, layoutDetail: layoutMapping[layout] }}
+        value={{
+          layout,
+          setLayout,
+          // layoutDetail: layoutMapping[layout],
+        }}
       >
         {this.props.children}
       </LayoutContext.Provider>

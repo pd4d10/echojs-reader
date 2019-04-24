@@ -2,7 +2,7 @@ import React from 'react'
 import AsyncStorage from '@react-native-community/async-storage'
 import { themeMapping, STORAGE_KEYS } from '../constants'
 
-const ThemeContext = React.createContext()
+export const ThemeContext = React.createContext()
 
 export const ThemeConsumer = ThemeContext.Consumer
 

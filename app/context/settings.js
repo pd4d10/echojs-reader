@@ -4,9 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import SafariView from 'react-native-safari-view'
 import { STORAGE_KEYS } from '../constants'
 
-const SettingsContext = React.createContext()
-
-export const SettingsConsumer = SettingsContext.Consumer
+export const SettingsContext = React.createContext()
 
 export class SettingsProvider extends React.Component {
   state = {

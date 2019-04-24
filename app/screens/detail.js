@@ -1,8 +1,8 @@
 import React from 'react'
 import { View, ScrollView } from 'react-native'
 import { MyActivityIndicator } from '../components/icons'
-import { ThemeConsumer, AuthConsumer } from '../context'
-import PostItem from '../components/post'
+import { ThemeContext, AuthContext } from '../context'
+import { PostItem } from '../components/post'
 import CommentItem from '../components/comment'
 
 class Detail extends React.Component {
@@ -66,17 +66,11 @@ class Detail extends React.Component {
   }
 }
 
-export const DetailScreen = props => (
-  <AuthConsumer>
-    {({ getComments, voteNews, auth }) => (
-      <ThemeConsumer>
-        {({ colors }) => (
-          <Detail {...{ colors, getComments, voteNews, auth }} {...props} />
-        )}
-      </ThemeConsumer>
-    )}
-  </AuthConsumer>
-)
+export const DetailScreen = props => {
+  const { getComments, voteNews, auth } = React.useContext(AuthContext)
+  const { colors } = React.useContext(ThemeContext)
+  return <Detail {...{ colors, getComments, voteNews, auth }} {...props} />
+}
 
 DetailScreen.navigationOptions = ({ navigation }) => ({
   title: navigation.getParam('title'),
