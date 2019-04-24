@@ -71,7 +71,7 @@ export const TopNavigator = createStackNavigator(
     Login: LoginScreen,
   },
   {
-    navigationOptions: {
+    defaultNavigationOptions: {
       title: 'Top news',
       header: CustomHeader,
     },
@@ -85,7 +85,7 @@ export const LatestNavigator = createStackNavigator(
     Login: LoginScreen,
   },
   {
-    navigationOptions: {
+    defaultNavigationOptions: {
       title: 'Latest news',
       header: CustomHeader,
     },
@@ -98,7 +98,7 @@ export const SettingsNavigator = createStackNavigator(
     Login: LoginScreen,
   },
   {
-    navigationOptions: {
+    defaultNavigationOptions: {
       title: 'Settings',
       header: CustomHeader,
     },
