@@ -5,6 +5,7 @@ import { createTabNavigator } from 'react-navigation-tabs'
 import { TopIcon, LatestIcon, SettingsIcon } from '../components/icons'
 import { TopNavigator, LatestNavigator, SettingsNavigator } from './stack'
 import { ThemeConsumer } from '../context'
+import { createAppContainer } from 'react-navigation'
 
 class BottomNavigationView extends React.Component {
   _getColor = ({ route }) => {
@@ -73,15 +74,15 @@ class BottomNavigationView extends React.Component {
   }
 }
 
-export const MaterialBottomTabNavigator = createTabNavigator(
-  BottomNavigationView,
-)(
-  {
-    Top: TopNavigator,
-    Latest: LatestNavigator,
-    Settings: SettingsNavigator,
-  },
-  {
-    barStyle: { backgroundColor: '#fff' },
-  },
+export const MaterialBottomTabNavigator = createAppContainer(
+  createTabNavigator(BottomNavigationView)(
+    {
+      Top: TopNavigator,
+      Latest: LatestNavigator,
+      Settings: SettingsNavigator,
+    },
+    {
+      barStyle: { backgroundColor: '#fff' },
+    },
+  ),
 )

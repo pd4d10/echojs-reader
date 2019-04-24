@@ -1,6 +1,9 @@
 import React from 'react'
-import { createBottomTabNavigator } from 'react-navigation'
-import { BottomTabBar } from 'react-navigation-tabs'
+import {
+  createBottomTabNavigator,
+  createAppContainer,
+  BottomTabBar,
+} from 'react-navigation'
 import { TopNavigator, LatestNavigator, SettingsNavigator } from './stack'
 import { TopIcon, LatestIcon, SettingsIcon } from '../components/icons'
 import { ThemeConsumer } from '../context'
@@ -34,14 +37,16 @@ const CustomBottomTabBar = props => (
   </ThemeConsumer>
 )
 
-export const BottomTabNavigator = createBottomTabNavigator(
-  {
-    Top: TopNavigator,
-    Latest: LatestNavigator,
-    Settings: SettingsNavigator,
-  },
-  {
-    initialRouteName: 'Top',
-    tabBarComponent: CustomBottomTabBar,
-  },
+export const BottomTabNavigator = createAppContainer(
+  createBottomTabNavigator(
+    {
+      Top: TopNavigator,
+      Latest: LatestNavigator,
+      Settings: SettingsNavigator,
+    },
+    {
+      initialRouteName: 'Top',
+      tabBarComponent: CustomBottomTabBar,
+    },
+  ),
 )

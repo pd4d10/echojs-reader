@@ -1,6 +1,10 @@
 import React from 'react'
 import { ScrollView, SafeAreaView } from 'react-native'
-import { createDrawerNavigator, DrawerItems } from 'react-navigation'
+import {
+  createAppContainer,
+  createDrawerNavigator,
+  DrawerItems,
+} from 'react-navigation'
 import { TopNavigator, LatestNavigator, SettingsNavigator } from './stack'
 import { LatestIcon, SettingsIcon, TopIcon } from '../components/icons'
 import { ThemeConsumer } from '../context'
@@ -37,13 +41,15 @@ const CustomDrawer = props => (
   </ScrollView>
 )
 
-export const DrawerNavigator = createDrawerNavigator(
-  {
-    Top: TopNavigator,
-    Latest: LatestNavigator,
-    Settings: SettingsNavigator,
-  },
-  {
-    contentComponent: CustomDrawer,
-  },
+export const DrawerNavigator = createAppContainer(
+  createDrawerNavigator(
+    {
+      Top: TopNavigator,
+      Latest: LatestNavigator,
+      Settings: SettingsNavigator,
+    },
+    {
+      contentComponent: CustomDrawer,
+    },
+  ),
 )
