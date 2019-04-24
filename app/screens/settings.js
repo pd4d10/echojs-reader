@@ -11,7 +11,7 @@ import { layoutMapping, themeMapping } from '../constants'
 import CustomSwitch from '../components/switch'
 import { confirm } from '../utils'
 
-export const SettingsScreen = () => {
+export const SettingsScreen = props => {
   const { layout, setLayout } = React.useContext(LayoutContext)
   const { theme, setTheme, colors } = React.useContext(ThemeContext)
   const { auth, username, logout } = React.useContext(AuthContext)
@@ -56,7 +56,7 @@ export const SettingsScreen = () => {
                     title="Login / Create account"
                     color={colors.settings.active}
                     onPress={() => {
-                      this.props.navigation.navigate('Login')
+                      props.navigation.navigate('Login')
                     }}
                   />
                 </View>
