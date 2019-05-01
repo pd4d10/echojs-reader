@@ -7,14 +7,17 @@ export default function CustomSwitch({ ...props }) {
 
   return (
     <Switch
-      // tintColor: iOS: border, Android: inactive background
       {...Platform.select({
         ios: {
-          onTintColor: colors.settings.active, // iOS: background, Android: active background
+          trackColor: {
+            true: colors.settings.active,
+          },
         },
         android: {
-          onTintColor: colors.settings.androidSwitchActiveBackground,
-          thumbTintColor: props.value ? colors.settings.active : undefined,
+          trackColor: {
+            true: colors.settings.androidSwitchActiveBackground,
+          },
+          thumbColor: colors.settings.active,
         },
       })}
       {...props}
