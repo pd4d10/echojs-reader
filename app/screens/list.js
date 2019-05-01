@@ -1,31 +1,49 @@
 import React from 'react'
 import { Text, View, FlatList } from 'react-native'
-import { ThemeConsumer, AuthConsumer } from '../context'
+import { ThemeContext, AuthContext } from '../context'
 import { MyActivityIndicator } from '../components/icons'
 import { PostItem } from '../components/post'
 
 const PAGE_SIZE = 30
 
-class List extends React.Component {
-  state = {
-    isFirstTimeLoading: false,
-    isRefreshing: false,
-    isLoadingMore: false,
-    items: [],
-    isEnd: false,
+const List = ({ navigation, sort }) => {
+  const { colors } = React.useContext(ThemeContext)
+  const { getNews, voteNews, auth } = React.useContext(AuthContext)
+
+  const [first, setFirst] = React.useState(false)
+  const [refreshing, setRefreshing] = React.useState(false)
+  const [loadingMore, setLoadingMore] = React.useState(false)
+  const [items, setItems] = React.useState([])
+  const [end, setEnd] = React.useState(false)
+
+  const fetchData = (anchor = 0) => {
+    return getNews(sort, anchor, PAGE_SIZE)
   }
 
-  componentDidMount() {
-    this.handleFirstTimeFetch()
-  }
-
-  handleError = err => {
+  const handleError = err => {
     alert(err.message)
   }
 
-  updateVote = (id, type) => {
-    this.setState(({ items }) => ({
-      items: items.map(item => {
+  const firstFetch = async () => {
+    try {
+      setFirst(true)
+      const _items = await fetchData()
+      setItems(_items)
+      setEnd(_items.length < PAGE_SIZE)
+    } catch (err) {
+      handleError(err)
+    } finally {
+      setFirst(false)
+    }
+  }
+
+  React.useEffect(() => {
+    firstFetch()
+  }, [])
+
+  const updateVote = (id, type) => {
+    setItems(
+      items.map(item => {
         if (item.id === id) {
           return {
             ...item,
@@ -37,159 +55,120 @@ class List extends React.Component {
           return item
         }
       }),
-    }))
+    )
   }
 
-  fetchData = (anchor = 0) => {
-    return this.props.getNews(this.props.sort, anchor, PAGE_SIZE)
-  }
-
-  handleFirstTimeFetch = async () => {
-    try {
-      this.setState({ isFirstTimeLoading: true })
-      const items = await this.fetchData()
-      this.setState({
-        items,
-        isEnd: items.length < PAGE_SIZE,
-      })
-    } catch (err) {
-      this.handleError(err)
-    } finally {
-      this.setState({ isFirstTimeLoading: false })
-    }
-  }
-
-  handleRefresh = async () => {
-    if (this.state.isRefreshing) return
+  const handleRefresh = async () => {
+    if (refreshing) return
 
     try {
-      this.setState({ isRefreshing: true })
-      const items = await this.fetchData()
-      this.setState({
-        items,
-        isEnd: items.length < PAGE_SIZE,
-      })
+      setRefreshing(true)
+      const _items = await fetchData()
+      setItems(_items)
+      setEnd(_items.length < PAGE_SIZE)
       // Toast.show({
       //   text: 'Refresh success',
       //   position: 'top',
       //   duration: 2000,
       // })
     } catch (err) {
-      this.handleError(err)
+      handleError(err)
     } finally {
-      this.setState({ isRefreshing: false })
+      setRefreshing(false)
     }
   }
 
-  handleLoadMore = async () => {
-    if (this.state.isLoadingMore || this.state.isEnd) return
+  const handleLoadMore = async () => {
+    if (loadingMore || end) return
     try {
-      this.setState({ isLoadingMore: true })
-      let items = await this.fetchData(this.state.items.length)
-      const isEnd = items.length < PAGE_SIZE
+      setLoadingMore(true)
+      let _items = await fetchData(items.length)
+      setEnd(_items.length < PAGE_SIZE)
 
       // Remove duplicated items
-      const idMapper = this.state.items.reduce(
+      const idMapper = items.reduce(
         (obj, item) => ({ ...obj, [item.id]: true }),
         {},
       )
       // console.log(idMapper)
-      items = items.filter(({ id }) => !idMapper[id])
+      _items = _items.filter(({ id }) => !idMapper[id])
       // console.log(items.length)
 
-      this.setState(state => ({
-        items: [...state.items, ...items],
-        isEnd,
-      }))
+      setItems([...items, ..._items])
     } catch (err) {
-      this.handleError(err)
+      handleError(err)
     } finally {
-      this.setState({ isLoadingMore: false })
+      setLoadingMore(false)
     }
   }
 
-  render() {
-    const { colors, voteNews, auth } = this.props
-    return (
-      <View
-        style={{
-          backgroundColor: colors.content.background,
-          flex: 1,
-          justifyContent: 'center',
-        }}
-      >
-        {this.state.isFirstTimeLoading ? (
-          <MyActivityIndicator size="large" />
-        ) : (
-          <FlatList
-            data={this.state.items}
-            renderItem={({ item }) =>
-              item.del ? (
-                <View style={{ padding: 10 }}>
-                  <Text style={{ color: colors.content.user, fontSize: 16 }}>
-                    [deleted news]
-                  </Text>
-                </View>
-              ) : (
-                <PostItem
-                  item={item}
-                  navigation={this.props.navigation}
-                  colors={colors}
-                  voteNews={voteNews}
-                  updateVote={this.updateVote}
-                  auth={auth}
-                />
-              )
-            }
-            keyExtractor={item => item.id}
-            ItemSeparatorComponent={() => (
-              <View
-                style={{
-                  height: 1,
-                  backgroundColor: colors.content.border,
-                }}
-              />
-            )}
-            refreshing={this.state.isRefreshing}
-            onRefresh={this.handleRefresh}
-            onEndReached={this.handleLoadMore}
-            onEndReachedThreshold={0.1}
-            ListFooterComponent={() => (
-              <View
-                style={{
-                  paddingVertical: 20,
-                  height: 56,
-                  borderTopWidth: 1,
-                  borderColor: colors.content.border,
-                  alignItems: 'center',
-                }}
-              >
-                {this.state.isLoadingMore ? (
-                  <MyActivityIndicator />
-                ) : this.state.isEnd ? (
-                  <Text>--- No more data ---</Text>
-                ) : null}
+  return (
+    <View
+      style={{
+        backgroundColor: colors.content.background,
+        flex: 1,
+        justifyContent: 'center',
+      }}
+    >
+      {first ? (
+        <MyActivityIndicator size="large" />
+      ) : (
+        <FlatList
+          data={items}
+          renderItem={({ item }) =>
+            item.del ? (
+              <View style={{ padding: 10 }}>
+                <Text style={{ color: colors.content.user, fontSize: 16 }}>
+                  [deleted news]
+                </Text>
               </View>
-            )}
-          />
-        )}
-      </View>
-    )
-  }
+            ) : (
+              <PostItem
+                item={item}
+                navigation={navigation}
+                colors={colors}
+                voteNews={voteNews}
+                updateVote={updateVote}
+                auth={auth}
+              />
+            )
+          }
+          keyExtractor={item => item.id}
+          ItemSeparatorComponent={() => (
+            <View
+              style={{
+                height: 1,
+                backgroundColor: colors.content.border,
+              }}
+            />
+          )}
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
+          onEndReached={handleLoadMore}
+          onEndReachedThreshold={0.1}
+          ListFooterComponent={() => (
+            <View
+              style={{
+                paddingVertical: 20,
+                height: 56,
+                borderTopWidth: 1,
+                borderColor: colors.content.border,
+                alignItems: 'center',
+              }}
+            >
+              {loadingMore ? (
+                <MyActivityIndicator />
+              ) : end ? (
+                <Text>--- No more data ---</Text>
+              ) : null}
+            </View>
+          )}
+        />
+      )}
+    </View>
+  )
 }
 
-const ListWithProps = props => (
-  <ThemeConsumer>
-    {({ colors }) => (
-      <AuthConsumer>
-        {({ getNews, voteNews, auth }) => (
-          <List {...{ colors, getNews, voteNews, auth, ...props }} />
-        )}
-      </AuthConsumer>
-    )}
-  </ThemeConsumer>
-)
+export const TopScreen = props => <List sort="top" {...props} />
 
-export const TopScreen = props => <ListWithProps sort="top" {...props} />
-
-export const LatestScreen = props => <ListWithProps sort="latest" {...props} />
+export const LatestScreen = props => <List sort="latest" {...props} />

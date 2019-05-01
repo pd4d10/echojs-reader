@@ -1,94 +1,47 @@
 import React from 'react'
 import { StatusBar, Platform } from 'react-native'
 import {
-  LayoutProvider,
   ThemeProvider,
   SettingsProvider,
-  ThemeConsumer,
   AuthProvider,
-  AuthConsumer,
-  LayoutContext,
   SettingsContext,
+  ThemeContext,
+  AuthContext,
 } from './context'
 import { BottomTabNavigator, MaterialBottomTabNavigator } from './navigators'
 
-const CustomStatusBar = () => (
-  <ThemeConsumer>
-    {({ colors }) =>
-      colors && (
-        <SettingsContext.Consumer>
-          {({ isInSafariView }) => (
-            <StatusBar
-              barStyle={Platform.select({
-                ios: isInSafariView
-                  ? colors.safari.statusBarStyle
-                  : colors.header.statusBarStyle,
-              })}
-              backgroundColor={Platform.select({
-                android: colors.header.androidBar,
-              })}
-            />
-          )}
-        </SettingsContext.Consumer>
-      )
-    }
-  </ThemeConsumer>
-)
+const AppContent = () => {
+  const { theme, colors } = React.useContext(ThemeContext)
+  const { isInSafariView } = React.useContext(SettingsContext)
+  const { isLoaded } = React.useContext(AuthContext)
 
-const Navigator = () => (
-  <AuthConsumer>
-    {({ isLoaded }) =>
-      // Make sure user auth is loaded
-      // So all fetch in componentDidMount works correctly
-      isLoaded && (
-        <LayoutContext.Consumer>
-          {({ layout }) => {
-            switch (layout) {
-              case 'bottom-tab':
-                return <BottomTabNavigator />
-              case 'material-bottom-tab':
-                return <MaterialBottomTabNavigator />
-            }
-          }}
-        </LayoutContext.Consumer>
-      )
-    }
-  </AuthConsumer>
-)
+  // Make sure user auth is loaded
+  // So all fetch in componentDidMount works correctly
+  if (!theme || !isLoaded) return null
 
-// const Navigator = () => {
-//   const { isLoaded } = React.useContext(AuthContext)
-//   // Make sure user auth is loaded
-//   // So all fetch in componentDidMount works correctly
-//   if (!isLoaded) return null
-
-//   const { layout } = React.useContext(LayoutContext)
-
-//   switch (layout) {
-//     case 'bottom-tab':
-//       return <BottomTabNavigator />
-//     case 'material-bottom-tab':
-//       return <MaterialBottomTabNavigator />
-//     default:
-//       return null
-//   }
-//   // console.log(isLoaded, layout)
-//   // return isLoaded && layout && <BottomTabNavigator />
-// }
-
-export default class App extends React.Component {
-  render() {
-    return (
-      <AuthProvider>
-        <LayoutProvider>
-          <ThemeProvider>
-            <SettingsProvider>
-              <CustomStatusBar />
-              <Navigator />
-            </SettingsProvider>
-          </ThemeProvider>
-        </LayoutProvider>
-      </AuthProvider>
-    )
-  }
+  return (
+    <>
+      <StatusBar
+        barStyle={Platform.select({
+          ios: isInSafariView
+            ? colors.safari.statusBarStyle
+            : colors.header.statusBarStyle,
+        })}
+        backgroundColor={Platform.select({
+          android: colors.header.androidBar,
+        })}
+      />
+      <BottomTabNavigator />
+    </>
+  )
 }
+
+export const App = () => (
+  <AuthProvider>
+    <ThemeProvider>
+      <SettingsProvider>
+        <AppContent />
+      </SettingsProvider>
+    </ThemeProvider>
+  </AuthProvider>
+)

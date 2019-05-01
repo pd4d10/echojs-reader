@@ -1,18 +1,12 @@
 import React from 'react'
 import { ScrollView, View, Button, Text } from 'react-native'
 import { Cell, Section, TableView } from 'react-native-tableview-simple'
-import {
-  LayoutContext,
-  ThemeContext,
-  AuthContext,
-  SettingsContext,
-} from '../context'
-import { layoutMapping, themeMapping } from '../constants'
+import { ThemeContext, AuthContext, SettingsContext } from '../context'
+import { themeMapping } from '../constants'
 import CustomSwitch from '../components/switch'
 import { confirm } from '../utils'
 
 export const SettingsScreen = props => {
-  const { layout, setLayout } = React.useContext(LayoutContext)
   const { theme, setTheme, colors } = React.useContext(ThemeContext)
   const { auth, username, logout } = React.useContext(AuthContext)
   const {
@@ -63,18 +57,6 @@ export const SettingsScreen = props => {
               }
             />
           )}
-        </Section>
-
-        <Section header="LAYOUT STYLE" sectionTintColor="transparent">
-          {Object.keys(layoutMapping).map(item => (
-            <Cell
-              key={item}
-              title={layoutMapping[item].name}
-              accessory={layout === item ? 'Checkmark' : undefined}
-              accessoryColor={colors.settings.active}
-              onPress={() => setLayout(item)}
-            />
-          ))}
         </Section>
 
         <Section header="THEME" sectionTintColor="transparent">

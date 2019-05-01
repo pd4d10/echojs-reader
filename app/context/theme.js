@@ -6,46 +6,37 @@ export const ThemeContext = React.createContext()
 
 export const ThemeConsumer = ThemeContext.Consumer
 
-export class ThemeProvider extends React.Component {
-  state = {
-    theme: null,
-  }
+export const ThemeProvider = ({ children }) => {
+  const [theme, _setTheme] = React.useState()
 
-  async componentDidMount() {
-    const theme = await AsyncStorage.getItem(STORAGE_KEYS.theme)
-    // alert(theme)
-    this.setState({
-      theme: this.ensureCorrect(theme),
-    })
-  }
-
-  ensureCorrect = theme => {
+  const ensureCorrect = React.useCallback(theme => {
     if (Object.keys(themeMapping).includes(theme)) {
       return theme
     } else {
       return 'echojs'
     }
+  }, [])
+
+  const setTheme = React.useCallback(theme => {
+    theme = ensureCorrect(theme)
+    _setTheme(theme)
+    AsyncStorage.setItem(STORAGE_KEYS.theme, theme)
+  }, [])
+
+  const initTheme = async () => {
+    const theme = await AsyncStorage.getItem(STORAGE_KEYS.theme)
+    _setTheme(ensureCorrect(theme))
   }
 
-  setTheme = async theme => {
-    if (this.state.theme === theme) {
-      return
-    }
-    await AsyncStorage.setItem(STORAGE_KEYS.theme, theme)
-    theme = this.ensureCorrect(theme)
-    this.setState({ theme })
-  }
+  React.useEffect(() => {
+    initTheme()
+  }, [])
 
-  render() {
-    const { theme } = this.state
-    const { setTheme } = this
-
-    return (
-      <ThemeContext.Provider
-        value={{ theme, setTheme, colors: themeMapping[theme] }}
-      >
-        {this.props.children}
-      </ThemeContext.Provider>
-    )
-  }
+  return (
+    <ThemeContext.Provider
+      value={{ theme, setTheme, colors: themeMapping[theme] }}
+    >
+      {children}
+    </ThemeContext.Provider>
+  )
 }

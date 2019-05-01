@@ -7,14 +7,11 @@ import {
   DetailScreen,
   SettingsScreen,
 } from '../screens'
-import { ThemeConsumer, LayoutContext } from '../context'
+import { ThemeConsumer } from '../context'
 import { LoginScreen } from '../screens/login'
 
 // HACK: This is a hack to dynamic change header's style
 const CustomHeader = props => {
-  // const { layout } = React.useContext(LayoutContext)
-  const layout = '' // FIXME:
-
   return (
     <ThemeConsumer>
       {({ colors }) => {

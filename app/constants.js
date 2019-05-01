@@ -1,24 +1,9 @@
-import { BottomTabNavigator, MaterialBottomTabNavigator } from './navigators'
-
 export const STORAGE_KEYS = {
   auth: 'auth',
   username: 'username',
   apisecret: 'apisecret',
-
-  layout: 'layout',
   theme: 'theme',
   useSafariView: 'use-safari-view',
-}
-
-export const layoutMapping = {
-  'bottom-tab': {
-    name: 'Bottom Tab',
-    component: BottomTabNavigator,
-  },
-  'material-bottom-tab': {
-    name: 'Material Bottom Tab',
-    component: MaterialBottomTabNavigator,
-  },
 }
 
 // undefined means use default value
