@@ -42,12 +42,10 @@ export class SettingsProvider extends React.Component {
     }
   }
 
-  setUseSafariView = async useSafariView => {
-    await AsyncStorage.setItem(
-      STORAGE_KEYS.useSafariView,
-      useSafariView.toString(),
-    )
+  setUseSafariView = useSafariView => {
+    // Set state immediately to avoid switch UI delay
     this.setState({ useSafariView })
+    AsyncStorage.setItem(STORAGE_KEYS.useSafariView, useSafariView.toString())
   }
 
   setInSafariView = () => {
