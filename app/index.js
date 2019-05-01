@@ -13,11 +13,11 @@ import { BottomTabNavigator, MaterialBottomTabNavigator } from './navigators'
 const AppContent = () => {
   const { theme, colors } = React.useContext(ThemeContext)
   const { isInSafariView } = React.useContext(SettingsContext)
-  const { isLoaded } = React.useContext(AuthContext)
+  const { ready } = React.useContext(AuthContext)
 
-  // Make sure user auth is loaded
+  // Make sure user auth is ready
   // So all fetch in componentDidMount works correctly
-  if (!theme || !isLoaded) return null
+  if (!theme || !ready) return null
 
   return (
     <>

@@ -6,65 +6,59 @@ import { STORAGE_KEYS } from '../constants'
 
 export const SettingsContext = React.createContext()
 
-export class SettingsProvider extends React.Component {
-  state = {
-    useSafariView: false,
-    isInSafariView: false,
-    isSafariViewAvailable: false,
-    isSafariViewStarted: false,
-  }
+export const SettingsProvider = ({ children }) => {
+  const [useSafariView, setUSV] = React.useState(false)
+  const [isInSafariView, setIn] = React.useState(false)
+  const [isSafariViewAvailable, setA] = React.useState(false)
+  const [isSafariViewStarted, setST] = React.useState(false)
 
-  async componentDidMount() {
+  const init = async () => {
+    const setInSafariView = () => {
+      setIn(true)
+    }
+    const setOutSafariView = () => {
+      setIn(false)
+      setST(false)
+    }
+
     let useSafariView = await AsyncStorage.getItem(STORAGE_KEYS.useSafariView)
-    useSafariView = useSafariView === 'true'
 
-    let isSafariViewAvailable
+    let available
     try {
-      isSafariViewAvailable = await SafariView.isAvailable()
-      if (isSafariViewAvailable) {
-        SafariView.addEventListener('onShow', this.setInSafariView)
-        SafariView.addEventListener('onDismiss', this.setOutSafariView)
+      available = await SafariView.isAvailable()
+      if (available) {
+        SafariView.addEventListener('onShow', setInSafariView)
+        SafariView.addEventListener('onDismiss', setOutSafariView)
       }
     } catch (err) {
-      isSafariViewAvailable = false
+      available = false
     }
 
-    this.setState({
-      useSafariView,
-      isSafariViewAvailable,
-    })
+    setUSV(useSafariView === 'true')
+    setA(available)
   }
 
-  async componentWillUnmount() {
-    if (this.state.isSafariViewAvailable) {
-      SafariView.removeEventListener('onShow', this.setInSafariView)
-      SafariView.removeEventListener('onDismiss', this.setOutSafariView)
+  React.useEffect(() => {
+    init()
+    return () => {
+      if (isSafariViewAvailable) {
+        SafariView.removeEventListener('onShow', setInSafariView)
+        SafariView.removeEventListener('onDismiss', setOutSafariView)
+      }
     }
-  }
+  }, [])
 
-  setUseSafariView = useSafariView => {
+  const setUseSafariView = value => {
     // Set state immediately to avoid switch UI delay
-    this.setState({ useSafariView })
+    setUSV(value)
     AsyncStorage.setItem(STORAGE_KEYS.useSafariView, useSafariView.toString())
   }
 
-  setInSafariView = () => {
-    this.setState({ isInSafariView: true })
-  }
-
-  setOutSafariView = () => {
-    this.setState({
-      isInSafariView: false,
-      isSafariViewStarted: false,
-    })
-  }
-
-  openLink = async (url, colors) => {
-    if (this.state.isSafariViewAvailable && this.state.useSafariView) {
+  const openLink = async (url, colors) => {
+    if (isSafariViewAvailable && useSafariView) {
       // This is to avoid press multi times
-      if (this.state.isSafariViewStarted) return
-
-      this.setState({ isSafariViewStarted: true })
+      if (isSafariViewStarted) return
+      setST(true)
       SafariView.show({
         url,
         tintColor: colors.safari.text,
@@ -75,21 +69,17 @@ export class SettingsProvider extends React.Component {
     }
   }
 
-  render() {
-    const { isInSafariView, useSafariView, isSafariViewAvailable } = this.state
-    const { setUseSafariView, openLink } = this
-    return (
-      <SettingsContext.Provider
-        value={{
-          isInSafariView,
-          useSafariView,
-          isSafariViewAvailable,
-          setUseSafariView,
-          openLink,
-        }}
-      >
-        {this.props.children}
-      </SettingsContext.Provider>
-    )
-  }
+  return (
+    <SettingsContext.Provider
+      value={{
+        isInSafariView,
+        useSafariView,
+        isSafariViewAvailable,
+        setUseSafariView,
+        openLink,
+      }}
+    >
+      {children}
+    </SettingsContext.Provider>
+  )
 }

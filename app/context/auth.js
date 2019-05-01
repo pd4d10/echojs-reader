@@ -1,30 +1,31 @@
 import React from 'react'
-import { Platform } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { STORAGE_KEYS } from '../constants'
 
 export const AuthContext = React.createContext()
 
-export const AuthConsumer = AuthContext.Consumer
+export const AuthProvider = ({ children }) => {
+  const [auth, setAuth] = React.useState()
+  const [username, setUsername] = React.useState()
+  const [secret, setSecret] = React.useState()
+  const [ready, setReady] = React.useState(false)
 
-export class AuthProvider extends React.Component {
-  state = {
-    auth: null,
-    username: null,
-    apisecret: null,
-    isLoaded: false,
-  }
-
-  async componentDidMount() {
-    const [[, auth], [, username], [, apisecret]] = await AsyncStorage.multiGet(
-      [STORAGE_KEYS.auth, STORAGE_KEYS.username, STORAGE_KEYS.apisecret],
+  const init = async () => {
+    const [[, _auth], [, _username], [, _secret]] = await AsyncStorage.multiGet(
+      [STORAGE_KEYS.auth, STORAGE_KEYS.username, STORAGE_KEYS.secret],
     )
-    console.log(auth, username, apisecret)
-    this.setState({ auth, username, apisecret, isLoaded: true })
+    // console.log(_auth, _username, _secret)
+    setAuth(_auth)
+    setUsername(_username)
+    setSecret(_secret)
+    setReady(true)
   }
 
-  fetchWithAuth = async (url, opts = {}) => {
-    const { auth } = this.state
+  React.useEffect(() => {
+    init()
+  }, [])
+
+  const fetchWithAuth = async (url, opts = {}) => {
     if (auth) {
       opts.headers = opts.headers || {}
       opts.headers.Cookie = `auth=${auth}`
@@ -37,31 +38,33 @@ export class AuthProvider extends React.Component {
     return json
   }
 
-  login = async (username, password) => {
-    const { auth, apisecret } = await this.fetchWithAuth(
+  const login = async (username, password) => {
+    const { auth, secret } = await fetchWithAuth(
       `/login?username=${username}&password=${password}`,
     )
     await AsyncStorage.multiSet([
       [STORAGE_KEYS.auth, auth],
       [STORAGE_KEYS.username, username],
-      [STORAGE_KEYS.apisecret, apisecret],
+      [STORAGE_KEYS.secret, secret],
     ])
-    this.setState({ auth, username, apisecret })
+    setAuth(auth)
+    setUsername(username)
+    setSecret(secret)
   }
 
-  createAccount = async (username, password) => {
-    const { auth, apisecret } = await this.fetchWithAuth(
+  const createAccount = async (username, password) => {
+    const { auth, secret } = await fetchWithAuth(
       `/create_account?username=${username}&password=${password}`,
       { method: 'POST' },
     )
-    // Seems EchoJS's create account API does not return apisecret
+    // Seems EchoJS's create account API does not return secret
     // So don't use any data from this API
     // Just create account and call login API again to login
   }
 
-  logout = async () => {
+  const logout = async () => {
     try {
-      await this.fetchWithAuth(`/logout?apisecret=${this.state.apisecret}`, {
+      await fetchWithAuth(`/logout?secret=${secret}`, {
         method: 'POST',
       })
     } catch (err) {
@@ -69,70 +72,29 @@ export class AuthProvider extends React.Component {
       await AsyncStorage.multiRemove([
         STORAGE_KEYS.auth,
         STORAGE_KEYS.username,
-        STORAGE_KEYS.apisecret,
+        STORAGE_KEYS.secret,
       ])
-      this.setState({ auth: null, username: null, apisecret: null })
+      setAuth(null)
+      setUsername(null)
+      setSecret(null)
     }
   }
 
-  getNews = async (sort, start, count) => {
-    // // For slow network testing
-    // const json = await new Promise(resolve => {
-    //   setTimeout(() => resolve(require('../../mock')), 1000)
-    // })
-    // return json.news.map(x => ({ ...x, id: Math.random().toString() }))
-
-    const { news } = await this.fetchWithAuth(
-      `/getnews/${sort}/${start}/${count}`,
+  return (
+    ready && (
+      <AuthContext.Provider
+        value={{
+          auth,
+          ready,
+          username,
+          login,
+          createAccount,
+          logout,
+          fetchWithAuth,
+        }}
+      >
+        {children}
+      </AuthContext.Provider>
     )
-    return news
-  }
-
-  getComments = async id => {
-    const { comments } = await this.fetchWithAuth(`/getcomments/${id}`)
-    return comments.sort((a, b) => a.ctime - b.ctime) // Sort by time
-  }
-
-  voteNews = async (id, type) => {
-    return await this.fetchWithAuth(
-      `/votenews?news_id=${id}&vote_type=${type}&apisecret=${
-        this.state.apisecret
-      }`,
-      {
-        method: 'POST',
-      },
-    )
-  }
-
-  render() {
-    const { auth, isLoaded, username } = this.state
-    const {
-      login,
-      createAccount,
-      logout,
-      getNews,
-      getComments,
-      voteNews,
-    } = this
-
-    return (
-      isLoaded && (
-        <AuthContext.Provider
-          value={{
-            auth,
-            isLoaded,
-            username,
-            login,
-            createAccount,
-            logout,
-            getNews,
-            getComments,
-            voteNews,
-          }}
-        >
-          {this.props.children}
-        </AuthContext.Provider>
-      )
-    )
-  }
+  )
 }

@@ -3,12 +3,23 @@ import { Text, View, TouchableOpacity, Alert, Platform } from 'react-native'
 import distanceInWords from 'date-fns/distance_in_words'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import ActionSheet from 'react-native-actionsheet'
-import { SettingsContext } from '../context'
+import { SettingsContext, AuthContext } from '../context'
 import { Vote } from './vote'
 import { getHostFromUrl } from '../utils'
 
 export const PostItem = props => {
+  const { auth, fetchWithAuth } = React.useContext(AuthContext)
+
   const [actionSheet, setActionSheet] = React.useState(null)
+
+  const voteNews = async (id, type) => {
+    return await fetchWithAuth(
+      `/votenews?news_id=${id}&vote_type=${type}&secret=${secret}`,
+      {
+        method: 'POST',
+      },
+    )
+  }
 
   const isText = React.useCallback(() => {
     return props.item.url.startsWith('text://')
@@ -86,7 +97,7 @@ export const PostItem = props => {
           <TouchableOpacity
             style={{ flex: 1 }}
             onPress={() => {
-              if (!props.auth) {
+              if (!auth) {
                 props.navigation.navigate('Login')
                 return
               }
@@ -111,10 +122,10 @@ export const PostItem = props => {
                 try {
                   switch (index) {
                     case 0:
-                      await props.voteNews(item.id, 'up')
+                      await voteNews(item.id, 'up')
                       props.updateVote(item.id, 'up')
                     case 1:
-                      await props.voteNews(item.id, 'down')
+                      await voteNews(item.id, 'down')
                       props.updateVote(item.id, 'down')
                   }
                 } catch (err) {

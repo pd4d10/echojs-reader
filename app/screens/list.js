@@ -3,12 +3,13 @@ import { Text, View, FlatList } from 'react-native'
 import { ThemeContext, AuthContext } from '../context'
 import { MyActivityIndicator } from '../components/icons'
 import { PostItem } from '../components/post'
+import { handleError } from '../utils'
 
 const PAGE_SIZE = 30
 
 const List = ({ navigation, sort }) => {
   const { colors } = React.useContext(ThemeContext)
-  const { getNews, voteNews, auth } = React.useContext(AuthContext)
+  const { fetchWithAuth } = React.useContext(AuthContext)
 
   const [first, setFirst] = React.useState(false)
   const [refreshing, setRefreshing] = React.useState(false)
@@ -16,12 +17,17 @@ const List = ({ navigation, sort }) => {
   const [items, setItems] = React.useState([])
   const [end, setEnd] = React.useState(false)
 
-  const fetchData = (anchor = 0) => {
-    return getNews(sort, anchor, PAGE_SIZE)
-  }
+  const fetchData = async (anchor = 0) => {
+    // // For slow network testing
+    // const json = await new Promise(resolve => {
+    //   setTimeout(() => resolve(require('../../mock')), 1000)
+    // })
+    // return json.news.map(x => ({ ...x, id: Math.random().toString() }))
 
-  const handleError = err => {
-    alert(err.message)
+    const { news } = await fetchWithAuth(
+      `/getnews/${sort}/${anchor}/${PAGE_SIZE}`,
+    )
+    return news
   }
 
   const firstFetch = async () => {
@@ -127,9 +133,7 @@ const List = ({ navigation, sort }) => {
                 item={item}
                 navigation={navigation}
                 colors={colors}
-                voteNews={voteNews}
                 updateVote={updateVote}
-                auth={auth}
               />
             )
           }

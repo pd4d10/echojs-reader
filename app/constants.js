@@ -1,7 +1,7 @@
 export const STORAGE_KEYS = {
   auth: 'auth',
   username: 'username',
-  apisecret: 'apisecret',
+  secret: 'secret',
   theme: 'theme',
   useSafariView: 'use-safari-view',
 }
