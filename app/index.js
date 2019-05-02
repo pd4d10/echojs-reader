@@ -14,6 +14,11 @@ const AppContent = () => {
   const { colors } = React.useContext(ThemeContext)
   const { inSv } = React.useContext(SettingsContext)
 
+  const Navigator = Platform.select({
+    ios: BottomTabNavigator,
+    android: MaterialBottomTabNavigator,
+  })
+
   return (
     <>
       <StatusBar
@@ -26,7 +31,7 @@ const AppContent = () => {
           android: colors.header.androidBar,
         })}
       />
-      <BottomTabNavigator />
+      <Navigator />
     </>
   )
 }

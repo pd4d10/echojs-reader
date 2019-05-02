@@ -6,36 +6,36 @@ import {
 } from 'react-navigation'
 import { TopNavigator, LatestNavigator, SettingsNavigator } from './stack'
 import { TopIcon, LatestIcon, SettingsIcon } from '../components/icons'
-import { ThemeConsumer } from '../context'
+import { ThemeContext } from '../context'
 
-const CustomBottomTabBar = props => (
-  <ThemeConsumer>
-    {({ colors }) => (
-      <BottomTabBar
-        {...props}
-        activeTintColor={colors.tab.active}
-        inactiveTintColor={colors.tab.inactive}
-        activeBackgroundColor={colors.tab.activeBackground}
-        inactiveBackgroundColor={colors.tab.inactiveBackground}
-        renderIcon={({ route, focused }) => {
-          const props = {
-            color: focused ? colors.tab.active : colors.tab.inactive,
-            size: 24,
-          }
+const CustomBottomTabBar = props => {
+  const { colors } = React.useContext(ThemeContext)
 
-          switch (route.routeName) {
-            case 'Top':
-              return <TopIcon {...props} />
-            case 'Latest':
-              return <LatestIcon {...props} />
-            case 'Settings':
-              return <SettingsIcon {...props} />
-          }
-        }}
-      />
-    )}
-  </ThemeConsumer>
-)
+  return (
+    <BottomTabBar
+      {...props}
+      activeTintColor={colors.tab.active}
+      inactiveTintColor={colors.tab.inactive}
+      activeBackgroundColor={colors.tab.activeBackground}
+      inactiveBackgroundColor={colors.tab.inactiveBackground}
+      renderIcon={({ route, focused }) => {
+        const props = {
+          color: focused ? colors.tab.active : colors.tab.inactive,
+          size: 24,
+        }
+
+        switch (route.routeName) {
+          case 'Top':
+            return <TopIcon {...props} />
+          case 'Latest':
+            return <LatestIcon {...props} />
+          case 'Settings':
+            return <SettingsIcon {...props} />
+        }
+      }}
+    />
+  )
+}
 
 export const BottomTabNavigator = createAppContainer(
   createBottomTabNavigator(

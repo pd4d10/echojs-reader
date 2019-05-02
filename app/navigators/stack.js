@@ -7,13 +7,13 @@ import {
   DetailScreen,
   SettingsScreen,
 } from '../screens'
-import { ThemeConsumer } from '../context'
+import { ThemeContext } from '../context'
 import { LoginScreen } from '../screens/login'
 
 // HACK: This is a hack to dynamic change header's style
 const CustomHeader = props => {
   return (
-    <ThemeConsumer>
+    <ThemeContext.Consumer>
       {({ colors }) => {
         const addOptionsToScene = scene => ({
           ...scene,
@@ -38,7 +38,7 @@ const CustomHeader = props => {
         // console.log(propsNew.scenes)
         return <Header {...propsNew} />
       }}
-    </ThemeConsumer>
+    </ThemeContext.Consumer>
   )
 }
 

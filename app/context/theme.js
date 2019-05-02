@@ -4,8 +4,6 @@ import { themeMapping, STORAGE_KEYS } from '../constants'
 
 export const ThemeContext = React.createContext()
 
-export const ThemeConsumer = ThemeContext.Consumer
-
 export const ThemeProvider = ({ children }) => {
   const [theme, _setTheme] = React.useState()
 
