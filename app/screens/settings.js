@@ -9,12 +9,9 @@ import { confirm } from '../utils'
 export const SettingsScreen = props => {
   const { theme, setTheme, colors } = React.useContext(ThemeContext)
   const { auth, username, logout } = React.useContext(AuthContext)
-  const {
-    useSafariView,
-    isSafariViewAvailable,
-    setUseSafariView,
-    openLink,
-  } = React.useContext(SettingsContext)
+  const { svEnable, svAvailable, setSvEnable, openLink } = React.useContext(
+    SettingsContext,
+  )
 
   return (
     <ScrollView
@@ -71,14 +68,11 @@ export const SettingsScreen = props => {
           ))}
         </Section>
 
-        {isSafariViewAvailable && (
+        {svAvailable && (
           <Section sectionTintColor="transparent">
             <Cell
               cellAccessoryView={
-                <CustomSwitch
-                  value={useSafariView}
-                  onValueChange={setUseSafariView}
-                />
+                <CustomSwitch value={svEnable} onValueChange={setSvEnable} />
               }
               title="Open Links In Safari View"
             />

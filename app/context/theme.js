@@ -23,14 +23,14 @@ export const ThemeProvider = ({ children }) => {
     AsyncStorage.setItem(STORAGE_KEYS.theme, theme)
   }, [])
 
-  const initTheme = async () => {
-    const theme = await AsyncStorage.getItem(STORAGE_KEYS.theme)
-    _setTheme(ensureCorrect(theme))
-  }
-
   React.useEffect(() => {
-    initTheme()
+    ;(async () => {
+      const theme = await AsyncStorage.getItem(STORAGE_KEYS.theme)
+      _setTheme(ensureCorrect(theme))
+    })()
   }, [])
+
+  if (!theme) return null
 
   return (
     <ThemeContext.Provider

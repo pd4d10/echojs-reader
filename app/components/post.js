@@ -3,31 +3,32 @@ import { Text, View, TouchableOpacity, Alert, Platform } from 'react-native'
 import distanceInWords from 'date-fns/distance_in_words'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import ActionSheet from 'react-native-actionsheet'
-import { SettingsContext, AuthContext } from '../context'
+import { SettingsContext, AuthContext, ThemeContext } from '../context'
 import { Vote } from './vote'
 import { getHostFromUrl } from '../utils'
 
 export const PostItem = props => {
   const { auth, fetchWithAuth } = React.useContext(AuthContext)
+  const { openLink } = React.useContext(SettingsContext)
+  const { colors } = React.useContext(ThemeContext)
 
   const [actionSheet, setActionSheet] = React.useState(null)
 
-  const voteNews = async (id, type) => {
+  const voteNews = React.useCallback(async (id, type) => {
     return await fetchWithAuth(
       `/votenews?news_id=${id}&vote_type=${type}&secret=${secret}`,
       {
         method: 'POST',
       },
     )
-  }
+  }, [])
 
   const isText = React.useCallback(() => {
     return props.item.url.startsWith('text://')
   }, [props.item])
 
   const now = Date.now()
-  const { item, hasCommentLink = true, colors } = props
-  const { openLink } = React.useContext(SettingsContext)
+  const { item, hasCommentLink = true } = props
 
   return (
     <View

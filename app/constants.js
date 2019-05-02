@@ -3,7 +3,7 @@ export const STORAGE_KEYS = {
   username: 'username',
   secret: 'secret',
   theme: 'theme',
-  useSafariView: 'use-safari-view',
+  safariView: 'safariView',
 }
 
 // undefined means use default value

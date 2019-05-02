@@ -11,19 +11,14 @@ import {
 import { BottomTabNavigator, MaterialBottomTabNavigator } from './navigators'
 
 const AppContent = () => {
-  const { theme, colors } = React.useContext(ThemeContext)
-  const { isInSafariView } = React.useContext(SettingsContext)
-  const { ready } = React.useContext(AuthContext)
-
-  // Make sure user auth is ready
-  // So all fetch in componentDidMount works correctly
-  if (!theme || !ready) return null
+  const { colors } = React.useContext(ThemeContext)
+  const { inSv } = React.useContext(SettingsContext)
 
   return (
     <>
       <StatusBar
         barStyle={Platform.select({
-          ios: isInSafariView
+          ios: inSv
             ? colors.safari.statusBarStyle
             : colors.header.statusBarStyle,
         })}

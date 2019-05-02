@@ -12,22 +12,20 @@ export const DetailScreen = ({ navigation }) => {
   const [loading, setLoading] = React.useState(false)
   const [comments, setComments] = React.useState([])
 
-  const init = async () => {
-    try {
-      setLoading(true)
-      const id = navigation.getParam('id')
-      // const id = 22273
-      const json = await fetchWithAuth(`/getcomments/${id}`)
-      setComments(json.comments.sort((a, b) => a.ctime - b.ctime)) // Sort by time
-    } catch (err) {
-      handleError(err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
   React.useEffect(() => {
-    init()
+    ;(async () => {
+      try {
+        setLoading(true)
+        const id = navigation.getParam('id')
+        // const id = 22273
+        const json = await fetchWithAuth(`/getcomments/${id}`)
+        setComments(json.comments.sort((a, b) => a.ctime - b.ctime)) // Sort by time
+      } catch (err) {
+        handleError(err)
+      } finally {
+        setLoading(false)
+      }
+    })()
   }, [])
 
   return (
@@ -41,7 +39,6 @@ export const DetailScreen = ({ navigation }) => {
         item={navigation.state.params}
         hasCommentLink={false}
         navigation={navigation}
-        colors={colors}
       />
       <View
         style={{

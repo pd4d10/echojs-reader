@@ -17,37 +17,38 @@ const List = ({ navigation, sort }) => {
   const [items, setItems] = React.useState([])
   const [end, setEnd] = React.useState(false)
 
-  const fetchData = async (anchor = 0) => {
-    // // For slow network testing
-    // const json = await new Promise(resolve => {
-    //   setTimeout(() => resolve(require('../../mock')), 1000)
-    // })
-    // return json.news.map(x => ({ ...x, id: Math.random().toString() }))
+  const fetchData = React.useCallback(
+    async (anchor = 0) => {
+      // // For slow network testing
+      // const json = await new Promise(resolve => {
+      //   setTimeout(() => resolve(require('../../mock')), 1000)
+      // })
+      // return json.news.map(x => ({ ...x, id: Math.random().toString() }))
 
-    const { news } = await fetchWithAuth(
-      `/getnews/${sort}/${anchor}/${PAGE_SIZE}`,
-    )
-    return news
-  }
-
-  const firstFetch = async () => {
-    try {
-      setFirst(true)
-      const _items = await fetchData()
-      setItems(_items)
-      setEnd(_items.length < PAGE_SIZE)
-    } catch (err) {
-      handleError(err)
-    } finally {
-      setFirst(false)
-    }
-  }
+      const { news } = await fetchWithAuth(
+        `/getnews/${sort}/${anchor}/${PAGE_SIZE}`,
+      )
+      return news
+    },
+    [sort],
+  )
 
   React.useEffect(() => {
-    firstFetch()
+    ;(async () => {
+      try {
+        setFirst(true)
+        const _items = await fetchData()
+        setItems(_items)
+        setEnd(_items.length < PAGE_SIZE)
+      } catch (err) {
+        handleError(err)
+      } finally {
+        setFirst(false)
+      }
+    })()
   }, [])
 
-  const updateVote = (id, type) => {
+  const updateVote = React.useCallback((id, type) => {
     setItems(
       items.map(item => {
         if (item.id === id) {
@@ -62,7 +63,7 @@ const List = ({ navigation, sort }) => {
         }
       }),
     )
-  }
+  }, [])
 
   const handleRefresh = async () => {
     if (refreshing) return
@@ -132,7 +133,6 @@ const List = ({ navigation, sort }) => {
               <PostItem
                 item={item}
                 navigation={navigation}
-                colors={colors}
                 updateVote={updateVote}
               />
             )

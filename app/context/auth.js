@@ -10,22 +10,26 @@ export const AuthProvider = ({ children }) => {
   const [secret, setSecret] = React.useState()
   const [ready, setReady] = React.useState(false)
 
-  const init = async () => {
-    const [[, _auth], [, _username], [, _secret]] = await AsyncStorage.multiGet(
-      [STORAGE_KEYS.auth, STORAGE_KEYS.username, STORAGE_KEYS.secret],
-    )
-    // console.log(_auth, _username, _secret)
-    setAuth(_auth)
-    setUsername(_username)
-    setSecret(_secret)
-    setReady(true)
-  }
-
   React.useEffect(() => {
-    init()
+    ;(async () => {
+      const [
+        [, _auth],
+        [, _username],
+        [, _secret],
+      ] = await AsyncStorage.multiGet([
+        STORAGE_KEYS.auth,
+        STORAGE_KEYS.username,
+        STORAGE_KEYS.secret,
+      ])
+      // console.log(_auth, _username, _secret)
+      setAuth(_auth)
+      setUsername(_username)
+      setSecret(_secret)
+      setReady(true)
+    })()
   }, [])
 
-  const fetchWithAuth = async (url, opts = {}) => {
+  const fetchWithAuth = React.useCallback(async (url, opts = {}) => {
     if (auth) {
       opts.headers = opts.headers || {}
       opts.headers.Cookie = `auth=${auth}`
@@ -36,9 +40,9 @@ export const AuthProvider = ({ children }) => {
       throw new Error(json.error)
     }
     return json
-  }
+  }, [])
 
-  const login = async (username, password) => {
+  const login = React.useCallback(async (username, password) => {
     const { auth, secret } = await fetchWithAuth(
       `/login?username=${username}&password=${password}`,
     )
@@ -50,19 +54,19 @@ export const AuthProvider = ({ children }) => {
     setAuth(auth)
     setUsername(username)
     setSecret(secret)
-  }
+  }, [])
 
-  const createAccount = async (username, password) => {
-    const { auth, secret } = await fetchWithAuth(
+  const createAccount = React.useCallback(async (username, password) => {
+    await fetchWithAuth(
       `/create_account?username=${username}&password=${password}`,
       { method: 'POST' },
     )
     // Seems EchoJS's create account API does not return secret
     // So don't use any data from this API
     // Just create account and call login API again to login
-  }
+  }, [])
 
-  const logout = async () => {
+  const logout = React.useCallback(async () => {
     try {
       await fetchWithAuth(`/logout?secret=${secret}`, {
         method: 'POST',
@@ -78,23 +82,23 @@ export const AuthProvider = ({ children }) => {
       setUsername(null)
       setSecret(null)
     }
-  }
+  }, [])
+
+  if (!ready) return null
 
   return (
-    ready && (
-      <AuthContext.Provider
-        value={{
-          auth,
-          ready,
-          username,
-          login,
-          createAccount,
-          logout,
-          fetchWithAuth,
-        }}
-      >
-        {children}
-      </AuthContext.Provider>
-    )
+    <AuthContext.Provider
+      value={{
+        auth,
+        ready,
+        username,
+        login,
+        createAccount,
+        logout,
+        fetchWithAuth,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
   )
 }
