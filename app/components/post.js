@@ -8,7 +8,7 @@ import { Vote } from './vote'
 import { getHostFromUrl } from '../utils'
 
 export const PostItem = props => {
-  const { auth, fetchWithAuth } = React.useContext(AuthContext)
+  const { auth, secret, fetchWithAuth } = React.useContext(AuthContext)
   const { openLink } = React.useContext(SettingsContext)
   const { colors } = React.useContext(ThemeContext)
 
