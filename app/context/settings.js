@@ -53,20 +53,23 @@ export const SettingsProvider = ({ children }) => {
     AsyncStorage.setItem(STORAGE_KEYS.safariView, value.toString())
   }, [])
 
-  const openLink = React.useCallback(async (url, colors) => {
-    if (svAvailable && svEnable) {
-      // This is to avoid press multi times
-      if (svStarted) return
-      setSvStarted(true)
-      SafariView.show({
-        url,
-        tintColor: colors.safari.text,
-        barTintColor: colors.safari.background,
-      })
-    } else {
-      Linking.openURL(url)
-    }
-  }, [])
+  const openLink = React.useCallback(
+    async (url, colors) => {
+      if (svAvailable && svEnable) {
+        // This is to avoid press multi times
+        if (svStarted) return
+        setSvStarted(true)
+        SafariView.show({
+          url,
+          tintColor: colors.safari.text,
+          barTintColor: colors.safari.background,
+        })
+      } else {
+        Linking.openURL(url)
+      }
+    },
+    [svAvailable, svEnable, svStarted],
+  )
 
   return (
     <SettingsContext.Provider
