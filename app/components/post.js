@@ -14,9 +14,9 @@ export const PostItem = props => {
 
   const [actionSheet, setActionSheet] = React.useState(null)
 
-  const voteNews = React.useCallback(async (id, type) => {
+  const vote = React.useCallback(async (id, type) => {
     return await fetchWithAuth(
-      `/votenews?news_id=${id}&vote_type=${type}&secret=${secret}`,
+      `/votenews?news_id=${id}&vote_type=${type}&apisecret=${secret}`,
       {
         method: 'POST',
       },
@@ -123,10 +123,10 @@ export const PostItem = props => {
                 try {
                   switch (index) {
                     case 0:
-                      await voteNews(item.id, 'up')
+                      await vote(item.id, 'up')
                       props.updateVote(item.id, 'up')
                     case 1:
-                      await voteNews(item.id, 'down')
+                      await vote(item.id, 'down')
                       props.updateVote(item.id, 'down')
                   }
                 } catch (err) {

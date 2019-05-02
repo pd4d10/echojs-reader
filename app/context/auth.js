@@ -42,18 +42,18 @@ export const AuthProvider = ({ children }) => {
     return json
   }, [])
 
-  const login = React.useCallback(async (username, password) => {
-    const { auth, secret } = await fetchWithAuth(
-      `/login?username=${username}&password=${password}`,
+  const login = React.useCallback(async (_username, password) => {
+    const json = await fetchWithAuth(
+      `/login?username=${_username}&password=${password}`,
     )
     await AsyncStorage.multiSet([
-      [STORAGE_KEYS.auth, auth],
-      [STORAGE_KEYS.username, username],
-      [STORAGE_KEYS.secret, secret],
+      [STORAGE_KEYS.auth, json.auth],
+      [STORAGE_KEYS.username, _username],
+      [STORAGE_KEYS.secret, json.apisecret],
     ])
-    setAuth(auth)
-    setUsername(username)
-    setSecret(secret)
+    setAuth(json.auth)
+    setUsername(_username)
+    setSecret(json.apisecret)
   }, [])
 
   const createAccount = React.useCallback(async (username, password) => {
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = React.useCallback(async () => {
     try {
-      await fetchWithAuth(`/logout?secret=${secret}`, {
+      await fetchWithAuth(`/logout?apisecret=${secret}`, {
         method: 'POST',
       })
     } catch (err) {
