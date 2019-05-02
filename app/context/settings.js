@@ -50,7 +50,7 @@ export const SettingsProvider = ({ children }) => {
   const setSvEnable = React.useCallback(value => {
     // Set state immediately to avoid switch UI delay
     _setSvEnable(value)
-    AsyncStorage.setItem(STORAGE_KEYS.safariViewEnable, value.toString())
+    AsyncStorage.setItem(STORAGE_KEYS.safariView, value.toString())
   }, [])
 
   const openLink = React.useCallback(async (url, colors) => {

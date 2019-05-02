@@ -12,6 +12,12 @@ export const AuthProvider = ({ children }) => {
 
   React.useEffect(() => {
     ;(async () => {
+      // For debugging
+      // const storage = await AsyncStorage.multiGet(
+      //   await AsyncStorage.getAllKeys(),
+      // )
+      // console.log(JSON.stringify(storage, null, 2))
+
       const [
         [, _auth],
         [, _username],
