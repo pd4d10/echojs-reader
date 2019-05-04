@@ -1,4 +1,4 @@
-package io.github.pd4d10.echojser;
+package io.github.pd4d10.echojsreader;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "EchoJSer";
+        return "EchoJSReader";
     }
 
 

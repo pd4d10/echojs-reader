@@ -1,4 +1,4 @@
-package io.github.pd4d10.echojser;
+package io.github.pd4d10.echojsreader;
 
 import android.app.Application;
 

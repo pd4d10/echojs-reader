@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="io.github.pd4d10.echojser">
+  package="io.github.pd4d10.echojsreader">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
