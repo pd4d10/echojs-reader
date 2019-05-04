@@ -84,7 +84,7 @@ export const SettingsScreen = props => {
           title="Source Code"
           accessory="DisclosureIndicator"
           onPress={() => {
-            openLink('https://github.com/pd4d10/echojser', colors)
+            openLink('https://github.com/pd4d10/echojs-reader', colors)
           }}
         />
       </Section>
