@@ -16,12 +16,13 @@ export const PostItem = React.memo(props => {
 
   const vote = React.useCallback(
     async (id, type) => {
-      return await fetchWithAuth(
+      await fetchWithAuth(
         `/votenews?news_id=${id}&vote_type=${type}&apisecret=${secret}`,
         {
           method: 'POST',
         },
       )
+      alert('Vote succeed')
     },
     [secret],
   )
@@ -128,9 +129,11 @@ export const PostItem = React.memo(props => {
                     case 0:
                       await vote(item.id, 'up')
                       props.updateVote(item.id, 'up')
+                      break
                     case 1:
                       await vote(item.id, 'down')
                       props.updateVote(item.id, 'down')
+                      break
                   }
                 } catch (err) {
                   alert(err.message)
