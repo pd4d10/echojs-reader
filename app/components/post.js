@@ -7,7 +7,7 @@ import { SettingsContext, AuthContext, ThemeContext } from '../context'
 import { Vote } from './vote'
 import { getHostFromUrl } from '../utils'
 
-export const PostItem = props => {
+export const PostItem = React.memo(props => {
   const { auth, secret, fetchWithAuth } = React.useContext(AuthContext)
   const { openLink } = React.useContext(SettingsContext)
   const { colors } = React.useContext(ThemeContext)
@@ -161,4 +161,4 @@ export const PostItem = props => {
       )}
     </View>
   )
-}
+})
