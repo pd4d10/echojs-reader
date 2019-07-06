@@ -14,14 +14,17 @@ export const PostItem = props => {
 
   const [actionSheet, setActionSheet] = React.useState(null)
 
-  const vote = React.useCallback(async (id, type) => {
-    return await fetchWithAuth(
-      `/votenews?news_id=${id}&vote_type=${type}&apisecret=${secret}`,
-      {
-        method: 'POST',
-      },
-    )
-  }, [])
+  const vote = React.useCallback(
+    async (id, type) => {
+      return await fetchWithAuth(
+        `/votenews?news_id=${id}&vote_type=${type}&apisecret=${secret}`,
+        {
+          method: 'POST',
+        },
+      )
+    },
+    [secret],
+  )
 
   const isText = React.useCallback(() => {
     return props.item.url.startsWith('text://')

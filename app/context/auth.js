@@ -35,18 +35,21 @@ export const AuthProvider = ({ children }) => {
     })()
   }, [])
 
-  const fetchWithAuth = React.useCallback(async (url, opts = {}) => {
-    if (auth) {
-      opts.headers = opts.headers || {}
-      opts.headers.Cookie = `auth=${auth}`
-    }
-    const res = await fetch('https://echojs.com/api' + url, opts)
-    const json = await res.json()
-    if (json.status === 'err') {
-      throw new Error(json.error)
-    }
-    return json
-  }, [])
+  const fetchWithAuth = React.useCallback(
+    async (url, opts = {}) => {
+      if (auth) {
+        opts.headers = opts.headers || {}
+        opts.headers.Cookie = `auth=${auth}`
+      }
+      const res = await fetch('https://echojs.com/api' + url, opts)
+      const json = await res.json()
+      if (json.status === 'err') {
+        throw new Error(json.error)
+      }
+      return json
+    },
+    [auth],
+  )
 
   const login = React.useCallback(async (_username, password) => {
     const json = await fetchWithAuth(
@@ -88,7 +91,7 @@ export const AuthProvider = ({ children }) => {
       setUsername(null)
       setSecret(null)
     }
-  }, [])
+  }, [secret])
 
   if (!ready) return null
 
