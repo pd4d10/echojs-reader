@@ -49,7 +49,7 @@ const List = ({ navigation, sort }) => {
   }, [])
 
   const updateVote = React.useCallback((id, type) => {
-    setItems(
+    setItems(items =>
       items.map(item => {
         if (item.id === id) {
           return {
