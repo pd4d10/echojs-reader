@@ -1,11 +1,12 @@
 import React from 'react'
-import { Text, View, TouchableOpacity, Alert, Platform } from 'react-native'
+import { Text, View, TouchableOpacity, Platform } from 'react-native'
 import distanceInWords from 'date-fns/distance_in_words'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import ActionSheet from 'react-native-actionsheet'
 import { SettingsContext, AuthContext, ThemeContext } from '../context'
 import { Vote } from './vote'
 import { getHostFromUrl } from '../utils'
+import { Nickname } from './nickname'
 
 export const PostItem = React.memo(props => {
   const { auth, secret, fetchWithAuth } = React.useContext(AuthContext)
@@ -75,18 +76,9 @@ export const PostItem = React.memo(props => {
           )}
         </TouchableOpacity>
 
-        <Text style={{ color: colors.content.user, fontSize: 14 }}>
-          <Text
-            style={{
-              textDecorationLine: 'underline',
-            }}
-            onPress={() => {
-              openLink(`https://echojs.com/user/${item.username}`, colors)
-            }}
-          >
-            {item.username}
-          </Text>{' '}
-          | {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
+        <Text style={{ color: colors.content.user }}>
+          <Nickname name={item.username} /> |{' '}
+          {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
         </Text>
       </View>
 

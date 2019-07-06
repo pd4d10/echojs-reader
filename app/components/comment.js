@@ -1,7 +1,8 @@
 import React from 'react'
-import { Text, View, TouchableOpacity, Alert } from 'react-native'
+import { Text, View } from 'react-native'
 import distanceInWords from 'date-fns/distance_in_words'
 import { Vote } from './vote'
+import { Nickname } from './nickname'
 
 export const CommentItem = ({ item, colors, level = 0 }) => {
   const now = Date.now()
@@ -19,14 +20,8 @@ export const CommentItem = ({ item, colors, level = 0 }) => {
       >
         <View style={{ flex: 1 }}>
           <Text style={{ color: colors.content.user, marginBottom: 4 }}>
-            <Text
-              style={{
-                textDecorationLine: 'underline',
-              }}
-            >
-              {item.username}
-            </Text>{' '}
-            | {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
+            <Nickname name={item.username} /> |{' '}
+            {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
           </Text>
           <Text style={{ color: colors.content.title }}>{item.body}</Text>
         </View>
