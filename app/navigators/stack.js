@@ -1,6 +1,5 @@
 import React from 'react'
 import { createStackNavigator, Header } from 'react-navigation'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import {
   TopScreen,
   LatestScreen,

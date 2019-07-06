@@ -13,6 +13,7 @@ export const LoginScreen = ({ navigation }) => {
     <View style={{ flex: 1 }}>
       <Section sectionTintColor="transparent">
         <Cell
+          withSafeAreaView={false}
           cellContentView={
             <TextInput
               value={username}
@@ -23,6 +24,7 @@ export const LoginScreen = ({ navigation }) => {
           }
         />
         <Cell
+          withSafeAreaView={false}
           cellContentView={
             <TextInput
               value={password}

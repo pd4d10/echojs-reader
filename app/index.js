@@ -6,7 +6,6 @@ import {
   AuthProvider,
   SettingsContext,
   ThemeContext,
-  AuthContext,
 } from './context'
 import { BottomTabNavigator, MaterialBottomTabNavigator } from './navigators'
 
