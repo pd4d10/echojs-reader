@@ -9,7 +9,7 @@ jobs:
         with:
           node-version: 12
       - run: |
-          npm ci
+          npm install
           npm run lint
           # npm test # TODO:
         env:
