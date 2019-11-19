@@ -1,32 +1,31 @@
-import React from 'react'
-import { ScrollView, View, Button, Text } from 'react-native'
-import { Cell, Section, TableView } from 'react-native-tableview-simple'
-import { ThemeContext, AuthContext, SettingsContext } from '../context'
-import { themeMapping } from '../constants'
-import CustomSwitch from '../components/switch'
-import { confirm } from '../utils'
+import React from 'react';
+import {ScrollView, View, Button, Text} from 'react-native';
+import {Cell, Section, TableView} from 'react-native-tableview-simple';
+import {ThemeContext, AuthContext, SettingsContext} from '../context';
+import {themeMapping} from '../constants';
+import CustomSwitch from '../components/switch';
+import {confirm} from '../utils';
 
 export const SettingsScreen = props => {
-  const { theme, setTheme, colors } = React.useContext(ThemeContext)
-  const { auth, username, logout } = React.useContext(AuthContext)
-  const { svEnable, svAvailable, setSvEnable, openLink } = React.useContext(
+  const {theme, setTheme, colors} = React.useContext(ThemeContext);
+  const {auth, username, logout} = React.useContext(AuthContext);
+  const {svEnable, svAvailable, setSvEnable, openLink} = React.useContext(
     SettingsContext,
-  )
+  );
 
   return (
     <ScrollView
       contentContainerStyle={{
         paddingVertical: 20,
         backgroundColor: colors.settings.background,
-      }}
-    >
+      }}>
       <TableView>
         <Section sectionTintColor="transparent">
           {auth ? (
             <Cell
               cellContentView={
-                <View style={{ flex: 1 }}>
-                  <Text style={{ fontSize: 16 }}>{username}</Text>
+                <View style={{flex: 1}}>
+                  <Text style={{fontSize: 16}}>{username}</Text>
                 </View>
               }
               cellAccessoryView={
@@ -34,7 +33,7 @@ export const SettingsScreen = props => {
                   title="Logout"
                   color={colors.settings.active}
                   onPress={() => {
-                    confirm('Are you sure to logout?', logout)
+                    confirm('Are you sure to logout?', logout);
                   }}
                 />
               }
@@ -42,12 +41,12 @@ export const SettingsScreen = props => {
           ) : (
             <Cell
               cellContentView={
-                <View style={{ flex: 1 }}>
+                <View style={{flex: 1}}>
                   <Button
                     title="Login / Create account"
                     color={colors.settings.active}
                     onPress={() => {
-                      props.navigation.navigate('Login')
+                      props.navigation.navigate('Login');
                     }}
                   />
                 </View>
@@ -84,10 +83,10 @@ export const SettingsScreen = props => {
           title="Source Code"
           accessory="DisclosureIndicator"
           onPress={() => {
-            openLink('https://github.com/pd4d10/echojs-reader', colors)
+            openLink('https://github.com/pd4d10/echojs-reader', colors);
           }}
         />
       </Section>
     </ScrollView>
-  )
-}
+  );
+};

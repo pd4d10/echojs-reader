@@ -1,22 +1,22 @@
-import React from 'react'
-import { StatusBar, Platform } from 'react-native'
+import React from 'react';
+import {StatusBar, Platform} from 'react-native';
 import {
   ThemeProvider,
   SettingsProvider,
   AuthProvider,
   SettingsContext,
   ThemeContext,
-} from './context'
-import { BottomTabNavigator, MaterialBottomTabNavigator } from './navigators'
+} from './context';
+import {BottomTabNavigator, MaterialBottomTabNavigator} from './navigators';
 
 const AppContent = () => {
-  const { colors } = React.useContext(ThemeContext)
-  const { inSv } = React.useContext(SettingsContext)
+  const {colors} = React.useContext(ThemeContext);
+  const {inSv} = React.useContext(SettingsContext);
 
   const Navigator = Platform.select({
     ios: BottomTabNavigator,
     android: MaterialBottomTabNavigator,
-  })
+  });
 
   return (
     <>
@@ -32,8 +32,8 @@ const AppContent = () => {
       />
       <Navigator />
     </>
-  )
-}
+  );
+};
 
 export const App = () => (
   <AuthProvider>
@@ -43,4 +43,4 @@ export const App = () => (
       </SettingsProvider>
     </ThemeProvider>
   </AuthProvider>
-)
+);

@@ -1,9 +1,9 @@
-import React from 'react'
-import { Switch, Platform } from 'react-native'
-import { ThemeContext } from '../context'
+import React from 'react';
+import {Switch, Platform} from 'react-native';
+import {ThemeContext} from '../context';
 
-export default function CustomSwitch({ ...props }) {
-  const { colors } = React.useContext(ThemeContext)
+export default function CustomSwitch({...props}) {
+  const {colors} = React.useContext(ThemeContext);
 
   return (
     <Switch
@@ -22,5 +22,5 @@ export default function CustomSwitch({ ...props }) {
       })}
       {...props}
     />
-  )
+  );
 }

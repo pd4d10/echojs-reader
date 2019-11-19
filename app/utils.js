@@ -1,4 +1,4 @@
-import { Alert } from 'react-native'
+import {Alert} from 'react-native';
 
 export const confirm = (message, callback) => {
   Alert.alert(
@@ -9,16 +9,16 @@ export const confirm = (message, callback) => {
         text: 'Cancel',
         style: 'cancel',
       },
-      { text: 'OK', onPress: callback },
+      {text: 'OK', onPress: callback},
     ],
-    { cancelable: false },
-  )
-}
+    {cancelable: false},
+  );
+};
 
 export function getHostFromUrl(url) {
-  return url.replace(/^.*?\/\//, '').split('/')[0]
+  return url.replace(/^.*?\/\//, '').split('/')[0];
 }
 
 export function handleError(err) {
-  alert(err.message)
+  alert(err.message);
 }

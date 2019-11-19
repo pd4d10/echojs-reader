@@ -1,15 +1,15 @@
-import React from 'react'
+import React from 'react';
 import {
   createBottomTabNavigator,
   createAppContainer,
   BottomTabBar,
-} from 'react-navigation'
-import { TopNavigator, LatestNavigator, SettingsNavigator } from './stack'
-import { TopIcon, LatestIcon, SettingsIcon } from '../components/icons'
-import { ThemeContext } from '../context'
+} from 'react-navigation';
+import {TopNavigator, LatestNavigator, SettingsNavigator} from './stack';
+import {TopIcon, LatestIcon, SettingsIcon} from '../components/icons';
+import {ThemeContext} from '../context';
 
 const CustomBottomTabBar = props => {
-  const { colors } = React.useContext(ThemeContext)
+  const {colors} = React.useContext(ThemeContext);
 
   return (
     <BottomTabBar
@@ -18,24 +18,24 @@ const CustomBottomTabBar = props => {
       inactiveTintColor={colors.tab.inactive}
       activeBackgroundColor={colors.tab.activeBackground}
       inactiveBackgroundColor={colors.tab.inactiveBackground}
-      renderIcon={({ route, focused }) => {
+      renderIcon={({route, focused}) => {
         const props = {
           color: focused ? colors.tab.active : colors.tab.inactive,
           size: 24,
-        }
+        };
 
         switch (route.routeName) {
           case 'Top':
-            return <TopIcon {...props} />
+            return <TopIcon {...props} />;
           case 'Latest':
-            return <LatestIcon {...props} />
+            return <LatestIcon {...props} />;
           case 'Settings':
-            return <SettingsIcon {...props} />
+            return <SettingsIcon {...props} />;
         }
       }}
     />
-  )
-}
+  );
+};
 
 export const BottomTabNavigator = createAppContainer(
   createBottomTabNavigator(
@@ -49,4 +49,4 @@ export const BottomTabNavigator = createAppContainer(
       tabBarComponent: CustomBottomTabBar,
     },
   ),
-)
+);

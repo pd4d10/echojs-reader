@@ -4,7 +4,7 @@ export const STORAGE_KEYS = {
   secret: 'secret',
   theme: 'theme',
   safariView: 'safariView',
-}
+};
 
 // undefined means use default value
 export const themeMapping = {
@@ -112,4 +112,4 @@ export const themeMapping = {
   //     androidSwitchActiveBackground: '#adf',
   //   },
   // },
-}
+};

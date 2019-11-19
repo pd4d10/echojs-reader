@@ -1,11 +1,11 @@
-import React from 'react'
-import { Text, View } from 'react-native'
-import distanceInWords from 'date-fns/distance_in_words'
-import { Vote } from './vote'
-import { Nickname } from './nickname'
+import React from 'react';
+import {Text, View} from 'react-native';
+import distanceInWords from 'date-fns/distance_in_words';
+import {Vote} from './vote';
+import {Nickname} from './nickname';
 
-export const CommentItem = ({ item, colors, level = 0 }) => {
-  const now = Date.now()
+export const CommentItem = ({item, colors, level = 0}) => {
+  const now = Date.now();
 
   return (
     <>
@@ -16,14 +16,13 @@ export const CommentItem = ({ item, colors, level = 0 }) => {
           marginLeft: level * 20,
           // borderTopColor: colors.content.border,
           // borderTopWidth: this.props.index === 0 ? 0 : 1,
-        }}
-      >
-        <View style={{ flex: 1 }}>
-          <Text style={{ color: colors.content.user, marginBottom: 4 }}>
+        }}>
+        <View style={{flex: 1}}>
+          <Text style={{color: colors.content.user, marginBottom: 4}}>
             <Nickname name={item.username} /> |{' '}
             {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
           </Text>
-          <Text style={{ color: colors.content.title }}>{item.body}</Text>
+          <Text style={{color: colors.content.title}}>{item.body}</Text>
         </View>
         <View
           style={{
@@ -31,8 +30,7 @@ export const CommentItem = ({ item, colors, level = 0 }) => {
             width: 44,
             marginTop: 2,
             paddingLeft: 10,
-          }}
-        >
+          }}>
           <Vote colors={colors} item={item} />
         </View>
       </View>
@@ -45,5 +43,5 @@ export const CommentItem = ({ item, colors, level = 0 }) => {
         />
       ))}
     </>
-  )
-}
+  );
+};

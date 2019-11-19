@@ -1,21 +1,21 @@
-import React from 'react'
-import BottomNavigation from 'react-native-paper/src/components/BottomNavigation'
-import { createTabNavigator } from 'react-navigation-tabs'
-import { TopIcon, LatestIcon, SettingsIcon } from '../components/icons'
-import { TopNavigator, LatestNavigator, SettingsNavigator } from './stack'
-import { ThemeContext } from '../context'
-import { createAppContainer } from 'react-navigation'
+import React from 'react';
+import BottomNavigation from 'react-native-paper/src/components/BottomNavigation';
+import {createTabNavigator} from 'react-navigation-tabs';
+import {TopIcon, LatestIcon, SettingsIcon} from '../components/icons';
+import {TopNavigator, LatestNavigator, SettingsNavigator} from './stack';
+import {ThemeContext} from '../context';
+import {createAppContainer} from 'react-navigation';
 
 const BottomNavigationView = props => {
-  const { colors } = React.useContext(ThemeContext)
+  const {colors} = React.useContext(ThemeContext);
 
   const _isVisible = () => {
-    const { navigation, descriptors } = props
-    const { state } = navigation
-    const route = state.routes[state.index]
-    const options = descriptors[route.key].options
-    return options.tabBarVisible
-  }
+    const {navigation, descriptors} = props;
+    const {state} = navigation;
+    const route = state.routes[state.index];
+    const options = descriptors[route.key].options;
+    return options.tabBarVisible;
+  };
 
   const {
     activeTintColor,
@@ -25,13 +25,13 @@ const BottomNavigationView = props => {
     descriptors,
     barStyle,
     ...rest
-  } = props
+  } = props;
 
-  const isVisible = _isVisible()
+  const isVisible = _isVisible();
   const extraStyle =
     typeof isVisible === 'boolean'
-      ? { display: isVisible ? null : 'none' }
-      : null
+      ? {display: isVisible ? null : 'none'}
+      : null;
 
   return (
     <BottomNavigation
@@ -39,32 +39,32 @@ const BottomNavigationView = props => {
       activeColor={colors.tab.active}
       inactiveColor={colors.tab.inactive}
       {...rest}
-      renderIcon={({ route, focused }) => {
+      renderIcon={({route, focused}) => {
         const props = {
           color: focused ? colors.tab.active : colors.tab.inactive,
           size: 24,
-        }
+        };
 
         switch (route.routeName) {
           case 'Top':
-            return <TopIcon {...props} />
+            return <TopIcon {...props} />;
           case 'Latest':
-            return <LatestIcon {...props} />
+            return <LatestIcon {...props} />;
           case 'Settings':
-            return <SettingsIcon {...props} />
+            return <SettingsIcon {...props} />;
         }
       }}
       barStyle={[barStyle, extraStyle]}
       navigationState={navigation.state}
-      getColor={({ route }) => {
-        const descriptor = props.descriptors[route.key]
-        const options = descriptor.options
+      getColor={({route}) => {
+        const descriptor = props.descriptors[route.key];
+        const options = descriptor.options;
 
-        return options.tabBarColor
+        return options.tabBarColor;
       }}
     />
-  )
-}
+  );
+};
 
 export const MaterialBottomTabNavigator = createAppContainer(
   createTabNavigator(BottomNavigationView)(
@@ -74,7 +74,7 @@ export const MaterialBottomTabNavigator = createAppContainer(
       Settings: SettingsNavigator,
     },
     {
-      barStyle: { backgroundColor: '#fff' },
+      barStyle: {backgroundColor: '#fff'},
     },
   ),
-)
+);

@@ -1,19 +1,19 @@
-import React from 'react'
-import { createStackNavigator, Header } from 'react-navigation'
+import React from 'react';
+import {createStackNavigator, Header} from 'react-navigation';
 import {
   TopScreen,
   LatestScreen,
   DetailScreen,
   SettingsScreen,
-} from '../screens'
-import { ThemeContext } from '../context'
-import { LoginScreen } from '../screens/login'
+} from '../screens';
+import {ThemeContext} from '../context';
+import {LoginScreen} from '../screens/login';
 
 // HACK: This is a hack to dynamic change header's style
 const CustomHeader = props => {
   return (
     <ThemeContext.Consumer>
-      {({ colors }) => {
+      {({colors}) => {
         const addOptionsToScene = scene => ({
           ...scene,
           descriptor: {
@@ -26,20 +26,20 @@ const CustomHeader = props => {
               },
             },
           },
-        })
+        });
 
         const propsNew = {
           ...props,
           scene: addOptionsToScene(props.scene),
           scenes: props.scenes.map(addOptionsToScene),
-        }
+        };
 
         // console.log(propsNew.scenes)
-        return <Header {...propsNew} />
+        return <Header {...propsNew} />;
       }}
     </ThemeContext.Consumer>
-  )
-}
+  );
+};
 
 export const TopNavigator = createStackNavigator(
   {
@@ -53,7 +53,7 @@ export const TopNavigator = createStackNavigator(
       header: CustomHeader,
     },
   },
-)
+);
 
 export const LatestNavigator = createStackNavigator(
   {
@@ -67,7 +67,7 @@ export const LatestNavigator = createStackNavigator(
       header: CustomHeader,
     },
   },
-)
+);
 
 export const SettingsNavigator = createStackNavigator(
   {
@@ -80,4 +80,4 @@ export const SettingsNavigator = createStackNavigator(
       header: CustomHeader,
     },
   },
-)
+);
