@@ -27,6 +27,7 @@ export const LoginScreen = ({navigation}) => {
           withSafeAreaView={false}
           cellContentView={
             <TextInput
+              secureTextEntry
               value={password}
               style={{fontSize: 16, flex: 1}}
               placeholder="Password"
