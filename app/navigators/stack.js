@@ -1,5 +1,5 @@
 import React from 'react';
-import {createStackNavigator, Header} from 'react-navigation';
+import {createStackNavigator, Header} from 'react-navigation-stack';
 import {
   TopScreen,
   LatestScreen,

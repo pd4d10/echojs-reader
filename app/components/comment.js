@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View} from 'react-native';
-import distanceInWords from 'date-fns/distance_in_words';
+import {formatDistance} from 'date-fns';
 import {Vote} from './vote';
 import {Nickname} from './nickname';
 
@@ -20,7 +20,7 @@ export const CommentItem = ({item, colors, level = 0}) => {
         <View style={{flex: 1}}>
           <Text style={{color: colors.content.user, marginBottom: 4}}>
             <Nickname name={item.username} /> |{' '}
-            {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
+            {formatDistance(parseInt(item.ctime, 10) * 1000, now)} ago
           </Text>
           <Text style={{color: colors.content.title}}>{item.body}</Text>
         </View>

@@ -1,5 +1,5 @@
 import React from 'react';
-import BottomNavigation from 'react-native-paper/src/components/BottomNavigation';
+import {BottomNavigation} from 'react-native-paper';
 import {createTabNavigator} from 'react-navigation-tabs';
 import {TopIcon, LatestIcon, SettingsIcon} from '../components/icons';
 import {TopNavigator, LatestNavigator, SettingsNavigator} from './stack';

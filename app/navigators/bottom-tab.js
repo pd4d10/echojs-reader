@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-  createBottomTabNavigator,
-  createAppContainer,
-  BottomTabBar,
-} from 'react-navigation';
+import {createAppContainer} from 'react-navigation';
+import {createBottomTabNavigator, BottomTabBar} from 'react-navigation-tabs';
 import {TopNavigator, LatestNavigator, SettingsNavigator} from './stack';
 import {TopIcon, LatestIcon, SettingsIcon} from '../components/icons';
 import {ThemeContext} from '../context';

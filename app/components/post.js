@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View, TouchableOpacity, Platform} from 'react-native';
-import distanceInWords from 'date-fns/distance_in_words';
+import {formatDistance} from 'date-fns';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ActionSheet from 'react-native-actionsheet';
 import {SettingsContext, AuthContext, ThemeContext} from '../context';
@@ -74,7 +74,7 @@ export const PostItem = React.memo(props => {
 
         <Text style={{color: colors.content.user}}>
           <Nickname name={item.username} /> |{' '}
-          {distanceInWords(parseInt(item.ctime, 10) * 1000, now)} ago
+          {formatDistance(parseInt(item.ctime, 10) * 1000, now)} ago
         </Text>
       </View>
 
