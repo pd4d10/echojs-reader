@@ -23,4 +23,4 @@ Android users can also download APK file from [release page](https://github.com/
 
 ## License
 
-MIT
+Apache-2.0
