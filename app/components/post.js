@@ -25,7 +25,7 @@ export const PostItem = React.memo(props => {
       );
       alert('Vote succeed');
     },
-    [secret],
+    [fetchWithAuth, secret],
   );
 
   const isText = React.useCallback(() => {

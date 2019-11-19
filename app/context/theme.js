@@ -7,28 +7,33 @@ export const ThemeContext = React.createContext();
 export const ThemeProvider = ({children}) => {
   const [theme, _setTheme] = React.useState();
 
-  const ensureCorrect = React.useCallback(theme => {
-    if (Object.keys(themeMapping).includes(theme)) {
-      return theme;
+  const ensureCorrect = React.useCallback(v => {
+    if (Object.keys(themeMapping).includes(v)) {
+      return v;
     } else {
       return 'echojs';
     }
   }, []);
 
-  const setTheme = React.useCallback(theme => {
-    theme = ensureCorrect(theme);
-    _setTheme(theme);
-    AsyncStorage.setItem(STORAGE_KEYS.theme, theme);
-  }, []);
+  const setTheme = React.useCallback(
+    v => {
+      v = ensureCorrect(v);
+      _setTheme(v);
+      AsyncStorage.setItem(STORAGE_KEYS.theme, v);
+    },
+    [ensureCorrect],
+  );
 
   React.useEffect(() => {
     (async () => {
-      const theme = await AsyncStorage.getItem(STORAGE_KEYS.theme);
-      _setTheme(ensureCorrect(theme));
+      const v = await AsyncStorage.getItem(STORAGE_KEYS.theme);
+      _setTheme(ensureCorrect(v));
     })();
-  }, []);
+  }, [ensureCorrect]);
 
-  if (!theme) return null;
+  if (!theme) {
+    return null;
+  }
 
   return (
     <ThemeContext.Provider

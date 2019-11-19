@@ -14,7 +14,7 @@ export const Vote = ({colors, item}) => (
         color:
           item.voted === 'down' ? colors.content.voted : colors.content.icon,
       }}>
-      ▼ {item.down | 0}
+      ▼ {item.down || 0}
     </Text>
   </View>
 );

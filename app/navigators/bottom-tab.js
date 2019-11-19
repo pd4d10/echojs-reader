@@ -16,18 +16,18 @@ const CustomBottomTabBar = props => {
       activeBackgroundColor={colors.tab.activeBackground}
       inactiveBackgroundColor={colors.tab.inactiveBackground}
       renderIcon={({route, focused}) => {
-        const props = {
+        const p = {
           color: focused ? colors.tab.active : colors.tab.inactive,
           size: 24,
         };
 
         switch (route.routeName) {
           case 'Top':
-            return <TopIcon {...props} />;
+            return <TopIcon {...p} />;
           case 'Latest':
-            return <LatestIcon {...props} />;
+            return <LatestIcon {...p} />;
           case 'Settings':
-            return <SettingsIcon {...props} />;
+            return <SettingsIcon {...p} />;
         }
       }}
     />

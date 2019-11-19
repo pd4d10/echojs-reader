@@ -21,7 +21,6 @@ const BottomNavigationView = props => {
     activeTintColor,
     inactiveTintColor,
     navigation,
-    // eslint-disable-next-line no-unused-vars
     descriptors,
     barStyle,
     ...rest
@@ -40,18 +39,18 @@ const BottomNavigationView = props => {
       inactiveColor={colors.tab.inactive}
       {...rest}
       renderIcon={({route, focused}) => {
-        const props = {
+        const p = {
           color: focused ? colors.tab.active : colors.tab.inactive,
           size: 24,
         };
 
         switch (route.routeName) {
           case 'Top':
-            return <TopIcon {...props} />;
+            return <TopIcon {...p} />;
           case 'Latest':
-            return <LatestIcon {...props} />;
+            return <LatestIcon {...p} />;
           case 'Settings':
-            return <SettingsIcon {...props} />;
+            return <SettingsIcon {...p} />;
         }
       }}
       barStyle={[barStyle, extraStyle]}

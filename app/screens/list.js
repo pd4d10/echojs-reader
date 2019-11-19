@@ -30,7 +30,7 @@ const List = ({navigation, sort}) => {
       );
       return news;
     },
-    [sort],
+    [sort, fetchWithAuth],
   );
 
   React.useEffect(() => {
@@ -46,11 +46,11 @@ const List = ({navigation, sort}) => {
         setFirst(false);
       }
     })();
-  }, []);
+  }, [fetchData]);
 
   const updateVote = React.useCallback((id, type) => {
-    setItems(items =>
-      items.map(item => {
+    setItems(v =>
+      v.map(item => {
         if (item.id === id) {
           return {
             ...item,
@@ -66,7 +66,9 @@ const List = ({navigation, sort}) => {
   }, []);
 
   const handleRefresh = async () => {
-    if (refreshing) return;
+    if (refreshing) {
+      return;
+    }
 
     try {
       setRefreshing(true);
@@ -86,7 +88,9 @@ const List = ({navigation, sort}) => {
   };
 
   const handleLoadMore = async () => {
-    if (loadingMore || end) return;
+    if (loadingMore || end) {
+      return;
+    }
     try {
       setLoadingMore(true);
       let _items = await fetchData(items.length);

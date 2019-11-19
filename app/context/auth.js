@@ -51,29 +51,35 @@ export const AuthProvider = ({children}) => {
     [auth],
   );
 
-  const login = React.useCallback(async (_username, password) => {
-    const json = await fetchWithAuth(
-      `/login?username=${_username}&password=${password}`,
-    );
-    await AsyncStorage.multiSet([
-      [STORAGE_KEYS.auth, json.auth],
-      [STORAGE_KEYS.username, _username],
-      [STORAGE_KEYS.secret, json.apisecret],
-    ]);
-    setAuth(json.auth);
-    setUsername(_username);
-    setSecret(json.apisecret);
-  }, []);
+  const login = React.useCallback(
+    async (_username, password) => {
+      const json = await fetchWithAuth(
+        `/login?username=${_username}&password=${password}`,
+      );
+      await AsyncStorage.multiSet([
+        [STORAGE_KEYS.auth, json.auth],
+        [STORAGE_KEYS.username, _username],
+        [STORAGE_KEYS.secret, json.apisecret],
+      ]);
+      setAuth(json.auth);
+      setUsername(_username);
+      setSecret(json.apisecret);
+    },
+    [fetchWithAuth],
+  );
 
-  const createAccount = React.useCallback(async (username, password) => {
-    await fetchWithAuth(
-      `/create_account?username=${username}&password=${password}`,
-      {method: 'POST'},
-    );
-    // Seems EchoJS's create account API does not return secret
-    // So don't use any data from this API
-    // Just create account and call login API again to login
-  }, []);
+  const createAccount = React.useCallback(
+    async (_username, password) => {
+      await fetchWithAuth(
+        `/create_account?username=${_username}&password=${password}`,
+        {method: 'POST'},
+      );
+      // Seems EchoJS's create account API does not return secret
+      // So don't use any data from this API
+      // Just create account and call login API again to login
+    },
+    [fetchWithAuth],
+  );
 
   const logout = React.useCallback(async () => {
     try {
@@ -91,9 +97,11 @@ export const AuthProvider = ({children}) => {
       setUsername(null);
       setSecret(null);
     }
-  }, [secret]);
+  }, [fetchWithAuth, secret]);
 
-  if (!ready) return null;
+  if (!ready) {
+    return null;
+  }
 
   return (
     <AuthContext.Provider

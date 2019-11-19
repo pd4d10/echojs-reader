@@ -26,7 +26,7 @@ export const DetailScreen = ({navigation}) => {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [fetchWithAuth, navigation]);
 
   return (
     <ScrollView

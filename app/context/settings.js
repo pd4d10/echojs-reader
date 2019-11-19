@@ -45,7 +45,7 @@ export const SettingsProvider = ({children}) => {
         SafariView.removeEventListener('onDismiss', handleClose);
       }
     };
-  }, []);
+  }, [svAvailable]);
 
   const setSvEnable = React.useCallback(value => {
     // Set state immediately to avoid switch UI delay
@@ -57,7 +57,9 @@ export const SettingsProvider = ({children}) => {
     async (url, colors) => {
       if (svAvailable && svEnable) {
         // This is to avoid press multi times
-        if (svStarted) return;
+        if (svStarted) {
+          return;
+        }
         setSvStarted(true);
         SafariView.show({
           url,
