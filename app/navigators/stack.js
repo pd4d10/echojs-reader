@@ -1,19 +1,19 @@
-import React from 'react';
-import {createStackNavigator, Header} from 'react-navigation-stack';
+import React from "react";
+import { createStackNavigator, Header } from "react-navigation-stack";
 import {
   TopScreen,
   LatestScreen,
   DetailScreen,
-  SettingsScreen,
-} from '../screens';
-import {ThemeContext} from '../context';
-import {LoginScreen} from '../screens/login';
+  SettingsScreen
+} from "../screens";
+import { ThemeContext } from "../context";
+import { LoginScreen } from "../screens/login";
 
 // HACK: This is a hack to dynamic change header's style
 const CustomHeader = props => {
   return (
     <ThemeContext.Consumer>
-      {({colors}) => {
+      {({ colors }) => {
         const addOptionsToScene = scene => ({
           ...scene,
           descriptor: {
@@ -22,16 +22,16 @@ const CustomHeader = props => {
               ...scene.descriptor.options,
               headerTintColor: colors.header.text,
               headerStyle: {
-                backgroundColor: colors.header.background,
-              },
-            },
-          },
+                backgroundColor: colors.header.background
+              }
+            }
+          }
         });
 
         const propsNew = {
           ...props,
           scene: addOptionsToScene(props.scene),
-          scenes: props.scenes.map(addOptionsToScene),
+          scenes: props.scenes.map(addOptionsToScene)
         };
 
         // console.log(propsNew.scenes)
@@ -45,39 +45,39 @@ export const TopNavigator = createStackNavigator(
   {
     Top: TopScreen,
     Detail: DetailScreen,
-    Login: LoginScreen,
+    Login: LoginScreen
   },
   {
     defaultNavigationOptions: {
-      title: 'Top news',
-      header: CustomHeader,
-    },
-  },
+      title: "Top news",
+      header: CustomHeader
+    }
+  }
 );
 
 export const LatestNavigator = createStackNavigator(
   {
     Latest: LatestScreen,
     Detail: DetailScreen,
-    Login: LoginScreen,
+    Login: LoginScreen
   },
   {
     defaultNavigationOptions: {
-      title: 'Latest news',
-      header: CustomHeader,
-    },
-  },
+      title: "Latest news",
+      header: CustomHeader
+    }
+  }
 );
 
 export const SettingsNavigator = createStackNavigator(
   {
     Settings: SettingsScreen,
-    Login: LoginScreen,
+    Login: LoginScreen
   },
   {
     defaultNavigationOptions: {
-      title: 'Settings',
-      header: CustomHeader,
-    },
-  },
+      title: "Settings",
+      header: CustomHeader
+    }
+  }
 );

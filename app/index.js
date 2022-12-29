@@ -1,21 +1,21 @@
-import React from 'react';
-import {StatusBar, Platform} from 'react-native';
+import React from "react";
+import { StatusBar, Platform } from "react-native";
 import {
   ThemeProvider,
   SettingsProvider,
   AuthProvider,
   SettingsContext,
-  ThemeContext,
-} from './context';
-import {BottomTabNavigator, MaterialBottomTabNavigator} from './navigators';
+  ThemeContext
+} from "./context";
+import { BottomTabNavigator, MaterialBottomTabNavigator } from "./navigators";
 
 const AppContent = () => {
-  const {colors} = React.useContext(ThemeContext);
-  const {inSv} = React.useContext(SettingsContext);
+  const { colors } = React.useContext(ThemeContext);
+  const { inSv } = React.useContext(SettingsContext);
 
   const Navigator = Platform.select({
     ios: BottomTabNavigator,
-    android: MaterialBottomTabNavigator,
+    android: MaterialBottomTabNavigator
   });
 
   return (
@@ -24,10 +24,10 @@ const AppContent = () => {
         barStyle={Platform.select({
           ios: inSv
             ? colors.safari.statusBarStyle
-            : colors.header.statusBarStyle,
+            : colors.header.statusBarStyle
         })}
         backgroundColor={Platform.select({
-          android: colors.header.androidBar,
+          android: colors.header.androidBar
         })}
       />
       <Navigator />

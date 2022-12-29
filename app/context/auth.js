@@ -1,10 +1,10 @@
-import React from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
-import {STORAGE_KEYS} from '../constants';
+import React from "react";
+import AsyncStorage from "@react-native-community/async-storage";
+import { STORAGE_KEYS } from "../constants";
 
 export const AuthContext = React.createContext();
 
-export const AuthProvider = ({children}) => {
+export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = React.useState();
   const [username, setUsername] = React.useState();
   const [secret, setSecret] = React.useState();
@@ -21,11 +21,11 @@ export const AuthProvider = ({children}) => {
       const [
         [, _auth],
         [, _username],
-        [, _secret],
+        [, _secret]
       ] = await AsyncStorage.multiGet([
         STORAGE_KEYS.auth,
         STORAGE_KEYS.username,
-        STORAGE_KEYS.secret,
+        STORAGE_KEYS.secret
       ]);
       // console.log(_auth, _username, _secret)
       setAuth(_auth);
@@ -41,57 +41,57 @@ export const AuthProvider = ({children}) => {
         opts.headers = opts.headers || {};
         opts.headers.Cookie = `auth=${auth}`;
       }
-      const res = await fetch('https://echojs.com/api' + url, opts);
+      const res = await fetch("https://echojs.com/api" + url, opts);
       const json = await res.json();
-      if (json.status === 'err') {
+      if (json.status === "err") {
         throw new Error(json.error);
       }
       return json;
     },
-    [auth],
+    [auth]
   );
 
   const login = React.useCallback(
     async (_username, password) => {
       const json = await fetchWithAuth(
-        `/login?username=${_username}&password=${password}`,
+        `/login?username=${_username}&password=${password}`
       );
       await AsyncStorage.multiSet([
         [STORAGE_KEYS.auth, json.auth],
         [STORAGE_KEYS.username, _username],
-        [STORAGE_KEYS.secret, json.apisecret],
+        [STORAGE_KEYS.secret, json.apisecret]
       ]);
       setAuth(json.auth);
       setUsername(_username);
       setSecret(json.apisecret);
     },
-    [fetchWithAuth],
+    [fetchWithAuth]
   );
 
   const createAccount = React.useCallback(
     async (_username, password) => {
       await fetchWithAuth(
         `/create_account?username=${_username}&password=${password}`,
-        {method: 'POST'},
+        { method: "POST" }
       );
       // Seems EchoJS's create account API does not return secret
       // So don't use any data from this API
       // Just create account and call login API again to login
     },
-    [fetchWithAuth],
+    [fetchWithAuth]
   );
 
   const logout = React.useCallback(async () => {
     try {
       await fetchWithAuth(`/logout?apisecret=${secret}`, {
-        method: 'POST',
+        method: "POST"
       });
     } catch (err) {
     } finally {
       await AsyncStorage.multiRemove([
         STORAGE_KEYS.auth,
         STORAGE_KEYS.username,
-        STORAGE_KEYS.secret,
+        STORAGE_KEYS.secret
       ]);
       setAuth(null);
       setUsername(null);
@@ -113,8 +113,9 @@ export const AuthProvider = ({children}) => {
         login,
         createAccount,
         logout,
-        fetchWithAuth,
-      }}>
+        fetchWithAuth
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

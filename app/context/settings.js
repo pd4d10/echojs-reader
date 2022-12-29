@@ -1,12 +1,12 @@
-import React from 'react';
-import {Linking} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import SafariView from 'react-native-safari-view';
-import {STORAGE_KEYS} from '../constants';
+import React from "react";
+import { Linking } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
+import SafariView from "react-native-safari-view";
+import { STORAGE_KEYS } from "../constants";
 
 export const SettingsContext = React.createContext();
 
-export const SettingsProvider = ({children}) => {
+export const SettingsProvider = ({ children }) => {
   const [svAvailable, setSvAvailable] = React.useState(false);
   const [svEnable, _setSvEnable] = React.useState(false);
   const [inSv, setInSv] = React.useState(false);
@@ -28,21 +28,21 @@ export const SettingsProvider = ({children}) => {
       try {
         available = await SafariView.isAvailable();
         if (available) {
-          SafariView.addEventListener('onShow', handleShow);
-          SafariView.addEventListener('onDismiss', handleClose);
+          SafariView.addEventListener("onShow", handleShow);
+          SafariView.addEventListener("onDismiss", handleClose);
         }
       } catch (err) {
         available = false;
       }
 
-      _setSvEnable(enable === 'true');
+      _setSvEnable(enable === "true");
       setSvAvailable(available);
     })();
 
     return () => {
       if (svAvailable) {
-        SafariView.removeEventListener('onShow', handleShow);
-        SafariView.removeEventListener('onDismiss', handleClose);
+        SafariView.removeEventListener("onShow", handleShow);
+        SafariView.removeEventListener("onDismiss", handleClose);
       }
     };
   }, [svAvailable]);
@@ -64,13 +64,13 @@ export const SettingsProvider = ({children}) => {
         SafariView.show({
           url,
           tintColor: colors.safari.text,
-          barTintColor: colors.safari.background,
+          barTintColor: colors.safari.background
         });
       } else {
         Linking.openURL(url);
       }
     },
-    [svAvailable, svEnable, svStarted],
+    [svAvailable, svEnable, svStarted]
   );
 
   return (
@@ -80,8 +80,9 @@ export const SettingsProvider = ({children}) => {
         svAvailable,
         svEnable,
         setSvEnable,
-        openLink,
-      }}>
+        openLink
+      }}
+    >
       {children}
     </SettingsContext.Provider>
   );

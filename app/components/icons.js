@@ -1,9 +1,9 @@
-import React from 'react';
-import {ActivityIndicator, Platform} from 'react-native';
-import Entypo from 'react-native-vector-icons/Entypo';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {ThemeContext} from '../context';
+import React from "react";
+import { ActivityIndicator, Platform } from "react-native";
+import Entypo from "react-native-vector-icons/Entypo";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { ThemeContext } from "../context";
 
 export const TopIcon = props => <Entypo name="bar-graph" {...props} />;
 
@@ -15,10 +15,10 @@ export const SettingsIcon = props => (
 
 // Use primary color at Android
 export const MyActivityIndicator = props => {
-  const {colors} = React.useContext(ThemeContext);
+  const { colors } = React.useContext(ThemeContext);
   return (
     <ActivityIndicator
-      color={Platform.select({android: colors.content.loading})}
+      color={Platform.select({ android: colors.content.loading })}
       {...props}
     />
   );

@@ -1,8 +1,8 @@
 module.exports = {
   root: true,
-  extends: '@react-native-community',
+  extends: "@react-native-community",
   rules: {
-    'react-native/no-inline-styles': 'off',
-    'no-alert': 'off',
+    "react-native/no-inline-styles": "off",
+    "no-alert": "off",
   },
 };

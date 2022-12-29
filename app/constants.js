@@ -1,83 +1,83 @@
 export const STORAGE_KEYS = {
-  auth: 'auth',
-  username: 'username',
-  secret: 'secret',
-  theme: 'theme',
-  safariView: 'safariView',
+  auth: "auth",
+  username: "username",
+  secret: "secret",
+  theme: "theme",
+  safariView: "safariView"
 };
 
 // undefined means use default value
 export const themeMapping = {
   echojs: {
-    name: 'EchoJS',
+    name: "EchoJS",
     header: {
-      statusBarStyle: 'light-content',
-      text: '#fff',
-      background: '#af1d1d',
-      androidBar: '#831616',
+      statusBarStyle: "light-content",
+      text: "#fff",
+      background: "#af1d1d",
+      androidBar: "#831616"
     },
     content: {
-      title: '#000',
-      url: '#999',
-      user: '#666',
-      border: '#eee',
-      background: '#fff',
-      icon: '#444',
-      loading: '#af1d1d',
-      voted: '#af1d1d',
+      title: "#000",
+      url: "#999",
+      user: "#666",
+      border: "#eee",
+      background: "#fff",
+      icon: "#444",
+      loading: "#af1d1d",
+      voted: "#af1d1d"
     },
     tab: {
-      active: '#af1d1d',
-      inactive: 'grey',
+      active: "#af1d1d",
+      inactive: "grey",
       activeBackground: undefined,
-      inactiveBackground: undefined,
+      inactiveBackground: undefined
     },
     safari: {
-      statusBarStyle: 'dark-content',
-      text: '#af1d1d',
-      background: undefined,
+      statusBarStyle: "dark-content",
+      text: "#af1d1d",
+      background: undefined
     },
     settings: {
       background: undefined,
-      active: '#af1d1d',
-      androidSwitchActiveBackground: '#faa',
-    },
+      active: "#af1d1d",
+      androidSwitchActiveBackground: "#faa"
+    }
   },
   light: {
-    name: 'Light',
+    name: "Light",
     header: {
-      statusBarStyle: 'dark-content',
+      statusBarStyle: "dark-content",
       text: undefined,
       background: undefined,
-      androidBar: 'grey',
+      androidBar: "grey"
     },
     content: {
-      title: '#000',
-      url: '#999',
-      user: '#666',
-      border: '#eee',
-      background: '#fff',
-      icon: '#222',
-      loading: '#aaa',
-      voted: '#007aff',
+      title: "#000",
+      url: "#999",
+      user: "#666",
+      border: "#eee",
+      background: "#fff",
+      icon: "#222",
+      loading: "#aaa",
+      voted: "#007aff"
     },
     tab: {
-      active: '#007aff',
-      inactive: 'grey',
+      active: "#007aff",
+      inactive: "grey",
       activeBackground: undefined,
-      inactiveBackground: undefined,
+      inactiveBackground: undefined
     },
     safari: {
-      statusBarStyle: 'dark-content',
+      statusBarStyle: "dark-content",
       text: undefined,
-      background: undefined,
+      background: undefined
     },
     settings: {
       background: undefined,
-      active: '#007aff',
-      androidSwitchActiveBackground: '#adf',
-    },
-  },
+      active: "#007aff",
+      androidSwitchActiveBackground: "#adf"
+    }
+  }
   // dark: {
   //   name: 'Dark',
   //   header: {

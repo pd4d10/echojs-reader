@@ -1,17 +1,17 @@
-import React from 'react';
-import {Text, View, TouchableOpacity, Platform} from 'react-native';
-import {formatDistance} from 'date-fns';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import ActionSheet from 'react-native-actionsheet';
-import {SettingsContext, AuthContext, ThemeContext} from '../context';
-import {Vote} from './vote';
-import {getHostFromUrl} from '../utils';
-import {Nickname} from './nickname';
+import React from "react";
+import { Text, View, TouchableOpacity, Platform } from "react-native";
+import { formatDistance } from "date-fns";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import ActionSheet from "react-native-actionsheet";
+import { SettingsContext, AuthContext, ThemeContext } from "../context";
+import { Vote } from "./vote";
+import { getHostFromUrl } from "../utils";
+import { Nickname } from "./nickname";
 
 export const PostItem = React.memo(props => {
-  const {auth, secret, fetchWithAuth} = React.useContext(AuthContext);
-  const {openLink} = React.useContext(SettingsContext);
-  const {colors} = React.useContext(ThemeContext);
+  const { auth, secret, fetchWithAuth } = React.useContext(AuthContext);
+  const { openLink } = React.useContext(SettingsContext);
+  const { colors } = React.useContext(ThemeContext);
 
   const [actionSheet, setActionSheet] = React.useState(null);
 
@@ -20,44 +20,47 @@ export const PostItem = React.memo(props => {
       await fetchWithAuth(
         `/votenews?news_id=${id}&vote_type=${type}&apisecret=${secret}`,
         {
-          method: 'POST',
-        },
+          method: "POST"
+        }
       );
-      alert('Vote succeed');
+      alert("Vote succeed");
     },
-    [fetchWithAuth, secret],
+    [fetchWithAuth, secret]
   );
 
   const isText = React.useCallback(() => {
-    return props.item.url.startsWith('text://');
+    return props.item.url.startsWith("text://");
   }, [props.item]);
 
   const now = Date.now();
-  const {item, hasCommentLink = true} = props;
+  const { item, hasCommentLink = true } = props;
 
   return (
     <View
       style={{
-        flexDirection: 'row',
-        padding: 10,
-      }}>
-      <View style={{flex: 1}}>
+        flexDirection: "row",
+        padding: 10
+      }}
+    >
+      <View style={{ flex: 1 }}>
         <TouchableOpacity
           onPress={async () => {
             if (isText()) {
-              props.navigation.navigate('Detail', item);
+              props.navigation.navigate("Detail", item);
               return;
             }
 
             openLink(item.url, colors);
-          }}>
+          }}
+        >
           <Text
             style={{
               fontSize: 18,
               lineHeight: 22,
               color: colors.content.title,
-              marginBottom: 6,
-            }}>
+              marginBottom: 6
+            }}
+          >
             {item.title}
           </Text>
           {isText() || (
@@ -65,15 +68,16 @@ export const PostItem = React.memo(props => {
               style={{
                 color: colors.content.url,
                 fontSize: 12,
-                marginBottom: 6,
-              }}>
+                marginBottom: 6
+              }}
+            >
               at {getHostFromUrl(item.url)}
             </Text>
           )}
         </TouchableOpacity>
 
-        <Text style={{color: colors.content.user}}>
-          <Nickname name={item.username} /> |{' '}
+        <Text style={{ color: colors.content.user }}>
+          <Nickname name={item.username} /> |{" "}
           {formatDistance(parseInt(item.ctime, 10) * 1000, now)} ago
         </Text>
       </View>
@@ -81,16 +85,17 @@ export const PostItem = React.memo(props => {
       {hasCommentLink && (
         <View
           style={{
-            justifyContent: 'space-between',
+            justifyContent: "space-between",
             width: 44,
             marginTop: 2,
-            paddingLeft: 10,
-          }}>
+            paddingLeft: 10
+          }}
+        >
           <TouchableOpacity
-            style={{flex: 1}}
+            style={{ flex: 1 }}
             onPress={() => {
               if (!auth) {
-                props.navigation.navigate('Login');
+                props.navigation.navigate("Login");
                 return;
               }
 
@@ -100,25 +105,26 @@ export const PostItem = React.memo(props => {
               }
 
               actionSheet.show();
-            }}>
+            }}
+          >
             <Vote colors={colors} item={item} />
             <ActionSheet
               ref={el => {
                 setActionSheet(el);
               }}
               title={`Vote for ${item.username}'s post`}
-              options={['Up', 'Down', 'cancel']}
+              options={["Up", "Down", "cancel"]}
               cancelButtonIndex={2}
               onPress={async index => {
                 try {
                   switch (index) {
                     case 0:
-                      await vote(item.id, 'up');
-                      props.updateVote(item.id, 'up');
+                      await vote(item.id, "up");
+                      props.updateVote(item.id, "up");
                       break;
                     case 1:
-                      await vote(item.id, 'down');
-                      props.updateVote(item.id, 'down');
+                      await vote(item.id, "down");
+                      props.updateVote(item.id, "down");
                       break;
                   }
                 } catch (err) {
@@ -128,19 +134,22 @@ export const PostItem = React.memo(props => {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            style={{flex: 1, justifyContent: 'flex-end'}}
-            onPress={() => props.navigation.navigate('Detail', {...item})}>
-            <View style={{flexDirection: 'row'}}>
+            style={{ flex: 1, justifyContent: "flex-end" }}
+            onPress={() => props.navigation.navigate("Detail", { ...item })}
+          >
+            <View style={{ flexDirection: "row" }}>
               <MaterialCommunityIcons
                 name="comment-text-outline"
                 size={14}
                 style={Platform.select({
-                  ios: {marginRight: 2, marginTop: 2},
-                  android: {marginRight: 3, marginTop: 3},
+                  ios: { marginRight: 2, marginTop: 2 },
+                  android: { marginRight: 3, marginTop: 3 }
                 })}
                 color={colors.content.icon}
               />
-              <Text style={{color: colors.content.icon}}>{item.comments}</Text>
+              <Text style={{ color: colors.content.icon }}>
+                {item.comments}
+              </Text>
             </View>
           </TouchableOpacity>
         </View>

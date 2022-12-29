@@ -1,15 +1,15 @@
-import React from 'react';
-import {Text, View, FlatList} from 'react-native';
-import {ThemeContext, AuthContext} from '../context';
-import {MyActivityIndicator} from '../components/icons';
-import {PostItem} from '../components/post';
-import {handleError} from '../utils';
+import React from "react";
+import { Text, View, FlatList } from "react-native";
+import { ThemeContext, AuthContext } from "../context";
+import { MyActivityIndicator } from "../components/icons";
+import { PostItem } from "../components/post";
+import { handleError } from "../utils";
 
 const PAGE_SIZE = 30;
 
-const List = ({navigation, sort}) => {
-  const {colors} = React.useContext(ThemeContext);
-  const {fetchWithAuth} = React.useContext(AuthContext);
+const List = ({ navigation, sort }) => {
+  const { colors } = React.useContext(ThemeContext);
+  const { fetchWithAuth } = React.useContext(AuthContext);
 
   const [first, setFirst] = React.useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
@@ -25,12 +25,12 @@ const List = ({navigation, sort}) => {
       // })
       // return json.news.map(x => ({ ...x, id: Math.random().toString() }))
 
-      const {news} = await fetchWithAuth(
-        `/getnews/${sort}/${anchor}/${PAGE_SIZE}`,
+      const { news } = await fetchWithAuth(
+        `/getnews/${sort}/${anchor}/${PAGE_SIZE}`
       );
       return news;
     },
-    [sort, fetchWithAuth],
+    [sort, fetchWithAuth]
   );
 
   React.useEffect(() => {
@@ -55,13 +55,13 @@ const List = ({navigation, sort}) => {
           return {
             ...item,
             voted: type,
-            up: type === 'up' ? parseInt(item.up, 10) + 1 : item.up,
-            down: type === 'down' ? parseInt(item.down, 10) + 1 : item.down,
+            up: type === "up" ? parseInt(item.up, 10) + 1 : item.up,
+            down: type === "down" ? parseInt(item.down, 10) + 1 : item.down
           };
         } else {
           return item;
         }
-      }),
+      })
     );
   }, []);
 
@@ -98,11 +98,11 @@ const List = ({navigation, sort}) => {
 
       // Remove duplicated items
       const idMapper = items.reduce(
-        (obj, item) => ({...obj, [item.id]: true}),
-        {},
+        (obj, item) => ({ ...obj, [item.id]: true }),
+        {}
       );
       // console.log(idMapper)
-      _items = _items.filter(({id}) => !idMapper[id]);
+      _items = _items.filter(({ id }) => !idMapper[id]);
       // console.log(items.length)
 
       setItems([...items, ..._items]);
@@ -118,17 +118,18 @@ const List = ({navigation, sort}) => {
       style={{
         backgroundColor: colors.content.background,
         flex: 1,
-        justifyContent: 'center',
-      }}>
+        justifyContent: "center"
+      }}
+    >
       {first ? (
         <MyActivityIndicator size="large" />
       ) : (
         <FlatList
           data={items}
-          renderItem={({item}) =>
+          renderItem={({ item }) =>
             item.del ? (
-              <View style={{padding: 10}}>
-                <Text style={{color: colors.content.user, fontSize: 16}}>
+              <View style={{ padding: 10 }}>
+                <Text style={{ color: colors.content.user, fontSize: 16 }}>
                   [deleted news]
                 </Text>
               </View>
@@ -145,7 +146,7 @@ const List = ({navigation, sort}) => {
             <View
               style={{
                 height: 1,
-                backgroundColor: colors.content.border,
+                backgroundColor: colors.content.border
               }}
             />
           )}
@@ -160,8 +161,9 @@ const List = ({navigation, sort}) => {
                 height: 56,
                 borderTopWidth: 1,
                 borderColor: colors.content.border,
-                alignItems: 'center',
-              }}>
+                alignItems: "center"
+              }}
+            >
               {loadingMore ? (
                 <MyActivityIndicator />
               ) : end ? (
