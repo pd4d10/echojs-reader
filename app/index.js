@@ -7,16 +7,11 @@ import {
   SettingsContext,
   ThemeContext,
 } from "./context";
-import { BottomTabNavigator, MaterialBottomTabNavigator } from "./navigators";
+import { BottomTabNavigator } from "./navigators/bottom-tab";
 
 const AppContent = () => {
   const { colors } = React.useContext(ThemeContext);
   const { inSv } = React.useContext(SettingsContext);
-
-  const Navigator = Platform.select({
-    ios: BottomTabNavigator,
-    android: MaterialBottomTabNavigator,
-  });
 
   return (
     <>
@@ -30,7 +25,7 @@ const AppContent = () => {
           android: colors.header.androidBar,
         })}
       />
-      <Navigator />
+      <BottomTabNavigator />
     </>
   );
 };

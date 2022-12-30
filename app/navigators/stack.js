@@ -1,83 +1,64 @@
 import React from "react";
-import { createStackNavigator, Header } from "react-navigation-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   TopScreen,
   LatestScreen,
   DetailScreen,
   SettingsScreen,
 } from "../screens";
-import { ThemeContext } from "../context";
 import { LoginScreen } from "../screens/login";
+import { ThemeContext } from "../context";
 
-// HACK: This is a hack to dynamic change header's style
-const CustomHeader = (props) => {
+const TopStack = createNativeStackNavigator();
+
+export const TopNavigator = () => {
+  const { colors } = React.useContext(ThemeContext);
+
   return (
-    <ThemeContext.Consumer>
-      {({ colors }) => {
-        const addOptionsToScene = (scene) => ({
-          ...scene,
-          descriptor: {
-            ...scene.descriptor,
-            options: {
-              ...scene.descriptor.options,
-              headerTintColor: colors.header.text,
-              headerStyle: {
-                backgroundColor: colors.header.background,
-              },
-            },
-          },
-        });
-
-        const propsNew = {
-          ...props,
-          scene: addOptionsToScene(props.scene),
-          scenes: props.scenes.map(addOptionsToScene),
-        };
-
-        // console.log(propsNew.scenes)
-        return <Header {...propsNew} />;
+    <TopStack.Navigator
+      screenOptions={{
+        headerTitleStyle: { color: colors.header.text },
+        headerStyle: { backgroundColor: colors.header.background },
       }}
-    </ThemeContext.Consumer>
+    >
+      <TopStack.Screen name="Top news" component={TopScreen} />
+      <LatestStack.Screen name="Detail" component={DetailScreen} />
+      <LatestStack.Screen name="Login" component={LoginScreen} />
+    </TopStack.Navigator>
   );
 };
 
-export const TopNavigator = createStackNavigator(
-  {
-    Top: TopScreen,
-    Detail: DetailScreen,
-    Login: LoginScreen,
-  },
-  {
-    defaultNavigationOptions: {
-      title: "Top news",
-      header: CustomHeader,
-    },
-  }
-);
+const LatestStack = createNativeStackNavigator();
 
-export const LatestNavigator = createStackNavigator(
-  {
-    Latest: LatestScreen,
-    Detail: DetailScreen,
-    Login: LoginScreen,
-  },
-  {
-    defaultNavigationOptions: {
-      title: "Latest news",
-      header: CustomHeader,
-    },
-  }
-);
+export const LatestNavigator = () => {
+  const { colors } = React.useContext(ThemeContext);
 
-export const SettingsNavigator = createStackNavigator(
-  {
-    Settings: SettingsScreen,
-    Login: LoginScreen,
-  },
-  {
-    defaultNavigationOptions: {
-      title: "Settings",
-      header: CustomHeader,
-    },
-  }
-);
+  return (
+    <LatestStack.Navigator
+      screenOptions={{
+        headerTitleStyle: { color: colors.header.text },
+        headerStyle: { backgroundColor: colors.header.background },
+      }}
+    >
+      <LatestStack.Screen name="Latest news" component={LatestScreen} />
+      <LatestStack.Screen name="Detail" component={DetailScreen} />
+      <LatestStack.Screen name="Login" component={LoginScreen} />
+    </LatestStack.Navigator>
+  );
+};
+
+export const SettingsNavigator = () => {
+  const { colors } = React.useContext(ThemeContext);
+
+  return (
+    <LatestStack.Navigator
+      screenOptions={{
+        headerTitleStyle: { color: colors.header.text },
+        headerStyle: { backgroundColor: colors.header.background },
+      }}
+    >
+      <LatestStack.Screen name="Settings" component={SettingsScreen} />
+      <LatestStack.Screen name="Login" component={LoginScreen} />
+    </LatestStack.Navigator>
+  );
+};
