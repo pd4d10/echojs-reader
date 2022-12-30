@@ -2287,16 +2287,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-community/toolbar-android@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@react-native-community/toolbar-android@npm:0.2.1"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 540c708ec83d86ebe3d2c86ecf8463c3394cfd70c6ef14e2a4f37cd1338dd6b24d50e67af2cb2a36178cc9acb30e2d47357941bab68595eda07f0ae2c45662df
-  languageName: node
-  linkType: hard
-
 "@react-native/assets@npm:1.0.0":
   version: 1.0.0
   resolution: "@react-native/assets@npm:1.0.0"
@@ -3997,7 +3987,6 @@ __metadata:
   dependencies:
     "@babel/core": ^7.12.9
     "@react-native-async-storage/async-storage": ~1.17.3
-    "@react-native-community/toolbar-android": ^0.2.1
     "@react-navigation/bottom-tabs": ^6.5.2
     "@react-navigation/native": ^6.1.1
     "@react-navigation/native-stack": ^6.9.7
@@ -4013,7 +4002,6 @@ __metadata:
     react-native-safe-area-context: 4.4.1
     react-native-screens: ~3.18.0
     react-native-tableview-simple: ^4.3.1
-    react-native-vector-icons: ^6.6.0
   languageName: unknown
   linkType: soft
 
@@ -5947,7 +5935,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.13, lodash@npm:^4.17.15, lodash@npm:^4.17.21, lodash@npm:^4.17.4":
+"lodash@npm:^4.17.13, lodash@npm:^4.17.21, lodash@npm:^4.17.4":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
@@ -7694,22 +7682,6 @@ __metadata:
     react: "*"
     react-native: ">=0.64"
   checksum: a578cc73d907889bfd7d3e5f275f8e60cde63b0f3dda6e912719b50229a453366ae441aae8a5d3d45ceb0798b05938138783fb7fc8760a9e68d85ef376063d6f
-  languageName: node
-  linkType: hard
-
-"react-native-vector-icons@npm:^6.6.0":
-  version: 6.7.0
-  resolution: "react-native-vector-icons@npm:6.7.0"
-  dependencies:
-    lodash: ^4.17.15
-    prop-types: ^15.7.2
-    yargs: ^15.0.2
-  peerDependencies:
-    "@react-native-community/toolbar-android": ^0.1.0-rc.1
-  bin:
-    fa5-upgrade: bin/fa5-upgrade.sh
-    generate-icon: bin/generate-icon.js
-  checksum: 7dde88f441d3486efd473ac0ee5ce57a8ad70b2ebf8ff18adbc98cb941d5a2106747c6bb431d65ef4745c5f0e76c8e166ef3d07f42962c37d802c7be03afc340
   languageName: node
   linkType: hard
 
@@ -9628,7 +9600,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:^15.0.2, yargs@npm:^15.1.0, yargs@npm:^15.3.1":
+"yargs@npm:^15.1.0, yargs@npm:^15.3.1":
   version: 15.4.1
   resolution: "yargs@npm:15.4.1"
   dependencies:

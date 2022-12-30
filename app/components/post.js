@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View, TouchableOpacity, Platform } from "react-native";
 import { formatDistance } from "date-fns";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import ActionSheet from "react-native-actionsheet";
 import { SettingsContext, AuthContext, ThemeContext } from "../context";
 import { Vote } from "./vote";

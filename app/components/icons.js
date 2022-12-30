@@ -1,8 +1,8 @@
 import React from "react";
 import { ActivityIndicator, Platform } from "react-native";
-import Entypo from "react-native-vector-icons/Entypo";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import Entypo from "@expo/vector-icons/Entypo";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { ThemeContext } from "../context";
 
 export const TopIcon = (props) => <Entypo name="bar-graph" {...props} />;
