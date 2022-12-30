@@ -5,7 +5,7 @@ import { TopNavigator, LatestNavigator, SettingsNavigator } from "./stack";
 import { TopIcon, LatestIcon, SettingsIcon } from "../components/icons";
 import { ThemeContext } from "../context";
 
-const CustomBottomTabBar = props => {
+const CustomBottomTabBar = (props) => {
   const { colors } = React.useContext(ThemeContext);
 
   return (
@@ -18,7 +18,7 @@ const CustomBottomTabBar = props => {
       renderIcon={({ route, focused }) => {
         const p = {
           color: focused ? colors.tab.active : colors.tab.inactive,
-          size: 24
+          size: 24,
         };
 
         switch (route.routeName) {
@@ -39,11 +39,11 @@ export const BottomTabNavigator = createAppContainer(
     {
       Top: TopNavigator,
       Latest: LatestNavigator,
-      Settings: SettingsNavigator
+      Settings: SettingsNavigator,
     },
     {
       initialRouteName: "Top",
-      tabBarComponent: CustomBottomTabBar
+      tabBarComponent: CustomBottomTabBar,
     }
   )
 );

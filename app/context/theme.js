@@ -7,7 +7,7 @@ export const ThemeContext = React.createContext();
 export const ThemeProvider = ({ children }) => {
   const [theme, _setTheme] = React.useState();
 
-  const ensureCorrect = React.useCallback(v => {
+  const ensureCorrect = React.useCallback((v) => {
     if (Object.keys(themeMapping).includes(v)) {
       return v;
     } else {
@@ -16,7 +16,7 @@ export const ThemeProvider = ({ children }) => {
   }, []);
 
   const setTheme = React.useCallback(
-    v => {
+    (v) => {
       v = ensureCorrect(v);
       _setTheme(v);
       AsyncStorage.setItem(STORAGE_KEYS.theme, v);

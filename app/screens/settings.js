@@ -6,18 +6,17 @@ import { themeMapping } from "../constants";
 import CustomSwitch from "../components/switch";
 import { confirm } from "../utils";
 
-export const SettingsScreen = props => {
+export const SettingsScreen = (props) => {
   const { theme, setTheme, colors } = React.useContext(ThemeContext);
   const { auth, username, logout } = React.useContext(AuthContext);
-  const { svEnable, svAvailable, setSvEnable, openLink } = React.useContext(
-    SettingsContext
-  );
+  const { svEnable, svAvailable, setSvEnable, openLink } =
+    React.useContext(SettingsContext);
 
   return (
     <ScrollView
       contentContainerStyle={{
         paddingVertical: 20,
-        backgroundColor: colors.settings.background
+        backgroundColor: colors.settings.background,
       }}
     >
       <TableView>
@@ -57,7 +56,7 @@ export const SettingsScreen = props => {
         </Section>
 
         <Section header="THEME" sectionTintColor="transparent">
-          {Object.keys(themeMapping).map(item => (
+          {Object.keys(themeMapping).map((item) => (
             <Cell
               key={item}
               title={themeMapping[item].name}

@@ -5,16 +5,16 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { ThemeContext } from "../context";
 
-export const TopIcon = props => <Entypo name="bar-graph" {...props} />;
+export const TopIcon = (props) => <Entypo name="bar-graph" {...props} />;
 
-export const LatestIcon = props => <Ionicons name="md-time" {...props} />;
+export const LatestIcon = (props) => <Ionicons name="md-time" {...props} />;
 
-export const SettingsIcon = props => (
+export const SettingsIcon = (props) => (
   <MaterialIcons name="settings" {...props} />
 );
 
 // Use primary color at Android
-export const MyActivityIndicator = props => {
+export const MyActivityIndicator = (props) => {
   const { colors } = React.useContext(ThemeContext);
   return (
     <ActivityIndicator

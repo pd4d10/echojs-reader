@@ -6,7 +6,7 @@ import { TopNavigator, LatestNavigator, SettingsNavigator } from "./stack";
 import { ThemeContext } from "../context";
 import { createAppContainer } from "react-navigation";
 
-const BottomNavigationView = props => {
+const BottomNavigationView = (props) => {
   const { colors } = React.useContext(ThemeContext);
 
   const _isVisible = () => {
@@ -41,7 +41,7 @@ const BottomNavigationView = props => {
       renderIcon={({ route, focused }) => {
         const p = {
           color: focused ? colors.tab.active : colors.tab.inactive,
-          size: 24
+          size: 24,
         };
 
         switch (route.routeName) {
@@ -70,10 +70,10 @@ export const MaterialBottomTabNavigator = createAppContainer(
     {
       Top: TopNavigator,
       Latest: LatestNavigator,
-      Settings: SettingsNavigator
+      Settings: SettingsNavigator,
     },
     {
-      barStyle: { backgroundColor: "#fff" }
+      barStyle: { backgroundColor: "#fff" },
     }
   )
 );

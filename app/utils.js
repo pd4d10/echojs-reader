@@ -7,9 +7,9 @@ export const confirm = (message, callback) => {
     [
       {
         text: "Cancel",
-        style: "cancel"
+        style: "cancel",
       },
-      { text: "OK", onPress: callback }
+      { text: "OK", onPress: callback },
     ],
     { cancelable: false }
   );

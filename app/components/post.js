@@ -8,7 +8,7 @@ import { Vote } from "./vote";
 import { getHostFromUrl } from "../utils";
 import { Nickname } from "./nickname";
 
-export const PostItem = React.memo(props => {
+export const PostItem = React.memo((props) => {
   const { auth, secret, fetchWithAuth } = React.useContext(AuthContext);
   const { openLink } = React.useContext(SettingsContext);
   const { colors } = React.useContext(ThemeContext);
@@ -20,7 +20,7 @@ export const PostItem = React.memo(props => {
       await fetchWithAuth(
         `/votenews?news_id=${id}&vote_type=${type}&apisecret=${secret}`,
         {
-          method: "POST"
+          method: "POST",
         }
       );
       alert("Vote succeed");
@@ -39,7 +39,7 @@ export const PostItem = React.memo(props => {
     <View
       style={{
         flexDirection: "row",
-        padding: 10
+        padding: 10,
       }}
     >
       <View style={{ flex: 1 }}>
@@ -58,7 +58,7 @@ export const PostItem = React.memo(props => {
               fontSize: 18,
               lineHeight: 22,
               color: colors.content.title,
-              marginBottom: 6
+              marginBottom: 6,
             }}
           >
             {item.title}
@@ -68,7 +68,7 @@ export const PostItem = React.memo(props => {
               style={{
                 color: colors.content.url,
                 fontSize: 12,
-                marginBottom: 6
+                marginBottom: 6,
               }}
             >
               at {getHostFromUrl(item.url)}
@@ -88,7 +88,7 @@ export const PostItem = React.memo(props => {
             justifyContent: "space-between",
             width: 44,
             marginTop: 2,
-            paddingLeft: 10
+            paddingLeft: 10,
           }}
         >
           <TouchableOpacity
@@ -109,13 +109,13 @@ export const PostItem = React.memo(props => {
           >
             <Vote colors={colors} item={item} />
             <ActionSheet
-              ref={el => {
+              ref={(el) => {
                 setActionSheet(el);
               }}
               title={`Vote for ${item.username}'s post`}
               options={["Up", "Down", "cancel"]}
               cancelButtonIndex={2}
-              onPress={async index => {
+              onPress={async (index) => {
                 try {
                   switch (index) {
                     case 0:
@@ -143,7 +143,7 @@ export const PostItem = React.memo(props => {
                 size={14}
                 style={Platform.select({
                   ios: { marginRight: 2, marginTop: 2 },
-                  android: { marginRight: 3, marginTop: 3 }
+                  android: { marginRight: 3, marginTop: 3 },
                 })}
                 color={colors.content.icon}
               />

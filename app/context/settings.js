@@ -47,7 +47,7 @@ export const SettingsProvider = ({ children }) => {
     };
   }, [svAvailable]);
 
-  const setSvEnable = React.useCallback(value => {
+  const setSvEnable = React.useCallback((value) => {
     // Set state immediately to avoid switch UI delay
     _setSvEnable(value);
     AsyncStorage.setItem(STORAGE_KEYS.safariView, value.toString());
@@ -64,7 +64,7 @@ export const SettingsProvider = ({ children }) => {
         SafariView.show({
           url,
           tintColor: colors.safari.text,
-          barTintColor: colors.safari.background
+          barTintColor: colors.safari.background,
         });
       } else {
         Linking.openURL(url);
@@ -80,7 +80,7 @@ export const SettingsProvider = ({ children }) => {
         svAvailable,
         svEnable,
         setSvEnable,
-        openLink
+        openLink,
       }}
     >
       {children}

@@ -18,15 +18,12 @@ export const AuthProvider = ({ children }) => {
       // )
       // console.log(JSON.stringify(storage, null, 2))
 
-      const [
-        [, _auth],
-        [, _username],
-        [, _secret]
-      ] = await AsyncStorage.multiGet([
-        STORAGE_KEYS.auth,
-        STORAGE_KEYS.username,
-        STORAGE_KEYS.secret
-      ]);
+      const [[, _auth], [, _username], [, _secret]] =
+        await AsyncStorage.multiGet([
+          STORAGE_KEYS.auth,
+          STORAGE_KEYS.username,
+          STORAGE_KEYS.secret,
+        ]);
       // console.log(_auth, _username, _secret)
       setAuth(_auth);
       setUsername(_username);
@@ -59,7 +56,7 @@ export const AuthProvider = ({ children }) => {
       await AsyncStorage.multiSet([
         [STORAGE_KEYS.auth, json.auth],
         [STORAGE_KEYS.username, _username],
-        [STORAGE_KEYS.secret, json.apisecret]
+        [STORAGE_KEYS.secret, json.apisecret],
       ]);
       setAuth(json.auth);
       setUsername(_username);
@@ -84,14 +81,14 @@ export const AuthProvider = ({ children }) => {
   const logout = React.useCallback(async () => {
     try {
       await fetchWithAuth(`/logout?apisecret=${secret}`, {
-        method: "POST"
+        method: "POST",
       });
     } catch (err) {
     } finally {
       await AsyncStorage.multiRemove([
         STORAGE_KEYS.auth,
         STORAGE_KEYS.username,
-        STORAGE_KEYS.secret
+        STORAGE_KEYS.secret,
       ]);
       setAuth(null);
       setUsername(null);
@@ -113,7 +110,7 @@ export const AuthProvider = ({ children }) => {
         login,
         createAccount,
         logout,
-        fetchWithAuth
+        fetchWithAuth,
       }}
     >
       {children}

@@ -10,15 +10,15 @@ export default function CustomSwitch({ ...props }) {
       {...Platform.select({
         ios: {
           trackColor: {
-            true: colors.settings.active
-          }
+            true: colors.settings.active,
+          },
         },
         android: {
           trackColor: {
-            true: colors.settings.androidSwitchActiveBackground
+            true: colors.settings.androidSwitchActiveBackground,
           },
-          thumbColor: colors.settings.active
-        }
+          thumbColor: colors.settings.active,
+        },
       })}
       {...props}
     />

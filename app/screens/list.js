@@ -49,14 +49,14 @@ const List = ({ navigation, sort }) => {
   }, [fetchData]);
 
   const updateVote = React.useCallback((id, type) => {
-    setItems(v =>
-      v.map(item => {
+    setItems((v) =>
+      v.map((item) => {
         if (item.id === id) {
           return {
             ...item,
             voted: type,
             up: type === "up" ? parseInt(item.up, 10) + 1 : item.up,
-            down: type === "down" ? parseInt(item.down, 10) + 1 : item.down
+            down: type === "down" ? parseInt(item.down, 10) + 1 : item.down,
           };
         } else {
           return item;
@@ -118,7 +118,7 @@ const List = ({ navigation, sort }) => {
       style={{
         backgroundColor: colors.content.background,
         flex: 1,
-        justifyContent: "center"
+        justifyContent: "center",
       }}
     >
       {first ? (
@@ -141,12 +141,12 @@ const List = ({ navigation, sort }) => {
               />
             )
           }
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id}
           ItemSeparatorComponent={() => (
             <View
               style={{
                 height: 1,
-                backgroundColor: colors.content.border
+                backgroundColor: colors.content.border,
               }}
             />
           )}
@@ -161,7 +161,7 @@ const List = ({ navigation, sort }) => {
                 height: 56,
                 borderTopWidth: 1,
                 borderColor: colors.content.border,
-                alignItems: "center"
+                alignItems: "center",
               }}
             >
               {loadingMore ? (
@@ -177,6 +177,6 @@ const List = ({ navigation, sort }) => {
   );
 };
 
-export const TopScreen = props => <List sort="top" {...props} />;
+export const TopScreen = (props) => <List sort="top" {...props} />;
 
-export const LatestScreen = props => <List sort="latest" {...props} />;
+export const LatestScreen = (props) => <List sort="latest" {...props} />;

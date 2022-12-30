@@ -5,7 +5,7 @@ import {
   SettingsProvider,
   AuthProvider,
   SettingsContext,
-  ThemeContext
+  ThemeContext,
 } from "./context";
 import { BottomTabNavigator, MaterialBottomTabNavigator } from "./navigators";
 
@@ -15,7 +15,7 @@ const AppContent = () => {
 
   const Navigator = Platform.select({
     ios: BottomTabNavigator,
-    android: MaterialBottomTabNavigator
+    android: MaterialBottomTabNavigator,
   });
 
   return (
@@ -24,10 +24,10 @@ const AppContent = () => {
         barStyle={Platform.select({
           ios: inSv
             ? colors.safari.statusBarStyle
-            : colors.header.statusBarStyle
+            : colors.header.statusBarStyle,
         })}
         backgroundColor={Platform.select({
-          android: colors.header.androidBar
+          android: colors.header.androidBar,
         })}
       />
       <Navigator />

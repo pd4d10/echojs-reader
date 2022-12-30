@@ -5,7 +5,7 @@ export const Vote = ({ colors, item }) => (
   <View>
     <Text
       style={{
-        color: item.voted === "up" ? colors.content.voted : colors.content.icon
+        color: item.voted === "up" ? colors.content.voted : colors.content.icon,
       }}
     >
       ▲ {item.up}
@@ -13,7 +13,7 @@ export const Vote = ({ colors, item }) => (
     <Text
       style={{
         color:
-          item.voted === "down" ? colors.content.voted : colors.content.icon
+          item.voted === "down" ? colors.content.voted : colors.content.icon,
       }}
     >
       ▼ {item.down || 0}

@@ -13,7 +13,7 @@ export const CommentItem = ({ item, colors, level = 0 }) => {
         style={{
           flexDirection: "row",
           padding: 10,
-          marginLeft: level * 20
+          marginLeft: level * 20,
           // borderTopColor: colors.content.border,
           // borderTopWidth: this.props.index === 0 ? 0 : 1,
         }}
@@ -30,13 +30,13 @@ export const CommentItem = ({ item, colors, level = 0 }) => {
             justifyContent: "space-between",
             width: 44,
             marginTop: 2,
-            paddingLeft: 10
+            paddingLeft: 10,
           }}
         >
           <Vote colors={colors} item={item} />
         </View>
       </View>
-      {(item.replies || []).map(reply => (
+      {(item.replies || []).map((reply) => (
         <CommentItem
           key={reply.ctime + reply.username}
           level={level + 1}

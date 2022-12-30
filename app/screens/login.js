@@ -80,5 +80,5 @@ export const LoginScreen = ({ navigation }) => {
 };
 
 LoginScreen.navigationOptions = {
-  title: "Login"
+  title: "Login",
 };

@@ -9,7 +9,7 @@ export const Nickname = ({ name }) => {
   return (
     <Text
       style={{
-        textDecorationLine: "underline"
+        textDecorationLine: "underline",
       }}
       onPress={() => {
         openLink(`https://echojs.com/user/${name}`, colors);

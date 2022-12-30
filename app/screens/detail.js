@@ -32,7 +32,7 @@ export const DetailScreen = ({ navigation }) => {
     <ScrollView
       style={{
         backgroundColor: colors.content.background,
-        padding: 4
+        padding: 4,
       }}
     >
       <PostItem
@@ -43,13 +43,13 @@ export const DetailScreen = ({ navigation }) => {
       <View
         style={{
           borderBottomColor: colors.content.border,
-          borderBottomWidth: 8
+          borderBottomWidth: 8,
         }}
       />
       {loading ? (
         <MyActivityIndicator style={{ marginTop: 10 }} />
       ) : (
-        comments.map(comment => (
+        comments.map((comment) => (
           <CommentItem
             key={comment.ctime + comment.username}
             item={comment}
@@ -62,5 +62,5 @@ export const DetailScreen = ({ navigation }) => {
 };
 
 DetailScreen.navigationOptions = ({ navigation }) => ({
-  title: navigation.getParam("title")
+  title: navigation.getParam("title"),
 });
