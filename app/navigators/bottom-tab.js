@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TopNavigator, LatestNavigator, SettingsNavigator } from "./stack";
 import { TopIcon, LatestIcon, SettingsIcon } from "../components/icons";
-import { ThemeContext } from "../context";
+import { ThemeContext } from "../context/theme";
 
 const Tab = createBottomTabNavigator();
 

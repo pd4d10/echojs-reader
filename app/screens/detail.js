@@ -1,10 +1,11 @@
 import React from "react";
 import { View, ScrollView } from "react-native";
 import { MyActivityIndicator } from "../components/icons";
-import { ThemeContext, AuthContext } from "../context";
+import { ThemeContext } from "../context/theme";
 import { PostItem } from "../components/post";
 import { CommentItem } from "../components/comment";
 import { handleError } from "../utils";
+import { AuthContext } from "../context/auth";
 
 export const DetailScreen = ({ navigation }) => {
   const { colors } = React.useContext(ThemeContext);

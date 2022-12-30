@@ -1,6 +1,7 @@
 import React from "react";
 import { Text } from "react-native";
-import { SettingsContext, ThemeContext } from "../context";
+import { SettingsContext } from "../context/settings";
+import { ThemeContext } from "../context/theme";
 
 export const Nickname = ({ name }) => {
   const { openLink } = React.useContext(SettingsContext);

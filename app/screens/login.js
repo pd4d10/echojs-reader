@@ -1,7 +1,8 @@
 import React from "react";
 import { View, Button, TextInput } from "react-native";
 import { Cell, Section } from "react-native-tableview-simple";
-import { AuthContext, ThemeContext } from "../context";
+import { AuthContext } from "../context/auth";
+import { ThemeContext } from "../context/theme";
 
 export const LoginScreen = ({ navigation }) => {
   const { login, createAccount } = React.useContext(AuthContext);

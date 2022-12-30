@@ -3,10 +3,12 @@ import { Text, View, TouchableOpacity, Platform } from "react-native";
 import { formatDistance } from "date-fns";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import ActionSheet from "react-native-actionsheet";
-import { SettingsContext, AuthContext, ThemeContext } from "../context";
+import { ThemeContext } from "../context/theme";
 import { Vote } from "./vote";
 import { getHostFromUrl } from "../utils";
 import { Nickname } from "./nickname";
+import { SettingsContext } from "../context/settings";
+import { AuthContext } from "../context/auth";
 
 export const PostItem = React.memo((props) => {
   const { auth, secret, fetchWithAuth } = React.useContext(AuthContext);

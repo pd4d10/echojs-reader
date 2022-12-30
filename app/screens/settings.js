@@ -1,10 +1,12 @@
 import React from "react";
 import { ScrollView, View, Button, Text } from "react-native";
 import { Cell, Section, TableView } from "react-native-tableview-simple";
-import { ThemeContext, AuthContext, SettingsContext } from "../context";
+import { ThemeContext } from "../context/theme";
 import { themeMapping } from "../constants";
 import CustomSwitch from "../components/switch";
 import { confirm } from "../utils";
+import { AuthContext } from "../context/auth";
+import { SettingsContext } from "../context/settings";
 
 export const SettingsScreen = (props) => {
   const { theme, setTheme, colors } = React.useContext(ThemeContext);

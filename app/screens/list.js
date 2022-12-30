@@ -1,9 +1,10 @@
 import React from "react";
 import { Text, View, FlatList } from "react-native";
-import { ThemeContext, AuthContext } from "../context";
+import { ThemeContext } from "../context/theme";
 import { MyActivityIndicator } from "../components/icons";
 import { PostItem } from "../components/post";
 import { handleError } from "../utils";
+import { AuthContext } from "../context/auth";
 
 const PAGE_SIZE = 30;
 

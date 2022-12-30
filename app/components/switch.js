@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Platform } from "react-native";
-import { ThemeContext } from "../context";
+import { ThemeContext } from "../context/theme";
 
 export default function CustomSwitch({ ...props }) {
   const { colors } = React.useContext(ThemeContext);

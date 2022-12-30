@@ -1,13 +1,10 @@
 import React from "react";
 import { StatusBar, Platform } from "react-native";
-import {
-  ThemeProvider,
-  SettingsProvider,
-  AuthProvider,
-  SettingsContext,
-  ThemeContext,
-} from "./context";
 import { BottomTabNavigator } from "./navigators/bottom-tab";
+
+import { ThemeProvider, ThemeContext } from "./context/theme";
+import { SettingsContext, SettingsProvider } from "./context/settings";
+import { AuthProvider } from "./context/auth";
 
 const AppContent = () => {
   const { colors } = React.useContext(ThemeContext);

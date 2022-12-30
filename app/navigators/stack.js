@@ -1,13 +1,10 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {
-  TopScreen,
-  LatestScreen,
-  DetailScreen,
-  SettingsScreen,
-} from "../screens";
 import { LoginScreen } from "../screens/login";
-import { ThemeContext } from "../context";
+import { ThemeContext } from "../context/theme";
+import { LatestScreen, TopScreen } from "../screens/list";
+import { SettingsScreen } from "../screens/settings";
+import { DetailScreen } from "../screens/detail";
 
 const TopStack = createNativeStackNavigator();
 
