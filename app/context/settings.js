@@ -1,6 +1,6 @@
 import React from "react";
 import { Linking } from "react-native";
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import SafariView from "react-native-safari-view";
 import { STORAGE_KEYS } from "../constants";
 
