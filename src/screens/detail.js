@@ -32,7 +32,7 @@ export const DetailScreen = ({ navigation }) => {
   return (
     <ScrollView
       style={{
-        backgroundColor: colors.content.background,
+        backgroundColor: colors.contentBackground,
         padding: 4,
       }}
     >
@@ -43,7 +43,7 @@ export const DetailScreen = ({ navigation }) => {
       />
       <View
         style={{
-          borderBottomColor: colors.content.border,
+          borderBottomColor: colors.contentBorder,
           borderBottomWidth: 8,
         }}
       />

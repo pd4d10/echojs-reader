@@ -18,7 +18,7 @@ export const SettingsScreen = (props) => {
     <ScrollView
       contentContainerStyle={{
         paddingVertical: 20,
-        backgroundColor: colors.settings.background,
+        backgroundColor: colors.settingsBackground,
       }}
     >
       <TableView>
@@ -33,7 +33,7 @@ export const SettingsScreen = (props) => {
               cellAccessoryView={
                 <Button
                   title="Logout"
-                  color={colors.settings.active}
+                  color={colors.settingsActive}
                   onPress={() => {
                     confirm("Are you sure to logout?", logout);
                   }}
@@ -46,7 +46,7 @@ export const SettingsScreen = (props) => {
                 <View style={{ flex: 1 }}>
                   <Button
                     title="Login / Create account"
-                    color={colors.settings.active}
+                    color={colors.settingsActive}
                     onPress={() => {
                       props.navigation.navigate("Login");
                     }}
@@ -63,7 +63,7 @@ export const SettingsScreen = (props) => {
               key={item}
               title={themeMapping[item].name}
               accessory={theme === item ? "Checkmark" : undefined}
-              accessoryColor={colors.settings.active}
+              accessoryColor={colors.settingsActive}
               onPress={() => setTheme(item)}
             />
           ))}

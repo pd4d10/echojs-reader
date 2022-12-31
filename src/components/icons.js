@@ -8,7 +8,7 @@ export const MyActivityIndicator = (props) => {
   const { colors } = React.useContext(ThemeContext);
   return (
     <ActivityIndicator
-      color={Platform.select({ android: colors.content.loading })}
+      color={Platform.select({ android: colors.contentLoading })}
       {...props}
     />
   );

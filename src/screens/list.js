@@ -117,7 +117,7 @@ const List = ({ navigation, sort }) => {
   return (
     <View
       style={{
-        backgroundColor: colors.content.background,
+        backgroundColor: colors.contentBackground,
         flex: 1,
         justifyContent: "center",
       }}
@@ -130,7 +130,7 @@ const List = ({ navigation, sort }) => {
           renderItem={({ item }) =>
             item.del ? (
               <View style={{ padding: 10 }}>
-                <Text style={{ color: colors.content.user, fontSize: 16 }}>
+                <Text style={{ color: colors.contentUser, fontSize: 16 }}>
                   [deleted news]
                 </Text>
               </View>
@@ -147,7 +147,7 @@ const List = ({ navigation, sort }) => {
             <View
               style={{
                 height: 1,
-                backgroundColor: colors.content.border,
+                backgroundColor: colors.contentBorder,
               }}
             />
           )}
@@ -161,7 +161,7 @@ const List = ({ navigation, sort }) => {
                 paddingVertical: 20,
                 height: 56,
                 borderTopWidth: 1,
-                borderColor: colors.content.border,
+                borderColor: colors.contentBorder,
                 alignItems: "center",
               }}
             >

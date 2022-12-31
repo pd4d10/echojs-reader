@@ -14,16 +14,16 @@ export const CommentItem = ({ item, colors, level = 0 }) => {
           flexDirection: "row",
           padding: 10,
           marginLeft: level * 20,
-          // borderTopColor: colors.content.border,
+          // borderTopColor: colors.contentBorder,
           // borderTopWidth: this.props.index === 0 ? 0 : 1,
         }}
       >
         <View style={{ flex: 1 }}>
-          <Text style={{ color: colors.content.user, marginBottom: 4 }}>
+          <Text style={{ color: colors.contentUser, marginBottom: 4 }}>
             <Nickname name={item.username} /> |{" "}
             {formatDistance(parseInt(item.ctime, 10) * 1000, now)} ago
           </Text>
-          <Text style={{ color: colors.content.title }}>{item.body}</Text>
+          <Text style={{ color: colors.contentTitle }}>{item.body}</Text>
         </View>
         <View
           style={{

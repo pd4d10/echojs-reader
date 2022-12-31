@@ -11,7 +11,7 @@ export const ThemeProvider = ({ children }) => {
     if (Object.keys(themeMapping).includes(v)) {
       return v;
     } else {
-      return "echojs";
+      return "light";
     }
   }, []);
 

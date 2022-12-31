@@ -11,7 +11,7 @@ export const BottomTabNavigator = () => {
   const { colors } = React.useContext(ThemeContext);
 
   const getIconProps = (focused) => ({
-    color: focused ? colors.tab.active : colors.tab.inactive,
+    color: focused ? colors.tabActive : colors.tabInactive,
     size: 24,
   });
 
@@ -19,10 +19,10 @@ export const BottomTabNavigator = () => {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
-          tabBarActiveTintColor: colors.tab.active,
-          tabBarInactiveTintColor: colors.tab.inactive,
-          tabBarActiveBackgroundColor: colors.tab.activeBackground,
-          tabBarInactiveBackgroundColor: colors.tab.inactiveBackground,
+          tabBarActiveTintColor: colors.tabActive,
+          tabBarInactiveTintColor: colors.tabInactive,
+          tabBarActiveBackgroundColor: colors.tabActiveBackground,
+          tabBarInactiveBackgroundColor: colors.tabInactiveBackground,
         }}
       >
         <Tab.Screen

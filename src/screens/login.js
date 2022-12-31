@@ -41,7 +41,7 @@ export const LoginScreen = ({ navigation }) => {
         <View style={{ flexGrow: 1 }}>
           <Button
             title="Login"
-            color={colors.settings.active}
+            color={colors.settingsActive}
             onPress={async () => {
               if (!username || !password) {
                 alert("Please input username and password");
@@ -59,7 +59,7 @@ export const LoginScreen = ({ navigation }) => {
         <View style={{ flexGrow: 1 }}>
           <Button
             title="Create account"
-            color={colors.settings.active}
+            color={colors.settingsActive}
             onPress={async () => {
               if (!username || !password) {
                 alert("Please input username and password");

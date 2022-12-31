@@ -14,12 +14,10 @@ const AppContent = () => {
     <>
       <StatusBar
         barStyle={Platform.select({
-          ios: inSv
-            ? colors.safari.statusBarStyle
-            : colors.header.statusBarStyle,
+          ios: inSv ? colors.safariStatusBar : colors.headerStatusBar,
         })}
         backgroundColor={Platform.select({
-          android: colors.header.androidBar,
+          android: colors.headerAndroidBar,
         })}
       />
       <BottomTabNavigator />

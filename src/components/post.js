@@ -59,7 +59,7 @@ export const PostItem = React.memo((props) => {
             style={{
               fontSize: 18,
               lineHeight: 22,
-              color: colors.content.title,
+              color: colors.contentTitle,
               marginBottom: 6,
             }}
           >
@@ -68,7 +68,7 @@ export const PostItem = React.memo((props) => {
           {isText() || (
             <Text
               style={{
-                color: colors.content.url,
+                color: colors.contentUrl,
                 fontSize: 12,
                 marginBottom: 6,
               }}
@@ -78,7 +78,7 @@ export const PostItem = React.memo((props) => {
           )}
         </TouchableOpacity>
 
-        <Text style={{ color: colors.content.user }}>
+        <Text style={{ color: colors.contentUser }}>
           <Nickname name={item.username} /> |{" "}
           {formatDistance(parseInt(item.ctime, 10) * 1000, now)} ago
         </Text>
@@ -147,11 +147,9 @@ export const PostItem = React.memo((props) => {
                   ios: { marginRight: 2, marginTop: 2 },
                   android: { marginRight: 3, marginTop: 3 },
                 })}
-                color={colors.content.icon}
+                color={colors.contentIcon}
               />
-              <Text style={{ color: colors.content.icon }}>
-                {item.comments}
-              </Text>
+              <Text style={{ color: colors.contentIcon }}>{item.comments}</Text>
             </View>
           </TouchableOpacity>
         </View>

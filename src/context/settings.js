@@ -32,8 +32,8 @@ export const SettingsProvider = ({ children }) => {
         // }
 
         await WebBrowser.openBrowserAsync(url, {
-          controlsColor: colors.safari.text,
-          toolbarColor: colors.safari.background,
+          controlsColor: colors.safariText,
+          toolbarColor: colors.safariBackground,
         });
       } else {
         Linking.openURL(url);
