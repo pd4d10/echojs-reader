@@ -4002,6 +4002,8 @@ __metadata:
     react-native-safe-area-context: 4.4.1
     react-native-screens: ~3.18.0
     react-native-tableview-simple: ^4.3.1
+    rescript: next
+    rescript-react-native: ^0.70.0
   languageName: unknown
   linkType: soft
 
@@ -7933,6 +7935,29 @@ __metadata:
   version: 1.0.0
   resolution: "requires-port@npm:1.0.0"
   checksum: eee0e303adffb69be55d1a214e415cf42b7441ae858c76dfc5353148644f6fd6e698926fc4643f510d5c126d12a705e7c8ed7e38061113bdf37547ab356797ff
+  languageName: node
+  linkType: hard
+
+"rescript-react-native@npm:^0.70.0":
+  version: 0.70.0
+  resolution: "rescript-react-native@npm:0.70.0"
+  peerDependencies:
+    "@rescript/react": ">=0.10.0"
+    react-native: ">=0.70.0"
+    rescript: ">=10.0.0"
+  checksum: 765eb836487dc9433a87f594f395bbc72ad729b03d3a133b4bc800161ecbb31d7d159a8250b07707e703d58a681bf447c3ad30a883b057bb24b8e95ba63f6bf8
+  languageName: node
+  linkType: hard
+
+"rescript@npm:next":
+  version: 10.1.0
+  resolution: "rescript@npm:10.1.0"
+  bin:
+    bsc: bsc
+    bsrefmt: bsrefmt
+    bstracing: lib/bstracing
+    rescript: rescript
+  checksum: b0b6ffbe7e6fc52098ccdeea30dff886dff4cf09c8cd85bdfa2b6cd7a854f35c167aa96e03f1590070315c344b85f24f311aa8ac26d3e96a763730a03bb99d7d
   languageName: node
   linkType: hard
 

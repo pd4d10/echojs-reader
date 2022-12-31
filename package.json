@@ -27,7 +27,9 @@
     "react-native-tableview-simple": "^4.3.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "rescript": "next",
+    "rescript-react-native": "^0.70.0"
   },
   "private": true,
   "packageManager": "yarn@3.3.1"

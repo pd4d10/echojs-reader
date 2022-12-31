@@ -1,0 +1,11 @@
+{
+  "name": "echojs-reader",
+  "sources": {
+    "dir": "app",
+    "subdirs": true
+  },
+  "package-specs": {
+    "module": "es6",
+    "in-source": true
+  }
+}
