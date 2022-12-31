@@ -1,8 +1,8 @@
 import React from "react";
 import { Linking, Platform } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as WebBrowser from "expo-web-browser";
 import { STORAGE_KEYS } from "../constants";
+import { storage } from "../Storage.bs";
 
 export const SettingsContext = React.createContext();
 
@@ -12,7 +12,7 @@ export const SettingsProvider = ({ children }) => {
 
   React.useEffect(() => {
     (async () => {
-      let enable = await AsyncStorage.getItem(STORAGE_KEYS.safariView);
+      let enable = await storage.getItem(STORAGE_KEYS.safariView);
       _setSvEnable(enable === "true");
     })();
   }, []);
@@ -20,7 +20,7 @@ export const SettingsProvider = ({ children }) => {
   const setSvEnable = React.useCallback((value) => {
     // Set state immediately to avoid switch UI delay
     _setSvEnable(value);
-    AsyncStorage.setItem(STORAGE_KEYS.safariView, value.toString());
+    storage.setItem(STORAGE_KEYS.safariView, value.toString());
   }, []);
 
   const openLink = React.useCallback(

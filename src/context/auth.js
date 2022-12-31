@@ -1,6 +1,6 @@
 import React from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { STORAGE_KEYS } from "../constants";
+import { storage } from "../Storage.bs";
 
 export const AuthContext = React.createContext();
 
@@ -13,17 +13,14 @@ export const AuthProvider = ({ children }) => {
   React.useEffect(() => {
     (async () => {
       // For debugging
-      // const storage = await AsyncStorage.multiGet(
-      //   await AsyncStorage.getAllKeys(),
-      // )
-      // console.log(JSON.stringify(storage, null, 2))
+      const all = await storage.multiGet(await storage.getAllKeys());
+      console.log(JSON.stringify(all, null, 2));
 
-      const [[, _auth], [, _username], [, _secret]] =
-        await AsyncStorage.multiGet([
-          STORAGE_KEYS.auth,
-          STORAGE_KEYS.username,
-          STORAGE_KEYS.secret,
-        ]);
+      const [[, _auth], [, _username], [, _secret]] = await storage.multiGet([
+        STORAGE_KEYS.auth,
+        STORAGE_KEYS.username,
+        STORAGE_KEYS.secret,
+      ]);
       // console.log(_auth, _username, _secret)
       setAuth(_auth);
       setUsername(_username);
@@ -53,7 +50,7 @@ export const AuthProvider = ({ children }) => {
       const json = await fetchWithAuth(
         `/login?username=${_username}&password=${password}`
       );
-      await AsyncStorage.multiSet([
+      await storage.multiSet([
         [STORAGE_KEYS.auth, json.auth],
         [STORAGE_KEYS.username, _username],
         [STORAGE_KEYS.secret, json.apisecret],
@@ -85,7 +82,7 @@ export const AuthProvider = ({ children }) => {
       });
     } catch (err) {
     } finally {
-      await AsyncStorage.multiRemove([
+      await storage.multiRemove([
         STORAGE_KEYS.auth,
         STORAGE_KEYS.username,
         STORAGE_KEYS.secret,

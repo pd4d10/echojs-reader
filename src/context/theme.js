@@ -1,6 +1,6 @@
 import React from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { themeMapping, STORAGE_KEYS } from "../constants";
+import { storage } from "../Storage.bs";
 
 export const ThemeContext = React.createContext();
 
@@ -19,14 +19,14 @@ export const ThemeProvider = ({ children }) => {
     (v) => {
       v = ensureCorrect(v);
       _setTheme(v);
-      AsyncStorage.setItem(STORAGE_KEYS.theme, v);
+      storage.setItem(STORAGE_KEYS.theme, v);
     },
     [ensureCorrect]
   );
 
   React.useEffect(() => {
     (async () => {
-      const v = await AsyncStorage.getItem(STORAGE_KEYS.theme);
+      const v = await storage.getItem(STORAGE_KEYS.theme);
       _setTheme(ensureCorrect(v));
     })();
   }, [ensureCorrect]);
