@@ -2400,6 +2400,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rescript/react@npm:^0.10.3":
+  version: 0.10.3
+  resolution: "@rescript/react@npm:0.10.3"
+  peerDependencies:
+    react: ">=16.8.1"
+    react-dom: ">=16.8.1"
+  checksum: 8561282f78b87c73c864b21d7f94f23545b6e7488167370aab2effa9268bab14f78b948dd0de4b84580467eff7c55c7dd1d080726ec63cb5b2dde030d37a1fbf
+  languageName: node
+  linkType: hard
+
 "@segment/loosely-validate-event@npm:^2.0.0":
   version: 2.0.0
   resolution: "@segment/loosely-validate-event@npm:2.0.0"
@@ -3990,6 +4000,7 @@ __metadata:
     "@react-navigation/bottom-tabs": ^6.5.2
     "@react-navigation/native": ^6.1.1
     "@react-navigation/native-stack": ^6.9.7
+    "@rescript/react": ^0.10.3
     date-fns: ^2.7.0
     expo: ~47.0.9
     expo-status-bar: ~1.4.2
@@ -4002,7 +4013,7 @@ __metadata:
     react-native-safe-area-context: 4.4.1
     react-native-screens: ~3.18.0
     react-native-tableview-simple: ^4.3.1
-    rescript: next
+    rescript: ^10.0.1
     rescript-react-native: ^0.70.0
   languageName: unknown
   linkType: soft
@@ -7949,7 +7960,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rescript@npm:next":
+"rescript@npm:^10.0.1":
   version: 10.1.0
   resolution: "rescript@npm:10.1.0"
   bin:

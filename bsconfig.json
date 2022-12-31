@@ -7,5 +7,8 @@
   "package-specs": {
     "module": "es6",
     "in-source": true
-  }
+  },
+  "jsx": { "version": 3 },
+  "bsc-flags": ["-open Belt"],
+  "bs-dependencies": ["@rescript/react", "rescript-react-native"]
 }

@@ -28,7 +28,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "rescript": "next",
+    "@rescript/react": "^0.10.3",
+    "rescript": "^10.0.1",
     "rescript-react-native": "^0.70.0"
   },
   "private": true,
