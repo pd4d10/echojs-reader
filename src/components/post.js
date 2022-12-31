@@ -4,7 +4,7 @@ import { formatDistance } from "date-fns";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import ActionSheet from "react-native-actionsheet";
 import { ThemeContext } from "../context/theme";
-import { Vote } from "./vote";
+import { make as Vote } from "./Vote.bs";
 import { getHostFromUrl } from "../utils";
 import { Nickname } from "./nickname";
 import { SettingsContext } from "../context/settings";

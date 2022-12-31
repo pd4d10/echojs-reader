@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { formatDistance } from "date-fns";
-import { Vote } from "./vote";
+import { make as Vote } from "./Vote.bs";
 import { Nickname } from "./nickname";
 
 export const CommentItem = ({ item, colors, level = 0 }) => {
