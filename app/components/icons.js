@@ -1,17 +1,7 @@
 import React from "react";
 import { ActivityIndicator, Platform } from "react-native";
-import Entypo from "@expo/vector-icons/Entypo";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+
 import { ThemeContext } from "../context/theme";
-
-export const TopIcon = (props) => <Entypo name="bar-graph" {...props} />;
-
-export const LatestIcon = (props) => <Ionicons name="md-time" {...props} />;
-
-export const SettingsIcon = (props) => (
-  <MaterialIcons name="settings" {...props} />
-);
 
 // Use primary color at Android
 export const MyActivityIndicator = (props) => {

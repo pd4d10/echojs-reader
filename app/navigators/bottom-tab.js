@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TopNavigator, LatestNavigator, SettingsNavigator } from "./stack";
-import { TopIcon, LatestIcon, SettingsIcon } from "../components/icons";
+import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { ThemeContext } from "../context/theme";
 
 const Tab = createBottomTabNavigator();
@@ -29,7 +29,9 @@ export const BottomTabNavigator = () => {
           name="Top"
           component={TopNavigator}
           options={{
-            tabBarIcon: ({ focused }) => <TopIcon {...getIconProps(focused)} />,
+            tabBarIcon: ({ focused }) => (
+              <Entypo name="bar-graph" {...getIconProps(focused)} />
+            ),
           }}
         />
         <Tab.Screen
@@ -37,7 +39,7 @@ export const BottomTabNavigator = () => {
           component={LatestNavigator}
           options={{
             tabBarIcon: ({ focused }) => (
-              <LatestIcon {...getIconProps(focused)} />
+              <Ionicons name="md-time" {...getIconProps(focused)} />
             ),
           }}
         />
@@ -46,7 +48,7 @@ export const BottomTabNavigator = () => {
           component={SettingsNavigator}
           options={{
             tabBarIcon: ({ focused }) => (
-              <SettingsIcon {...getIconProps(focused)} />
+              <MaterialIcons name="settings" {...getIconProps(focused)} />
             ),
           }}
         />
