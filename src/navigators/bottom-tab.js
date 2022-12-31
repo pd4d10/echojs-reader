@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TopNavigator, LatestNavigator, SettingsNavigator } from "./stack";
 import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { ThemeContext } from "../context/theme";
+import { context as ThemeContext } from "../ThemeContext.bs";
 
 const Tab = createBottomTabNavigator();
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View, FlatList } from "react-native";
-import { ThemeContext } from "../context/theme";
+import { context as ThemeContext } from "../ThemeContext.bs";
+
 import { MyActivityIndicator } from "../components/icons";
 import { PostItem } from "../components/post";
 import { handleError } from "../utils";

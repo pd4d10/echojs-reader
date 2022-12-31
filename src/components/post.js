@@ -3,7 +3,8 @@ import { Text, View, TouchableOpacity, Platform } from "react-native";
 import { formatDistance } from "date-fns";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import ActionSheet from "react-native-actionsheet";
-import { ThemeContext } from "../context/theme";
+import { context as ThemeContext } from "../ThemeContext.bs";
+
 import { make as Vote } from "./Vote.bs";
 import { getHostFromUrl } from "../utils";
 import { Nickname } from "./nickname";

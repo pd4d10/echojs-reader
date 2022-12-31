@@ -1,7 +1,7 @@
 import React from "react";
 import { ActivityIndicator, Platform } from "react-native";
 
-import { ThemeContext } from "../context/theme";
+import { context as ThemeContext } from "../ThemeContext.bs";
 
 // Use primary color at Android
 export const MyActivityIndicator = (props) => {

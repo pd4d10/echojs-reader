@@ -1,15 +1,15 @@
 type key = [#auth | #username | #secret | #theme | #safariView]
 
-type storage = {
-  getItem: (. key) => promise<option<string>>,
-  setItem: (. key, string) => promise<unit>,
-  multiGet: array<key> => promise<array<array<string>>>,
-  multiSet: array<(key, string)> => promise<unit>,
+type storage<'a> = {
+  getItem: (. key) => promise<option<'a>>,
+  setItem: (. key, 'a) => promise<unit>,
+  multiGet: array<key> => promise<array<array<'a>>>,
+  multiSet: array<(key, 'a)> => promise<unit>,
   multiRemove: array<key> => promise<unit>,
-  getAllKeys: unit => promise<array<string>>,
+  getAllKeys: unit => promise<array<'a>>,
 }
 
 @module("@react-native-async-storage/async-storage")
-external storage: storage = "default"
+external storage: storage<'a> = "default"
 
 let storage = storage

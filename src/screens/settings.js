@@ -1,8 +1,7 @@
 import React from "react";
 import { ScrollView, View, Button, Text } from "react-native";
 import { Cell, Section, TableView } from "react-native-tableview-simple";
-import { ThemeContext } from "../context/theme";
-import { themeMapping } from "../constants";
+import { context as ThemeContext } from "../ThemeContext.bs";
 import CustomSwitch from "../components/switch";
 import { confirm } from "../utils";
 import { AuthContext } from "../context/auth";
@@ -58,10 +57,10 @@ export const SettingsScreen = (props) => {
         </Section>
 
         <Section header="THEME" sectionTintColor="transparent">
-          {Object.keys(themeMapping).map((item) => (
+          {["light", "dark"].map((item) => (
             <Cell
               key={item}
-              title={themeMapping[item].name}
+              title={item}
               accessory={theme === item ? "Checkmark" : undefined}
               accessoryColor={colors.settingsActive}
               onPress={() => setTheme(item)}

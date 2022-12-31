@@ -1,8 +1,10 @@
 import React from "react";
 import { StatusBar, Platform } from "react-native";
 import { BottomTabNavigator } from "./navigators/bottom-tab";
-
-import { ThemeProvider, ThemeContext } from "./context/theme";
+import {
+  context as ThemeContext,
+  Provider as ThemeProvider,
+} from "./ThemeContext.bs";
 import { SettingsContext, SettingsProvider } from "./context/settings";
 import { AuthProvider } from "./context/auth";
 
@@ -27,10 +29,10 @@ const AppContent = () => {
 
 export const App = () => (
   <AuthProvider>
-    <ThemeProvider>
+    <ThemeProvider.make>
       <SettingsProvider>
         <AppContent />
       </SettingsProvider>
-    </ThemeProvider>
+    </ThemeProvider.make>
   </AuthProvider>
 );
