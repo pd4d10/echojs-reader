@@ -1,4 +1,19 @@
-type theme = [#default | #light | #dark]
+module Theme = {
+  type t = Light | Dark
+  let toString = v => {
+    switch v {
+    | Light => "light"
+    | Dark => "dark"
+    }
+  }
+  let fromString = v => {
+    switch v {
+    | "light" => Some(Light)
+    | "dark" => Some(Dark)
+    | _ => None
+    }
+  }
+}
 
 type colors = {
   primary: string,
@@ -17,8 +32,8 @@ type colors = {
 }
 
 type value = {
-  theme: theme,
-  setTheme: theme => unit,
+  theme: Theme.t,
+  setTheme: Theme.t => unit,
   colors: colors,
 }
 
@@ -30,9 +45,9 @@ module Provider = {
     let (theme, _setTheme) = React.useState(_ => None)
 
     React.useEffect0(() => {
-      Storage.storage.getItem(. #theme)
+      ReactNative.AsyncStorage.getItem("theme")
       ->Js.Promise2.then(v => {
-        _setTheme(_ => v)
+        _setTheme(_ => v->Js.Null.toOption->Option.flatMap(Theme.fromString))
         Js.Promise2.resolve()
       })
       ->ignore
@@ -42,12 +57,12 @@ module Provider = {
 
     let setTheme = v => {
       _setTheme(_ => v->Some)
-      Storage.storage.setItem(. #theme, v)->ignore
+      ReactNative.AsyncStorage.setItem("theme", v->Theme.toString)->ignore
     }
 
     let value = theme->Option.flatMap(theme => {
       let colors = switch theme {
-      | #dark => {
+      | Theme.Dark => {
           // TODO:
           primary: "#af1d1d",
           headerStatusBar: #"dark-content",

@@ -56,10 +56,10 @@ let createAccount = async (ctx, ~username, ~password) => {
 let login = async (ctx, ~username, ~password) => {
   let json = await ctx->fetchWithAuth(`/login?username=${username}&password=${password}`, #get)
   let data = json->Model.Api.login_decode->Result.getExn
-  await Storage.storage.multiSet([
-    (#auth, data.auth),
-    (#username, username),
-    (#secret, data.apisecret),
+  await ReactNative.AsyncStorage.multiSet([
+    ("auth", data.auth),
+    ("username", username),
+    ("secret", data.apisecret),
   ])
   Update({auth: data.auth, username, secret: data.apisecret})->ctx.dispatch
 }
@@ -69,7 +69,7 @@ let logout = async ctx => {
   | None => ()
   | Some(state) => {
       let _json = await ctx->fetchWithAuth(`/logout?apisecret=${state.secret}`, #post)
-      await Storage.storage.multiRemove([#auth, #username, #secret])
+      await ReactNative.AsyncStorage.multiRemove(["auth", "username", "secret"])
       Drop->ctx.dispatch
     }
   }
