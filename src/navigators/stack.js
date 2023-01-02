@@ -19,8 +19,8 @@ export const TopNavigator = () => {
       }}
     >
       <TopStack.Screen name="Top news" component={TopScreen} />
-      <LatestStack.Screen name="Detail" component={DetailScreen} />
-      <LatestStack.Screen name="Login" component={LoginScreen} />
+      <TopStack.Screen name="Detail" component={DetailScreen} />
+      <TopStack.Screen name="Login" component={LoginScreen} />
     </TopStack.Navigator>
   );
 };

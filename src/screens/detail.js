@@ -9,7 +9,7 @@ import { handleError } from "../utils";
 import { AuthContext } from "../context/auth";
 import { useNavigation } from "@react-navigation/native";
 
-export const DetailScreen = () => {
+export const DetailScreen = ({ route }) => {
   const navigation = useNavigation();
   const { colors } = React.useContext(ThemeContext);
   const { fetchWithAuth } = React.useContext(AuthContext);
@@ -20,7 +20,7 @@ export const DetailScreen = () => {
     (async () => {
       try {
         setLoading(true);
-        const id = navigation.getParam("id");
+        const id = route.params.id;
         // const id = 22273
         const json = await fetchWithAuth(`/getcomments/${id}`);
         setComments(json.comments.sort((a, b) => a.ctime - b.ctime)); // Sort by time
@@ -39,7 +39,7 @@ export const DetailScreen = () => {
         padding: 4,
       }}
     >
-      <PostItem item={navigation.state.params} hasCommentLink={false} />
+      <PostItem item={route.params} hasCommentLink={false} />
       <View
         style={{
           borderBottomColor: colors.contentBorder,
@@ -60,7 +60,3 @@ export const DetailScreen = () => {
     </ScrollView>
   );
 };
-
-DetailScreen.navigationOptions = ({ navigation }) => ({
-  title: navigation.getParam("title"),
-});
