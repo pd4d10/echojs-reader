@@ -1,10 +1,12 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Button, TextInput } from "react-native";
 import { Cell, Section } from "react-native-tableview-simple";
 import { AuthContext } from "../context/auth";
 import { context as ThemeContext } from "../ThemeContext.bs";
 
-export const LoginScreen = ({ navigation }) => {
+export const LoginScreen = () => {
+  const navigation = useNavigation();
   const { login, createAccount } = React.useContext(AuthContext);
   const { colors } = React.useContext(ThemeContext);
   const [username, setUsername] = React.useState("");

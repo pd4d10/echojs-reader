@@ -7,8 +7,10 @@ import { PostItem } from "../components/post";
 import { CommentItem } from "../components/comment";
 import { handleError } from "../utils";
 import { AuthContext } from "../context/auth";
+import { useNavigation } from "@react-navigation/native";
 
-export const DetailScreen = ({ navigation }) => {
+export const DetailScreen = () => {
+  const navigation = useNavigation();
   const { colors } = React.useContext(ThemeContext);
   const { fetchWithAuth } = React.useContext(AuthContext);
   const [loading, setLoading] = React.useState(false);
@@ -37,11 +39,7 @@ export const DetailScreen = ({ navigation }) => {
         padding: 4,
       }}
     >
-      <PostItem
-        item={navigation.state.params}
-        hasCommentLink={false}
-        navigation={navigation}
-      />
+      <PostItem item={navigation.state.params} hasCommentLink={false} />
       <View
         style={{
           borderBottomColor: colors.contentBorder,

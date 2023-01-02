@@ -9,7 +9,7 @@ import { AuthContext } from "../context/auth";
 
 const PAGE_SIZE = 30;
 
-const List = ({ navigation, sort }) => {
+const List = ({ sort }) => {
   const { colors } = React.useContext(ThemeContext);
   const { fetchWithAuth } = React.useContext(AuthContext);
 
@@ -136,11 +136,7 @@ const List = ({ navigation, sort }) => {
                 </Text>
               </View>
             ) : (
-              <PostItem
-                item={item}
-                navigation={navigation}
-                updateVote={updateVote}
-              />
+              <PostItem item={item} updateVote={updateVote} />
             )
           }
           keyExtractor={(item) => item.id}

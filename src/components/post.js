@@ -9,8 +9,10 @@ import { make as Vote } from "./Vote.bs";
 import { getHostFromUrl, openLink } from "../utils";
 import { make as Nickname } from "./Nickname.bs";
 import { AuthContext } from "../context/auth";
+import { useNavigation } from "@react-navigation/native";
 
 export const PostItem = React.memo((props) => {
+  const navigation = useNavigation();
   const { auth, secret, fetchWithAuth } = React.useContext(AuthContext);
 
   const { colors } = React.useContext(ThemeContext);
@@ -48,7 +50,7 @@ export const PostItem = React.memo((props) => {
         <TouchableOpacity
           onPress={async () => {
             if (isText()) {
-              props.navigation.navigate("Detail", item);
+              navigation.navigate("Detail", item);
               return;
             }
 
@@ -97,7 +99,7 @@ export const PostItem = React.memo((props) => {
             style={{ flex: 1 }}
             onPress={() => {
               if (!auth) {
-                props.navigation.navigate("Login");
+                navigation.navigate("Login");
                 return;
               }
 
@@ -137,7 +139,7 @@ export const PostItem = React.memo((props) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={{ flex: 1, justifyContent: "flex-end" }}
-            onPress={() => props.navigation.navigate("Detail", { ...item })}
+            onPress={() => navigation.navigate("Detail", { ...item })}
           >
             <View style={{ flexDirection: "row" }}>
               <MaterialCommunityIcons
