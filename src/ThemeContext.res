@@ -2,20 +2,19 @@ type theme = [#default | #light | #dark]
 
 type colors = {
   primary: string,
-  headerStatusBar?: ReactNative.StatusBar.barStyle,
-  headerText?: string,
-  headerAndroidBar?: string,
-  contentTitle?: string,
-  contentUrl?: string,
-  contentUser?: string,
-  contentBorder?: string,
-  contentBackground?: string,
-  contentIcon?: string,
-  tabInactive?: string,
-  safariStatusBar?: ReactNative.StatusBar.barStyle,
-  safariBackground?: string,
-  settingsActive?: string,
-  settingsAndroidSwitchActiveBackground?: string,
+  headerStatusBar: ReactNative.StatusBar.barStyle,
+  headerText: string,
+  headerAndroidBar: string,
+  contentTitle: string,
+  contentUrl: string,
+  contentUser: string,
+  contentBorder: string,
+  contentBackground: string,
+  contentIcon: string,
+  tabInactive: string,
+  safariStatusBar: ReactNative.StatusBar.barStyle,
+  settingsActive: string,
+  settingsAndroidSwitchActiveBackground: string,
 }
 
 type value = {
@@ -53,6 +52,18 @@ module Provider = {
           // TODO:
           primary: "#af1d1d",
           headerStatusBar: #"dark-content",
+          headerText: "#fff",
+          headerAndroidBar: "#831616",
+          contentTitle: "#000",
+          contentUrl: "#999",
+          contentUser: "#666",
+          contentBorder: "#eee",
+          contentBackground: "#fff",
+          contentIcon: "#444",
+          tabInactive: "grey",
+          safariStatusBar: #"dark-content",
+          settingsActive: "#af1d1d",
+          settingsAndroidSwitchActiveBackground: "#faa",
         }
       | _ => {
           primary: "#af1d1d",

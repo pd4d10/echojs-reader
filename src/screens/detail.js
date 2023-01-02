@@ -4,7 +4,7 @@ import { make as Loading } from "../components/Loading.bs";
 import { context as ThemeContext } from "../ThemeContext.bs";
 
 import { PostItem } from "../components/post";
-import { CommentItem } from "../components/comment";
+import { make as CommentItem } from "../components/CommentItem.bs";
 import { handleError } from "../utils";
 import { AuthContext } from "../context/auth";
 import { useNavigation } from "@react-navigation/native";
@@ -53,7 +53,7 @@ export const DetailScreen = ({ route }) => {
           <CommentItem
             key={comment.ctime + comment.username}
             item={comment}
-            colors={colors}
+            level={0}
           />
         ))
       )}
