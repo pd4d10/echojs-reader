@@ -56,7 +56,7 @@ let createAccount = async (ctx, ~username, ~password) => {
 let login = async (ctx, ~username, ~password) => {
   let json = await ctx->fetchWithAuth(`/login?username=${username}&password=${password}`, #get)
   let data = json->Model.Api.login_decode->Result.getExn
-  await ReactNative.AsyncStorage.multiSet([
+  await ReactNativeAsyncStorage.multiSet([
     ("auth", data.auth),
     ("username", username),
     ("secret", data.apisecret),
@@ -69,7 +69,7 @@ let logout = async ctx => {
   | None => ()
   | Some(state) => {
       let _json = await ctx->fetchWithAuth(`/logout?apisecret=${state.secret}`, #post)
-      await ReactNative.AsyncStorage.multiRemove(["auth", "username", "secret"])
+      await ReactNativeAsyncStorage.multiRemove(["auth", "username", "secret"])
       Drop->ctx.dispatch
     }
   }
@@ -82,11 +82,11 @@ module Provider = {
 
     React.useEffect0(() => {
       // for debugging
-      ReactNative.AsyncStorage.getAllKeys()
+      ReactNativeAsyncStorage.getAllKeys()
       ->Js.Promise2.then(async keys => {
         switch keys->Js.Null.toOption {
         | Some(keys) => {
-            let data = await ReactNative.AsyncStorage.multiGet(keys)
+            let data = await ReactNativeAsyncStorage.multiGet(keys)
             Js.log(data)
           }
 
@@ -95,11 +95,11 @@ module Provider = {
       })
       ->ignore
 
-      ReactNative.AsyncStorage.multiGet(["auth", "username", "secret"])
-      ->Js.Promise2.then(async v => {
-        let data = v->Js.Null.toOption->Option.getWithDefault([])
-
-        switch [0, 1, 2]->Array.map(index => data[index]->Option.flatMap(Array.get(_, 1))) {
+      ReactNativeAsyncStorage.multiGet(["auth", "username", "secret"])
+      ->Js.Promise2.then(async items => {
+        switch [0, 1, 2]->Array.map(
+          index => items[index]->Option.flatMap(((_key, value)) => value->Js.Null.toOption),
+        ) {
         | [Some(auth), Some(username), Some(secret)] => Update({auth, username, secret})->dispatch
         | _ => ()
         }

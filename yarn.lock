@@ -2407,6 +2407,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rescript-react-native/async-storage@npm:^1.6.3":
+  version: 1.6.3
+  resolution: "@rescript-react-native/async-storage@npm:1.6.3"
+  peerDependencies:
+    "@react-native-community/async-storage": ^1.6.0
+  checksum: 7559c9a6226f7ff2eb15843220c802197b3cacc3a09a5376a8394276371848285c21177c499f342b5fbc708bbfd09ffa5164c6bbf52655fff044b1e7011b8bbf
+  languageName: node
+  linkType: hard
+
 "@rescript/react@npm:^0.10.3":
   version: 0.10.3
   resolution: "@rescript/react@npm:0.10.3"
@@ -4008,6 +4017,7 @@ __metadata:
     "@react-navigation/bottom-tabs": ^6.5.2
     "@react-navigation/native": ^6.1.1
     "@react-navigation/native-stack": ^6.9.7
+    "@rescript-react-native/async-storage": ^1.6.3
     "@rescript/react": ^0.10.3
     date-fns: ^2.7.0
     expo: ~47.0.9

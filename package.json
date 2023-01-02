@@ -29,6 +29,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@greenlabs/ppx-spice": "^0.1.9",
+    "@rescript-react-native/async-storage": "^1.6.3",
     "@rescript/react": "^0.10.3",
     "rescript": "^10.0.1",
     "rescript-react-native": "^0.70.0",
