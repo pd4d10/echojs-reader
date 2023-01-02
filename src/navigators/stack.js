@@ -16,7 +16,6 @@ export const TopNavigator = () => {
     <TopStack.Navigator
       screenOptions={{
         headerTitleStyle: { color: colors.headerText },
-        headerStyle: { backgroundColor: colors.headerBackground },
       }}
     >
       <TopStack.Screen name="Top news" component={TopScreen} />
@@ -35,7 +34,6 @@ export const LatestNavigator = () => {
     <LatestStack.Navigator
       screenOptions={{
         headerTitleStyle: { color: colors.headerText },
-        headerStyle: { backgroundColor: colors.headerBackground },
       }}
     >
       <LatestStack.Screen name="Latest news" component={LatestScreen} />
@@ -52,7 +50,6 @@ export const SettingsNavigator = () => {
     <LatestStack.Navigator
       screenOptions={{
         headerTitleStyle: { color: colors.headerText },
-        headerStyle: { backgroundColor: colors.headerBackground },
       }}
     >
       <LatestStack.Screen name="Settings" component={SettingsScreen} />

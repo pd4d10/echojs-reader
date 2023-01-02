@@ -1,5 +1,4 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TopNavigator, LatestNavigator, SettingsNavigator } from "./stack";
 import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -11,18 +10,16 @@ export const BottomTabNavigator = () => {
   const { colors } = React.useContext(ThemeContext);
 
   const getIconProps = (focused) => ({
-    color: focused ? colors.tabActive : colors.tabInactive,
+    color: focused ? colors.primary : colors.tabInactive,
     size: 24,
   });
 
   return (
-    <NavigationContainer>
+    <>
       <Tab.Navigator
         screenOptions={{
-          tabBarActiveTintColor: colors.tabActive,
+          tabBarActiveTintColor: colors.primary,
           tabBarInactiveTintColor: colors.tabInactive,
-          tabBarActiveBackgroundColor: colors.tabActiveBackground,
-          tabBarInactiveBackgroundColor: colors.tabInactiveBackground,
         }}
       >
         <Tab.Screen
@@ -53,6 +50,6 @@ export const BottomTabNavigator = () => {
           }}
         />
       </Tab.Navigator>
-    </NavigationContainer>
+    </>
   );
 };

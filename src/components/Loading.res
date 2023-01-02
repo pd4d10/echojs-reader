@@ -4,7 +4,7 @@ open ReactNative
 let make = (~style, ~size) => {
   let theme = React.useContext(ThemeContext.context)
   let color = switch Platform.os {
-  | #android => theme->Option.flatMap(theme => theme.colors.contentLoading)
+  | #android => theme->Option.map(theme => theme.colors.primary)
   | _ => None
   }
 

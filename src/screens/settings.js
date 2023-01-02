@@ -12,12 +12,7 @@ export const SettingsScreen = () => {
   const { auth, username, logout } = React.useContext(AuthContext);
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        paddingVertical: 20,
-        backgroundColor: colors.settingsBackground,
-      }}
-    >
+    <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
       <TableView>
         <Section sectionTintColor="transparent">
           {auth ? (

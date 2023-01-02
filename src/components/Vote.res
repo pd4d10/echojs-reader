@@ -11,14 +11,14 @@ let make = (~colors, ~item) => {
   <View>
     <Text
       style={Style.textStyle(
-        ~color=item.voted == "up" ? colors["contentVoted"] : colors["contentIcon"],
+        ~color=item.voted == "up" ? colors["primary"] : colors["contentIcon"],
         (),
       )}>
       {`▲ ${item.up->Option.getWithDefault(0)->Int.toString}`->React.string}
     </Text>
     <Text
       style={Style.textStyle(
-        ~color=item.voted == "down" ? colors["contentVoted"] : colors["contentIcon"],
+        ~color=item.voted == "down" ? colors["primary"] : colors["contentIcon"],
         (),
       )}>
       {`▼ ${item.down->Option.getWithDefault(0)->Int.toString}`->React.string}

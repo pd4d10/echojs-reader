@@ -1,9 +1,9 @@
 type theme = [#default | #light | #dark]
 
 type colors = {
+  primary: string,
   headerStatusBar?: ReactNative.StatusBar.barStyle,
   headerText?: string,
-  headerBackground?: string,
   headerAndroidBar?: string,
   contentTitle?: string,
   contentUrl?: string,
@@ -11,16 +11,9 @@ type colors = {
   contentBorder?: string,
   contentBackground?: string,
   contentIcon?: string,
-  contentLoading?: string,
-  contentVoted?: string,
-  tabActive?: string,
   tabInactive?: string,
-  tabActiveBackground?: string,
-  tabInactiveBackground?: string,
   safariStatusBar?: ReactNative.StatusBar.barStyle,
-  safariText?: string,
   safariBackground?: string,
-  settingsBackground?: string,
   settingsActive?: string,
   settingsAndroidSwitchActiveBackground?: string,
 }
@@ -58,12 +51,13 @@ module Provider = {
       let colors = switch theme {
       | #dark => {
           // TODO:
+          primary: "#af1d1d",
           headerStatusBar: #"dark-content",
         }
       | _ => {
+          primary: "#af1d1d",
           headerStatusBar: #"light-content",
           headerText: "#fff",
-          headerBackground: "#af1d1d",
           headerAndroidBar: "#831616",
           contentTitle: "#000",
           contentUrl: "#999",
@@ -71,16 +65,8 @@ module Provider = {
           contentBorder: "#eee",
           contentBackground: "#fff",
           contentIcon: "#444",
-          contentLoading: "#af1d1d",
-          contentVoted: "#af1d1d",
-          tabActive: "#af1d1d",
           tabInactive: "grey",
-          // tabActiveBackground:
-          // tabInactiveBackground:
           safariStatusBar: #"dark-content",
-          safariText: "#af1d1d",
-          // safariBackground:
-          // settingsBackground:
           settingsActive: "#af1d1d",
           settingsAndroidSwitchActiveBackground: "#faa",
         }
