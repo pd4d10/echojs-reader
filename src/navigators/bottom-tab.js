@@ -18,6 +18,7 @@ export const BottomTabNavigator = () => {
     <>
       <Tab.Navigator
         screenOptions={{
+          headerShown: false,
           tabBarActiveTintColor: colors.primary,
           tabBarInactiveTintColor: colors.tabInactive,
         }}

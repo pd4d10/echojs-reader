@@ -3,7 +3,6 @@ type theme = [#default | #light | #dark]
 type colors = {
   primary: string,
   headerStatusBar: ReactNative.StatusBar.barStyle,
-  headerText: string,
   headerAndroidBar: string,
   contentTitle: string,
   contentUrl: string,
@@ -52,7 +51,6 @@ module Provider = {
           // TODO:
           primary: "#af1d1d",
           headerStatusBar: #"dark-content",
-          headerText: "#fff",
           headerAndroidBar: "#831616",
           contentTitle: "#000",
           contentUrl: "#999",
@@ -68,7 +66,6 @@ module Provider = {
       | _ => {
           primary: "#af1d1d",
           headerStatusBar: #"light-content",
-          headerText: "#fff",
           headerAndroidBar: "#831616",
           contentTitle: "#000",
           contentUrl: "#999",

@@ -10,14 +10,8 @@ import { DetailScreen } from "../screens/detail";
 const TopStack = createNativeStackNavigator();
 
 export const TopNavigator = () => {
-  const { colors } = React.useContext(ThemeContext);
-
   return (
-    <TopStack.Navigator
-      screenOptions={{
-        headerTitleStyle: { color: colors.headerText },
-      }}
-    >
+    <TopStack.Navigator>
       <TopStack.Screen name="Top news" component={TopScreen} />
       <TopStack.Screen name="Detail" component={DetailScreen} />
       <TopStack.Screen name="Login" component={LoginScreen} />
@@ -31,11 +25,7 @@ export const LatestNavigator = () => {
   const { colors } = React.useContext(ThemeContext);
 
   return (
-    <LatestStack.Navigator
-      screenOptions={{
-        headerTitleStyle: { color: colors.headerText },
-      }}
-    >
+    <LatestStack.Navigator>
       <LatestStack.Screen name="Latest news" component={LatestScreen} />
       <LatestStack.Screen name="Detail" component={DetailScreen} />
       <LatestStack.Screen name="Login" component={LoginScreen} />
@@ -47,11 +37,7 @@ export const SettingsNavigator = () => {
   const { colors } = React.useContext(ThemeContext);
 
   return (
-    <LatestStack.Navigator
-      screenOptions={{
-        headerTitleStyle: { color: colors.headerText },
-      }}
-    >
+    <LatestStack.Navigator>
       <LatestStack.Screen name="Settings" component={SettingsScreen} />
       <LatestStack.Screen name="Login" component={LoginScreen} />
     </LatestStack.Navigator>
