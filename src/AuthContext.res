@@ -80,6 +80,35 @@ module Provider = {
   let make = (~children) => {
     let (state, dispatch) = React.useReducer(reducer, initialState)
 
+    React.useEffect0(() => {
+      // for debugging
+      ReactNative.AsyncStorage.getAllKeys()
+      ->Js.Promise2.then(async keys => {
+        switch keys->Js.Null.toOption {
+        | Some(keys) => {
+            let data = await ReactNative.AsyncStorage.multiGet(keys)
+            Js.log(data)
+          }
+
+        | _ => ()
+        }
+      })
+      ->ignore
+
+      ReactNative.AsyncStorage.multiGet(["auth", "username", "secret"])
+      ->Js.Promise2.then(async v => {
+        let data = v->Js.Null.toOption->Option.getWithDefault([])
+
+        switch [0, 1, 2]->Array.map(index => data[index]->Option.flatMap(Array.get(_, 1))) {
+        | [Some(auth), Some(username), Some(secret)] => Update({auth, username, secret})->dispatch
+        | _ => ()
+        }
+      })
+      ->ignore
+
+      None
+    })
+
     context
     ->React.Context.provider
     ->React.createElement({"value": {state, dispatch}, "children": children})
