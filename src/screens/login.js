@@ -2,12 +2,12 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Button, TextInput } from "react-native";
 import { Cell, Section } from "react-native-tableview-simple";
-import { AuthContext } from "../context/auth";
+import { AuthContext, createAccount, login } from "../context/auth";
 import { context as ThemeContext } from "../ThemeContext.bs";
 
 export const LoginScreen = () => {
   const navigation = useNavigation();
-  const { login, createAccount } = React.useContext(AuthContext);
+  const authCtx = React.useContext(AuthContext);
   const { colors } = React.useContext(ThemeContext);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -50,7 +50,7 @@ export const LoginScreen = () => {
                 return;
               }
               try {
-                await login(username, password);
+                await login(authCtx, username, password);
                 navigation.goBack();
               } catch (err) {
                 alert(err.message);
@@ -68,7 +68,7 @@ export const LoginScreen = () => {
                 return;
               }
               try {
-                await createAccount(username, password);
+                await createAccount(authCtx, username, password);
                 await login(username, password);
                 navigation.goBack();
               } catch (err) {

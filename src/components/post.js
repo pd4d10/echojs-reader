@@ -8,12 +8,13 @@ import { context as ThemeContext } from "../ThemeContext.bs";
 import { make as Vote } from "./Vote.bs";
 import { getHostFromUrl, openLink } from "../utils";
 import { make as Nickname } from "./Nickname.bs";
-import { AuthContext } from "../context/auth";
+import { AuthContext, fetchWithAuth } from "../context/auth";
 import { useNavigation } from "@react-navigation/native";
 
 export const PostItem = React.memo((props) => {
   const navigation = useNavigation();
-  const { auth, secret, fetchWithAuth } = React.useContext(AuthContext);
+  const authCtx = React.useContext(AuthContext);
+  const { auth, secret } = authCtx;
 
   const { colors } = React.useContext(ThemeContext);
 
@@ -22,6 +23,7 @@ export const PostItem = React.memo((props) => {
   const vote = React.useCallback(
     async (id, type) => {
       await fetchWithAuth(
+        authCtx,
         `/votenews?news_id=${id}&vote_type=${type}&apisecret=${secret}`,
         {
           method: "POST",

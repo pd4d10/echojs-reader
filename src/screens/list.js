@@ -5,13 +5,13 @@ import { context as ThemeContext } from "../ThemeContext.bs";
 import { make as Loading } from "../components/Loading.bs";
 import { PostItem } from "../components/post";
 import { handleError } from "../utils";
-import { AuthContext } from "../context/auth";
+import { AuthContext, fetchWithAuth } from "../context/auth";
 
 const PAGE_SIZE = 30;
 
 const List = ({ sort }) => {
   const { colors } = React.useContext(ThemeContext);
-  const { fetchWithAuth } = React.useContext(AuthContext);
+  const authCtx = React.useContext(AuthContext);
 
   const [first, setFirst] = React.useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
@@ -28,11 +28,12 @@ const List = ({ sort }) => {
       // return json.news.map(x => ({ ...x, id: Math.random().toString() }))
 
       const { news } = await fetchWithAuth(
+        authCtx,
         `/getnews/${sort}/${anchor}/${PAGE_SIZE}`
       );
       return news;
     },
-    [sort, fetchWithAuth]
+    [sort]
   );
 
   React.useEffect(() => {

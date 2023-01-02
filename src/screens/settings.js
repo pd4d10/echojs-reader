@@ -3,13 +3,14 @@ import { ScrollView, View, Button, Text } from "react-native";
 import { Cell, Section, TableView } from "react-native-tableview-simple";
 import { context as ThemeContext } from "../ThemeContext.bs";
 import { confirm, openLink } from "../utils";
-import { AuthContext } from "../context/auth";
+import { AuthContext, logout } from "../context/auth";
 import { useNavigation } from "@react-navigation/native";
 
 export const SettingsScreen = () => {
   const navigation = useNavigation();
   const { theme, setTheme, colors } = React.useContext(ThemeContext);
-  const { auth, username, logout } = React.useContext(AuthContext);
+  const authCtx = React.useContext(AuthContext);
+  const { auth, username } = authCtx;
 
   return (
     <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
@@ -27,7 +28,9 @@ export const SettingsScreen = () => {
                   title="Logout"
                   color={colors.settingsActive}
                   onPress={() => {
-                    confirm("Are you sure to logout?", logout);
+                    confirm("Are you sure to logout?", () => {
+                      logout(authCtx);
+                    });
                   }}
                 />
               }

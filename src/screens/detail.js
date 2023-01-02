@@ -6,13 +6,13 @@ import { context as ThemeContext } from "../ThemeContext.bs";
 import { PostItem } from "../components/post";
 import { make as CommentItem } from "../components/CommentItem.bs";
 import { handleError } from "../utils";
-import { AuthContext } from "../context/auth";
+import { AuthContext, fetchWithAuth } from "../context/auth";
 import { useNavigation } from "@react-navigation/native";
 
 export const DetailScreen = ({ route }) => {
   const navigation = useNavigation();
   const { colors } = React.useContext(ThemeContext);
-  const { fetchWithAuth } = React.useContext(AuthContext);
+  const authCtx = React.useContext(AuthContext);
   const [loading, setLoading] = React.useState(false);
   const [comments, setComments] = React.useState([]);
 
@@ -22,7 +22,7 @@ export const DetailScreen = ({ route }) => {
         setLoading(true);
         const id = route.params.id;
         // const id = 22273
-        const json = await fetchWithAuth(`/getcomments/${id}`);
+        const json = await fetchWithAuth(authCtx, `/getcomments/${id}`);
         setComments(json.comments.sort((a, b) => a.ctime - b.ctime)); // Sort by time
       } catch (err) {
         handleError(err);
@@ -30,7 +30,7 @@ export const DetailScreen = ({ route }) => {
         setLoading(false);
       }
     })();
-  }, [fetchWithAuth, navigation]);
+  }, [navigation]);
 
   return (
     <ScrollView
