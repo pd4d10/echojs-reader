@@ -7,7 +7,7 @@ import { context as ThemeContext } from "../ThemeContext.bs";
 
 import { make as Vote } from "./Vote.bs";
 import { getHostFromUrl, openLink } from "../utils";
-import { Nickname } from "./nickname";
+import { make as Nickname } from "./Nickname.bs";
 import { AuthContext } from "../context/auth";
 
 export const PostItem = React.memo((props) => {

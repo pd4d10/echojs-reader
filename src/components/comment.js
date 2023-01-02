@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import { formatDistance } from "date-fns";
 import { make as Vote } from "./Vote.bs";
-import { Nickname } from "./nickname";
+import { make as Nickname } from "./Nickname.bs";
 
 export const CommentItem = ({ item, colors, level = 0 }) => {
   const now = Date.now();
