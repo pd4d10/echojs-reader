@@ -6,7 +6,7 @@ import {
   context as ThemeContext,
   Provider as ThemeProvider,
 } from "./ThemeContext.bs";
-import { AuthProvider } from "./context/auth";
+import { Provider as AuthProvider } from "./AuthContext.bs";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 
 const AppContent = () => {
@@ -34,9 +34,9 @@ const AppContent = () => {
 };
 
 export const App = () => (
-  <AuthProvider>
+  <AuthProvider.make>
     <ThemeProvider.make>
       <AppContent />
     </ThemeProvider.make>
-  </AuthProvider>
+  </AuthProvider.make>
 );

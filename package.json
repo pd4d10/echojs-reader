@@ -28,9 +28,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@greenlabs/ppx-spice": "^0.1.9",
     "@rescript/react": "^0.10.3",
     "rescript": "^10.0.1",
-    "rescript-react-native": "^0.70.0"
+    "rescript-react-native": "^0.70.0",
+    "rescript-webapi": "^0.7.0"
   },
   "private": true,
   "packageManager": "yarn@3.3.1"

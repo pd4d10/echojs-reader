@@ -3,24 +3,23 @@ import { ScrollView, View, Button, Text } from "react-native";
 import { Cell, Section, TableView } from "react-native-tableview-simple";
 import { context as ThemeContext } from "../ThemeContext.bs";
 import { confirm, openLink } from "../utils";
-import { AuthContext, logout } from "../context/auth";
+import { context as AuthContext, logout } from "../AuthContext.bs";
 import { useNavigation } from "@react-navigation/native";
 
 export const SettingsScreen = () => {
   const navigation = useNavigation();
   const { theme, setTheme, colors } = React.useContext(ThemeContext);
   const authCtx = React.useContext(AuthContext);
-  const { auth, username } = authCtx;
 
   return (
     <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
       <TableView>
         <Section sectionTintColor="transparent">
-          {auth ? (
+          {authCtx.state ? (
             <Cell
               cellContentView={
                 <View style={{ flex: 1 }}>
-                  <Text style={{ fontSize: 16 }}>{username}</Text>
+                  <Text style={{ fontSize: 16 }}>{authCtx.state.username}</Text>
                 </View>
               }
               cellAccessoryView={

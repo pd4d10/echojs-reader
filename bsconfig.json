@@ -11,5 +11,11 @@
   "jsx": { "version": 3 },
   "suffix": ".bs.js",
   "bsc-flags": ["-open Belt"],
-  "bs-dependencies": ["@rescript/react", "rescript-react-native"]
+  "ppx-flags": ["@greenlabs/ppx-spice/ppx"],
+  "bs-dependencies": [
+    "@rescript/react",
+    "rescript-react-native",
+    "rescript-webapi",
+    "@greenlabs/ppx-spice"
+  ]
 }

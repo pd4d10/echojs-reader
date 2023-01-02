@@ -6,7 +6,7 @@ import { context as ThemeContext } from "../ThemeContext.bs";
 import { PostItem } from "../components/post";
 import { make as CommentItem } from "../components/CommentItem.bs";
 import { handleError } from "../utils";
-import { AuthContext, fetchWithAuth } from "../context/auth";
+import { context as AuthContext, fetchWithAuth } from "../AuthContext.bs";
 import { useNavigation } from "@react-navigation/native";
 
 export const DetailScreen = ({ route }) => {

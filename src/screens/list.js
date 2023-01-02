@@ -5,7 +5,7 @@ import { context as ThemeContext } from "../ThemeContext.bs";
 import { make as Loading } from "../components/Loading.bs";
 import { PostItem } from "../components/post";
 import { handleError } from "../utils";
-import { AuthContext, fetchWithAuth } from "../context/auth";
+import { context as AuthContext, fetchWithAuth } from "../AuthContext.bs";
 
 const PAGE_SIZE = 30;
 

@@ -7,3 +7,11 @@ type rec comment = {
   voted: string,
   replies?: array<comment>,
 }
+
+module Api = {
+  @spice
+  type login = {
+    auth: string,
+    apisecret: string,
+  }
+}

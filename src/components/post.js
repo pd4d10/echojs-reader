@@ -8,31 +8,27 @@ import { context as ThemeContext } from "../ThemeContext.bs";
 import { make as Vote } from "./Vote.bs";
 import { getHostFromUrl, openLink } from "../utils";
 import { make as Nickname } from "./Nickname.bs";
-import { AuthContext, fetchWithAuth } from "../context/auth";
+import { context as AuthContext, fetchWithAuth } from "../AuthContext.bs";
 import { useNavigation } from "@react-navigation/native";
 
 export const PostItem = React.memo((props) => {
   const navigation = useNavigation();
   const authCtx = React.useContext(AuthContext);
-  const { auth, secret } = authCtx;
 
   const { colors } = React.useContext(ThemeContext);
 
   const [actionSheet, setActionSheet] = React.useState(null);
 
-  const vote = React.useCallback(
-    async (id, type) => {
-      await fetchWithAuth(
-        authCtx,
-        `/votenews?news_id=${id}&vote_type=${type}&apisecret=${secret}`,
-        {
-          method: "POST",
-        }
-      );
-      alert("Vote succeed");
-    },
-    [fetchWithAuth, secret]
-  );
+  const vote = async (id, type) => {
+    await fetchWithAuth(
+      authCtx,
+      `/votenews?news_id=${id}&vote_type=${type}&apisecret=${authCtx.state?.secret}`,
+      {
+        method: "POST",
+      }
+    );
+    alert("Vote succeed");
+  };
 
   const isText = React.useCallback(() => {
     return props.item.url.startsWith("text://");
@@ -100,7 +96,7 @@ export const PostItem = React.memo((props) => {
           <TouchableOpacity
             style={{ flex: 1 }}
             onPress={() => {
-              if (!auth) {
+              if (!authCtx.state) {
                 navigation.navigate("Login");
                 return;
               }

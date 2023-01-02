@@ -1868,6 +1868,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@greenlabs/ppx-spice@npm:^0.1.9":
+  version: 0.1.9
+  resolution: "@greenlabs/ppx-spice@npm:0.1.9"
+  checksum: dce4945efc05d4042034e22f8404fe20a5b7f7c3deb111a979d41bd90d46a77f0bd03cb31181a6fcdd003df1ce3c753731c935a81695d93614385a92a88c0762
+  languageName: node
+  linkType: hard
+
 "@hapi/hoek@npm:^9.0.0":
   version: 9.3.0
   resolution: "@hapi/hoek@npm:9.3.0"
@@ -3996,6 +4003,7 @@ __metadata:
   resolution: "echojs-reader@workspace:."
   dependencies:
     "@babel/core": ^7.12.9
+    "@greenlabs/ppx-spice": ^0.1.9
     "@react-native-async-storage/async-storage": ~1.17.3
     "@react-navigation/bottom-tabs": ^6.5.2
     "@react-navigation/native": ^6.1.1
@@ -4015,6 +4023,7 @@ __metadata:
     react-native-tableview-simple: ^4.3.1
     rescript: ^10.0.1
     rescript-react-native: ^0.70.0
+    rescript-webapi: ^0.7.0
   languageName: unknown
   linkType: soft
 
@@ -7957,6 +7966,13 @@ __metadata:
     react-native: ">=0.70.0"
     rescript: ">=10.0.0"
   checksum: 765eb836487dc9433a87f594f395bbc72ad729b03d3a133b4bc800161ecbb31d7d159a8250b07707e703d58a681bf447c3ad30a883b057bb24b8e95ba63f6bf8
+  languageName: node
+  linkType: hard
+
+"rescript-webapi@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "rescript-webapi@npm:0.7.0"
+  checksum: 2b905cd51718ca7a51bd9fbbff6081abd88106ee076a50c887f4f6817882a8e72474dce6bfd76f7ba31a7c52b0f799a3f95be65feef4f749c264dd926e6f8544
   languageName: node
   linkType: hard
 
