@@ -1,6 +1,6 @@
 import React from "react";
 import { View, ScrollView } from "react-native";
-import { MyActivityIndicator } from "../components/icons";
+import { make as Loading } from "../components/Loading.bs";
 import { context as ThemeContext } from "../ThemeContext.bs";
 
 import { PostItem } from "../components/post";
@@ -49,7 +49,7 @@ export const DetailScreen = ({ navigation }) => {
         }}
       />
       {loading ? (
-        <MyActivityIndicator style={{ marginTop: 10 }} />
+        <Loading style={{ marginTop: 10 }} />
       ) : (
         comments.map((comment) => (
           <CommentItem

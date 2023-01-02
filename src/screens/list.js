@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, FlatList } from "react-native";
 import { context as ThemeContext } from "../ThemeContext.bs";
 
-import { MyActivityIndicator } from "../components/icons";
+import { make as Loading } from "../components/Loading.bs";
 import { PostItem } from "../components/post";
 import { handleError } from "../utils";
 import { AuthContext } from "../context/auth";
@@ -124,7 +124,7 @@ const List = ({ navigation, sort }) => {
       }}
     >
       {first ? (
-        <MyActivityIndicator size="large" />
+        <Loading size="large" />
       ) : (
         <FlatList
           data={items}
@@ -167,7 +167,7 @@ const List = ({ navigation, sort }) => {
               }}
             >
               {loadingMore ? (
-                <MyActivityIndicator />
+                <Loading />
               ) : end ? (
                 <Text>--- No more data ---</Text>
               ) : null}
