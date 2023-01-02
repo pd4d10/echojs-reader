@@ -1,7 +1,7 @@
-type theme = [#light | #dark]
+type theme = [#default | #light | #dark]
 
 type colors = {
-  headerStatusBar?: string,
+  headerStatusBar?: ReactNative.StatusBar.barStyle,
   headerText?: string,
   headerBackground?: string,
   headerAndroidBar?: string,
@@ -17,7 +17,7 @@ type colors = {
   tabInactive?: string,
   tabActiveBackground?: string,
   tabInactiveBackground?: string,
-  safariStatusBar?: string,
+  safariStatusBar?: ReactNative.StatusBar.barStyle,
   safariText?: string,
   safariBackground?: string,
   settingsBackground?: string,
@@ -58,10 +58,10 @@ module Provider = {
       let colors = switch theme {
       | #dark => {
           // TODO:
-          headerStatusBar: "dark-content",
+          headerStatusBar: #"dark-content",
         }
       | _ => {
-          headerStatusBar: "light-content",
+          headerStatusBar: #"light-content",
           headerText: "#fff",
           headerBackground: "#af1d1d",
           headerAndroidBar: "#831616",
@@ -77,7 +77,7 @@ module Provider = {
           tabInactive: "grey",
           // tabActiveBackground:
           // tabInactiveBackground:
-          safariStatusBar: "dark-content",
+          safariStatusBar: #"dark-content",
           safariText: "#af1d1d",
           // safariBackground:
           // settingsBackground:
