@@ -1,19 +1,15 @@
 import React from "react";
 import { Text } from "react-native";
-import { SettingsContext } from "../context/settings";
-import { context as ThemeContext } from "../ThemeContext.bs";
+import { openLink } from "../utils";
 
 export const Nickname = ({ name }) => {
-  const { openLink } = React.useContext(SettingsContext);
-  const { colors } = React.useContext(ThemeContext);
-
   return (
     <Text
       style={{
         textDecorationLine: "underline",
       }}
       onPress={() => {
-        openLink(`https://echojs.com/user/${name}`, colors);
+        openLink(`https://echojs.com/user/${name}`);
       }}
     >
       {name}

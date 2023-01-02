@@ -5,19 +5,15 @@ import {
   context as ThemeContext,
   Provider as ThemeProvider,
 } from "./ThemeContext.bs";
-import { SettingsContext, SettingsProvider } from "./context/settings";
 import { AuthProvider } from "./context/auth";
 
 const AppContent = () => {
   const { colors } = React.useContext(ThemeContext);
-  const { inSv } = React.useContext(SettingsContext);
 
   return (
     <>
       <StatusBar
-        barStyle={Platform.select({
-          ios: inSv ? colors.safariStatusBar : colors.headerStatusBar,
-        })}
+        barStyle={colors.headerStatusBar}
         backgroundColor={Platform.select({
           android: colors.headerAndroidBar,
         })}
@@ -30,9 +26,7 @@ const AppContent = () => {
 export const App = () => (
   <AuthProvider>
     <ThemeProvider.make>
-      <SettingsProvider>
-        <AppContent />
-      </SettingsProvider>
+      <AppContent />
     </ThemeProvider.make>
   </AuthProvider>
 );

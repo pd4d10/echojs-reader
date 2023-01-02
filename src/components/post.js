@@ -6,14 +6,13 @@ import ActionSheet from "react-native-actionsheet";
 import { context as ThemeContext } from "../ThemeContext.bs";
 
 import { make as Vote } from "./Vote.bs";
-import { getHostFromUrl } from "../utils";
+import { getHostFromUrl, openLink } from "../utils";
 import { Nickname } from "./nickname";
-import { SettingsContext } from "../context/settings";
 import { AuthContext } from "../context/auth";
 
 export const PostItem = React.memo((props) => {
   const { auth, secret, fetchWithAuth } = React.useContext(AuthContext);
-  const { openLink } = React.useContext(SettingsContext);
+
   const { colors } = React.useContext(ThemeContext);
 
   const [actionSheet, setActionSheet] = React.useState(null);
@@ -53,7 +52,7 @@ export const PostItem = React.memo((props) => {
               return;
             }
 
-            openLink(item.url, colors);
+            openLink(item.url);
           }}
         >
           <Text

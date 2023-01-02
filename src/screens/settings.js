@@ -2,16 +2,12 @@ import React from "react";
 import { ScrollView, View, Button, Text } from "react-native";
 import { Cell, Section, TableView } from "react-native-tableview-simple";
 import { context as ThemeContext } from "../ThemeContext.bs";
-import CustomSwitch from "../components/switch";
-import { confirm } from "../utils";
+import { confirm, openLink } from "../utils";
 import { AuthContext } from "../context/auth";
-import { SettingsContext } from "../context/settings";
 
 export const SettingsScreen = (props) => {
   const { theme, setTheme, colors } = React.useContext(ThemeContext);
   const { auth, username, logout } = React.useContext(AuthContext);
-  const { svEnable, svAvailable, setSvEnable, openLink } =
-    React.useContext(SettingsContext);
 
   return (
     <ScrollView
@@ -67,24 +63,13 @@ export const SettingsScreen = (props) => {
             />
           ))}
         </Section>
-
-        {svAvailable && (
-          <Section sectionTintColor="transparent">
-            <Cell
-              cellAccessoryView={
-                <CustomSwitch value={svEnable} onValueChange={setSvEnable} />
-              }
-              title="Open Links In Safari View"
-            />
-          </Section>
-        )}
       </TableView>
       <Section header="ABOUT" sectionTintColor="transparent">
         <Cell
           title="Source Code"
           accessory="DisclosureIndicator"
           onPress={() => {
-            openLink("https://github.com/pd4d10/echojs-reader", colors);
+            openLink("https://github.com/pd4d10/echojs-reader");
           }}
         />
       </Section>

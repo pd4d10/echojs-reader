@@ -1,4 +1,4 @@
-type key = [#auth | #username | #secret | #theme | #safariView]
+type key = [#auth | #username | #secret | #theme | @deprecated #safariView]
 
 type storage<'a> = {
   getItem: (. key) => promise<option<'a>>,

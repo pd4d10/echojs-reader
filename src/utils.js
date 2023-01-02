@@ -1,3 +1,4 @@
+import { openBrowserAsync } from "expo-web-browser";
 import { Alert } from "react-native";
 
 export const confirm = (message, callback) => {
@@ -21,4 +22,8 @@ export function getHostFromUrl(url) {
 
 export function handleError(err) {
   alert(err.message);
+}
+
+export function openLink(url) {
+  return openBrowserAsync(url);
 }
