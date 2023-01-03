@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, TouchableOpacity, Platform } from "react-native";
 import { formatDistance } from "date-fns";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import ActionSheet from "react-native-actionsheet";
+import { useActionSheet } from "@expo/react-native-action-sheet";
 import { context as ThemeContext } from "../ThemeContext.bs";
 
 import { make as Vote } from "./Vote.bs";
@@ -17,7 +17,7 @@ export const PostItem = React.memo((props) => {
 
   const { colors } = React.useContext(ThemeContext);
 
-  const [actionSheet, setActionSheet] = React.useState(null);
+  const { showActionSheetWithOptions } = useActionSheet();
 
   const vote = async (id, type) => {
     await fetchWithAuth(
@@ -106,34 +106,32 @@ export const PostItem = React.memo((props) => {
                 return;
               }
 
-              actionSheet.show();
+              showActionSheetWithOptions(
+                {
+                  title: `Vote for ${item.username}'s post`,
+                  options: ["Up", "Down", "cancel"],
+                  cancelButtonIndex: 2,
+                },
+                async (index) => {
+                  try {
+                    switch (index) {
+                      case 0:
+                        await vote(item.id, "up");
+                        props.updateVote(item.id, "up");
+                        break;
+                      case 1:
+                        await vote(item.id, "down");
+                        props.updateVote(item.id, "down");
+                        break;
+                    }
+                  } catch (err) {
+                    alert(err.message);
+                  }
+                }
+              );
             }}
           >
             <Vote colors={colors} item={item} />
-            <ActionSheet
-              ref={(el) => {
-                setActionSheet(el);
-              }}
-              title={`Vote for ${item.username}'s post`}
-              options={["Up", "Down", "cancel"]}
-              cancelButtonIndex={2}
-              onPress={async (index) => {
-                try {
-                  switch (index) {
-                    case 0:
-                      await vote(item.id, "up");
-                      props.updateVote(item.id, "up");
-                      break;
-                    case 1:
-                      await vote(item.id, "down");
-                      props.updateVote(item.id, "down");
-                      break;
-                  }
-                } catch (err) {
-                  alert(err.message);
-                }
-              }}
-            />
           </TouchableOpacity>
           <TouchableOpacity
             style={{ flex: 1, justifyContent: "flex-end" }}

@@ -1791,6 +1791,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@expo/react-native-action-sheet@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "@expo/react-native-action-sheet@npm:4.0.1"
+  dependencies:
+    "@types/hoist-non-react-statics": ^3.3.1
+    hoist-non-react-statics: ^3.3.0
+  peerDependencies:
+    react: ">=16.3.0"
+  checksum: f33b8a3b7c6ca77a6e05e5b2284c0961cf1e27b954e87b76747afc990a9581b852326e1ab739ac84a2c1afce05a133627c85465418cad5292d162fbcb305d86e
+  languageName: node
+  linkType: hard
+
 "@expo/rudder-sdk-node@npm:1.1.1":
   version: 1.1.1
   resolution: "@expo/rudder-sdk-node@npm:1.1.1"
@@ -2480,6 +2492,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/hoist-non-react-statics@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "@types/hoist-non-react-statics@npm:3.3.1"
+  dependencies:
+    "@types/react": "*"
+    hoist-non-react-statics: ^3.3.0
+  checksum: 2c0778570d9a01d05afabc781b32163f28409bb98f7245c38d5eaf082416fdb73034003f5825eb5e21313044e8d2d9e1f3fe2831e345d3d1b1d20bcd12270719
+  languageName: node
+  linkType: hard
+
 "@types/invariant@npm:^2.2.35":
   version: 2.2.35
   resolution: "@types/invariant@npm:2.2.35"
@@ -2516,6 +2538,31 @@ __metadata:
   version: 18.11.18
   resolution: "@types/node@npm:18.11.18"
   checksum: 03f17f9480f8d775c8a72da5ea7e9383db5f6d85aa5fefde90dd953a1449bd5e4ffde376f139da4f3744b4c83942166d2a7603969a6f8ea826edfb16e6e3b49d
+  languageName: node
+  linkType: hard
+
+"@types/prop-types@npm:*":
+  version: 15.7.5
+  resolution: "@types/prop-types@npm:15.7.5"
+  checksum: 5b43b8b15415e1f298243165f1d44390403bb2bd42e662bca3b5b5633fdd39c938e91b7fce3a9483699db0f7a715d08cef220c121f723a634972fdf596aec980
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:*":
+  version: 18.0.26
+  resolution: "@types/react@npm:18.0.26"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: b62f0ea3cdfa68e106391728325057ad36f1bde7ba2dfae029472c47e01e482bc77c6ba4f1dad59f3f04ee81cb597618ff7c30a33c157c0a20462b6dd6aa2d4d
+  languageName: node
+  linkType: hard
+
+"@types/scheduler@npm:*":
+  version: 0.16.2
+  resolution: "@types/scheduler@npm:0.16.2"
+  checksum: b6b4dcfeae6deba2e06a70941860fb1435730576d3689225a421280b7742318d1548b3d22c1f66ab68e414f346a9542f29240bc955b6332c5b11e561077583bc
   languageName: node
   linkType: hard
 
@@ -3807,6 +3854,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"csstype@npm:^3.0.2":
+  version: 3.1.1
+  resolution: "csstype@npm:3.1.1"
+  checksum: 1f7b4f5fdd955b7444b18ebdddf3f5c699159f13e9cf8ac9027ae4a60ae226aef9bbb14a6e12ca7dba3358b007cee6354b116e720262867c398de6c955ea451d
+  languageName: node
+  linkType: hard
+
 "dag-map@npm:~1.0.0":
   version: 1.0.2
   resolution: "dag-map@npm:1.0.2"
@@ -4012,6 +4066,7 @@ __metadata:
   resolution: "echojs-reader@workspace:."
   dependencies:
     "@babel/core": ^7.12.9
+    "@expo/react-native-action-sheet": ^4.0.1
     "@greenlabs/ppx-spice": ^0.1.9
     "@react-native-async-storage/async-storage": ~1.17.3
     "@react-navigation/bottom-tabs": ^6.5.2
@@ -4025,7 +4080,6 @@ __metadata:
     expo-web-browser: ~12.0.0
     react: 18.1.0
     react-native: 0.70.5
-    react-native-actionsheet: ^2.4.2
     react-native-gesture-handler: ~2.8.0
     react-native-reanimated: ~2.12.0
     react-native-safe-area-context: 4.4.1
@@ -7616,17 +7670,6 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 9d6d111d8990dc98bc5402c1266a808b0459b5d54830bbea24c12d908b536df7883f268a7868cfaedde3dd9d4e0d574db456f84d2e6df9c4526f99bb4b5344d8
-  languageName: node
-  linkType: hard
-
-"react-native-actionsheet@npm:^2.4.2":
-  version: 2.4.2
-  resolution: "react-native-actionsheet@npm:2.4.2"
-  peerDependencies:
-    prop-types: ">=15.4.0"
-    react: ">=15.4.0"
-    react-native: "*"
-  checksum: 97cceb5f4d484ce2dfc4aa41a0f33cb9c1aa879e567b28e681541b8c1bf2c8efdb940d8135fc8f84c4ceb987401aee36fb3894ca727af93ce10c4460dcaabe10
   languageName: node
   linkType: hard
 

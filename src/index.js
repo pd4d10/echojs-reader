@@ -8,6 +8,7 @@ import {
 } from "./ThemeContext.bs";
 import { Provider as AuthProvider } from "./AuthContext.bs";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 
 const AppContent = () => {
   const { colors } = React.useContext(ThemeContext);
@@ -36,7 +37,9 @@ const AppContent = () => {
 export const App = () => (
   <AuthProvider.make>
     <ThemeProvider.make>
-      <AppContent />
+      <ActionSheetProvider>
+        <AppContent />
+      </ActionSheetProvider>
     </ThemeProvider.make>
   </AuthProvider.make>
 );
