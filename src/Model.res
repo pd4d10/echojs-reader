@@ -8,6 +8,18 @@ type rec comment = {
   replies?: array<comment>,
 }
 
+type post = {
+  comments: string,
+  ctime: string,
+  down?: string,
+  id: string,
+  title: string,
+  up?: string,
+  url: string,
+  username: string,
+  voted?: [#up | #down],
+}
+
 module Api = {
   @spice
   type login = {
