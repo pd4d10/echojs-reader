@@ -8,10 +8,7 @@ let rec make = (~item: Model.comment, ~level) => {
   let marginLeft = level->Float.fromInt *. 20.
   let theme = ThemeContext.context->React.useContext->Option.getExn
 
-  let timeago = formatDistance(.
-    item.ctime->Int.fromString->Option.getExn * 1000,
-    Js.Date.now()->Int.fromFloat,
-  )
+  let timeago = formatDistance(. item.ctime * 1000, Js.Date.now()->Int.fromFloat)
 
   <>
     <View
@@ -41,11 +38,14 @@ let rec make = (~item: Model.comment, ~level) => {
           ~paddingLeft=10.->Style.dp,
           (),
         )}>
-        <Vote item />
+        {
+          let up = item.up
+          let down = item.down->Option.getWithDefault(0)
+          <Vote up down voted=None />
+        }
       </View>
     </View>
     {item.replies
-    ->Option.getWithDefault([])
     ->Array.map(reply =>
       make->React.createElement({
         // "key": reply.ctime + reply.username,

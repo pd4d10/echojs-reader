@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View, TouchableOpacity, Platform } from "react-native";
 import { formatDistance } from "date-fns";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { context as ThemeContext } from "../ThemeContext.bs";
 
@@ -131,7 +131,7 @@ export const PostItem = React.memo((props) => {
               );
             }}
           >
-            <Vote colors={colors} item={item} />
+            <Vote up={item.up} down={item.down} />
           </TouchableOpacity>
           <TouchableOpacity
             style={{ flex: 1, justifyContent: "flex-end" }}
