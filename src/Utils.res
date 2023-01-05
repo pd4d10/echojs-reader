@@ -7,9 +7,8 @@ let getHostFromUrl = url => {
 }
 
 @module("date-fns")
-external formatDistance: (. int, float) => string = "formatDistance"
+external formatDistance: (. float, float) => string = "formatDistance"
 
 let timeAgo = timestamp => {
-  Js.log2(timestamp * 1000, Js.Date.now())
-  formatDistance(. timestamp * 1000, Js.Date.now())
+  formatDistance(. timestamp *. 1000., Js.Date.now())
 }

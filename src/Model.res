@@ -1,6 +1,6 @@
 type rec comment = {
   body: string,
-  ctime: int,
+  ctime: float,
   replies: array<comment>,
   up: int,
   username: string,

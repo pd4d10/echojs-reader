@@ -57,7 +57,7 @@ let make = (~item: Model.post, ~hascommentlink=true, ~updateVote) => {
       </TouchableOpacity>
       <Text style={Style.textStyle(~color=theme.colors.contentUser, ())}>
         <Nickname name=item.username />
-        {switch item.ctime->Int.fromString {
+        {switch item.ctime->Float.fromString {
         | Some(ctime) => ` | ${ctime->Utils.timeAgo} ago`->React.string
         | None => React.null
         }}
