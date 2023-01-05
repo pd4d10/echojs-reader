@@ -3,7 +3,7 @@ import { View, ScrollView } from "react-native";
 import { make as Loading } from "../components/Loading.bs";
 import { context as ThemeContext } from "../ThemeContext.bs";
 
-import { PostItem } from "../components/post";
+import { make as PostItem } from "../components/PostItem.bs";
 import { make as CommentItem } from "../components/CommentItem.bs";
 import { handleError } from "../utils";
 import { context as AuthContext, fetchWithAuth } from "../AuthContext.bs";

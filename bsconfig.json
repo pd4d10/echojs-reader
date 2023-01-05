@@ -16,6 +16,7 @@
     "@rescript/react",
     "rescript-react-native",
     "rescript-webapi",
+    "rescript-react-navigation",
     "@rescript-react-native/async-storage",
     "@greenlabs/ppx-spice"
   ]

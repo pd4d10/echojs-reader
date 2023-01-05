@@ -4087,6 +4087,7 @@ __metadata:
     react-native-tableview-simple: ^4.3.1
     rescript: ^10.0.1
     rescript-react-native: ^0.70.0
+    rescript-react-navigation: ^6.0.3
     rescript-webapi: ^0.7.0
   languageName: unknown
   linkType: soft
@@ -8019,6 +8020,22 @@ __metadata:
     react-native: ">=0.70.0"
     rescript: ">=10.0.0"
   checksum: 765eb836487dc9433a87f594f395bbc72ad729b03d3a133b4bc800161ecbb31d7d159a8250b07707e703d58a681bf447c3ad30a883b057bb24b8e95ba63f6bf8
+  languageName: node
+  linkType: hard
+
+"rescript-react-navigation@npm:^6.0.3":
+  version: 6.0.3
+  resolution: "rescript-react-navigation@npm:6.0.3"
+  peerDependencies:
+    "@react-navigation/bottom-tabs": ">=6.0.0"
+    "@react-navigation/drawer": ">=6.0.0"
+    "@react-navigation/material-bottom-tabs": ">=6.0.0"
+    "@react-navigation/material-top-tabs": ">=6.0.0"
+    "@react-navigation/native": ">=6.0.0"
+    "@react-navigation/stack": ">=6.0.0"
+    "@rescript/react": ">=0.10.0"
+    rescript-react-native: ">=0.64.3"
+  checksum: 6c6ce8bf36260f3a0ebf2452b489ad80186f2af129982dd8e1d089c4843002c27d3c714ec17969c65acdcdb5f232d70219db0ad59ffcc4c5525a7291d3ce4904
   languageName: node
   linkType: hard
 

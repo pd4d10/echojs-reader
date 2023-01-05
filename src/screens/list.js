@@ -3,7 +3,7 @@ import { Text, View, FlatList } from "react-native";
 import { context as ThemeContext } from "../ThemeContext.bs";
 
 import { make as Loading } from "../components/Loading.bs";
-import { PostItem } from "../components/post";
+import { make as PostItem } from "../components/PostItem.bs";
 import { handleError } from "../utils";
 import { context as AuthContext, fetchWithAuth } from "../AuthContext.bs";
 

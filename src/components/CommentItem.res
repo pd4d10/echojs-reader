@@ -1,14 +1,9 @@
 open ReactNative
 
-@module("date-fns")
-external formatDistance: (. int, int) => string = "formatDistance"
-
 @react.component
 let rec make = (~item: Model.comment, ~level) => {
   let marginLeft = level->Float.fromInt *. 20.
   let theme = ThemeContext.context->React.useContext->Option.getExn
-
-  let timeago = formatDistance(. item.ctime * 1000, Js.Date.now()->Int.fromFloat)
 
   <>
     <View
@@ -24,7 +19,7 @@ let rec make = (~item: Model.comment, ~level) => {
         <Text
           style={Style.textStyle(~color=theme.colors.contentUser, ~marginBottom=4.->Style.dp, ())}>
           <Nickname name={item.username} />
-          {`| ${timeago} ago`->React.string}
+          {`| ${item.ctime->Utils.timeAgo} ago`->React.string}
         </Text>
         <Text style={Style.textStyle(~color=theme.colors.contentTitle, ())}>
           {item.body->React.string}
