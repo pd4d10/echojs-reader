@@ -4,7 +4,7 @@ import { LoginScreen } from "../screens/login";
 import { context as ThemeContext } from "../ThemeContext.bs";
 
 import { LatestScreen, TopScreen } from "../screens/list";
-import { SettingsScreen } from "../screens/settings";
+import { make as SettingsScreen } from "../screens/SettingsScreen.bs";
 import { make as DetailScreen } from "../screens/DetailScreen.bs";
 
 const TopStack = createNativeStackNavigator();
