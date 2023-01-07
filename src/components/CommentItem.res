@@ -19,7 +19,7 @@ let rec make = (~item: Model.comment, ~level) => {
         <Text
           style={Style.textStyle(~color=theme.colors.contentUser, ~marginBottom=4.->Style.dp, ())}>
           <Nickname name={item.username} />
-          {`| ${item.ctime->Utils.timeAgo} ago`->React.string}
+          {` | ${item.ctime->Utils.timeAgo} ago`->React.string}
         </Text>
         <Text style={Style.textStyle(~color=theme.colors.contentTitle, ())}>
           {item.body->React.string}

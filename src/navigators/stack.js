@@ -5,7 +5,7 @@ import { context as ThemeContext } from "../ThemeContext.bs";
 
 import { LatestScreen, TopScreen } from "../screens/list";
 import { SettingsScreen } from "../screens/settings";
-import { DetailScreen } from "../screens/detail";
+import { make as DetailScreen } from "../screens/DetailScreen.bs";
 
 const TopStack = createNativeStackNavigator();
 

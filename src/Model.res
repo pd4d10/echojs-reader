@@ -1,3 +1,4 @@
+@spice
 type rec comment = {
   body: string,
   ctime: float,
@@ -25,4 +26,7 @@ module Api = {
     auth: string,
     apisecret: string,
   }
+
+  @spice
+  type comments = {comments: array<comment>}
 }
