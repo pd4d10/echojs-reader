@@ -24,7 +24,7 @@ const AppContent = () => {
   return (
     <NavigationContainer theme={defaultTheme}>
       <StatusBar
-        barStyle={colors.headerStatusBar}
+        style={colors.headerStatusBar}
         backgroundColor={Platform.select({
           android: colors.headerAndroidBar,
         })}
