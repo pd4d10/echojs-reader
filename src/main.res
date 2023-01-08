@@ -18,7 +18,7 @@ module App = {
         | _ => None
         }}
       />
-      <Navigator />
+      <BottomTabs />
     </ReactNavigation.Native.NavigationContainer>
   }
 }

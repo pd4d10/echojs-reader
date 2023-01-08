@@ -8,7 +8,7 @@ module M = {
 module Navigation = ReactNavigation.Core.NavigationScreenProp(M)
 
 @react.component
-let make = () => {
+let make = (~navigation as _, ~route as _) => {
   let navigation = ReactNavigation.Native.useNavigation()->Js.toOption->Option.getExn
 
   let {colors} = React.useContext(ThemeContext.context)->Option.getExn

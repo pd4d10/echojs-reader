@@ -2,9 +2,6 @@ module M = {
   type params
 }
 module Tab = ReactNavigation.BottomTabs.Make(M)
-module TopStack = ReactNavigation.NativeStack.Make(M)
-module LatestStack = ReactNavigation.NativeStack.Make(M)
-module SettingsStack = ReactNavigation.NativeStack.Make(M)
 
 @react.component
 let make = () => {
@@ -24,12 +21,7 @@ let make = () => {
       )}>
     <Tab.Screen
       name="Top"
-      component={_ =>
-        <TopStack.Navigator>
-          <TopStack.Screen name="Top news" component={_ => <ListScreen sort="top" />} />
-          <TopStack.Screen name="Detail" component={_ => <DetailScreen />} />
-          <TopStack.Screen name="Login" component={_ => <LoginScreen />} />
-        </TopStack.Navigator>}
+      component={TopStack.make}
       options={_ =>
         Tab.options(
           ~tabBarIcon=({focused}) =>
@@ -39,12 +31,7 @@ let make = () => {
     />
     <Tab.Screen
       name="Latest"
-      component={_ =>
-        <LatestStack.Navigator>
-          <LatestStack.Screen name="Latest news" component={_ => <ListScreen sort="latest" />} />
-          <LatestStack.Screen name="Detail" component={_ => <DetailScreen />} />
-          <LatestStack.Screen name="Login" component={_ => <LoginScreen />} />
-        </LatestStack.Navigator>}
+      component={LatestStack.make}
       options={_ =>
         Tab.options(
           ~tabBarIcon=({focused}) =>
@@ -54,11 +41,7 @@ let make = () => {
     />
     <Tab.Screen
       name="Settings"
-      component={_ =>
-        <SettingsStack.Navigator>
-          <SettingsStack.Screen name="Settings" component={_ => <SettingsScreen />} />
-          <SettingsStack.Screen name="Login" component={_ => <LoginScreen />} />
-        </SettingsStack.Navigator>}
+      component={SettingsStack.make}
       options={_ =>
         Tab.options(
           ~tabBarIcon=({focused}) =>

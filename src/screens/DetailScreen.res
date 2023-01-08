@@ -8,7 +8,7 @@ module M = {
 module Navigation = ReactNavigation.Core.NavigationScreenProp(M)
 
 @react.component
-let make = () => {
+let make = (~navigation as _, ~route as _) => {
   let route = ReactNavigation.Native.useRoute()->Js.Nullable.toOption->Option.getExn
   let params: Model.post = route.params->Option.getExn
 
