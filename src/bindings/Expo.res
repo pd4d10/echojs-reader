@@ -26,6 +26,26 @@ module ActionSheet = {
 }
 
 module VectorIcons = {
+  module Ionicons = {
+    @react.component @module("@expo/vector-icons")
+    external make: (
+      ~name: string=?,
+      ~size: int=?,
+      ~color: string=?,
+      ~style: ReactNative.Style.t=?,
+      unit,
+    ) => React.element = "Ionicons"
+  }
+  module Entypo = {
+    @react.component @module("@expo/vector-icons")
+    external make: (
+      ~name: string=?,
+      ~size: int=?,
+      ~color: string=?,
+      ~style: ReactNative.Style.t=?,
+      unit,
+    ) => React.element = "Entypo"
+  }
   module MaterialCommunityIcons = {
     @react.component @module("@expo/vector-icons")
     external make: (

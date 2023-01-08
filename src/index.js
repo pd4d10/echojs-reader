@@ -1,7 +1,7 @@
 import React from "react";
 import { Platform } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { BottomTabNavigator } from "./navigators/bottom-tab";
+import { make as Navigator } from "./Navigator.bs";
 import {
   context as ThemeContext,
   Provider as ThemeProvider,
@@ -29,7 +29,7 @@ const AppContent = () => {
           android: colors.headerAndroidBar,
         })}
       />
-      <BottomTabNavigator />
+      <Navigator />
     </NavigationContainer>
   );
 };
