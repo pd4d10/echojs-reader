@@ -3,11 +3,14 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { make as LoginScreen } from "../screens/LoginScreen.bs";
 import { context as ThemeContext } from "../ThemeContext.bs";
 
-import { LatestScreen, TopScreen } from "../screens/list";
+import { make as ListScreen } from "../screens/ListScreen.bs";
 import { make as SettingsScreen } from "../screens/SettingsScreen.bs";
 import { make as DetailScreen } from "../screens/DetailScreen.bs";
 
 const TopStack = createNativeStackNavigator();
+
+const TopScreen = () => <ListScreen sort="top" />;
+const LatestScreen = () => <ListScreen sort="latest" />;
 
 export const TopNavigator = () => {
   return (

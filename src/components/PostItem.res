@@ -77,8 +77,7 @@ let make = (~item: Model.post, ~hascommentlink=true, ~updateVote) => {
             switch auth.state {
             | Some(state) =>
               switch item.voted {
-              | Some(voted) =>
-                ReactNative.Alert.alert(~title=`You already vote ${(voted :> string)}`, ())
+              | Some(voted) => ReactNative.Alert.alert(~title=`You already vote ${voted}`, ())
               | _ =>
                 actionSheet.showActionSheetWithOptions(.
                   {

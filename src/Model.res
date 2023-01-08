@@ -8,6 +8,7 @@ type rec comment = {
   down?: int,
 }
 
+@spice
 type post = {
   comments: string,
   ctime: string,
@@ -17,7 +18,8 @@ type post = {
   up: string,
   url: string,
   username: string,
-  voted?: [#up | #down],
+  voted?: string, // TODO: [#up | #down],
+  del?: bool,
 }
 
 module Api = {
@@ -29,4 +31,7 @@ module Api = {
 
   @spice
   type comments = {comments: array<comment>}
+
+  @spice
+  type posts = {news: array<post>}
 }
