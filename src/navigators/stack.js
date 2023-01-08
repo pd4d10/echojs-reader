@@ -1,8 +1,6 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { make as LoginScreen } from "../screens/LoginScreen.bs";
-import { context as ThemeContext } from "../ThemeContext.bs";
-
 import { make as ListScreen } from "../screens/ListScreen.bs";
 import { make as SettingsScreen } from "../screens/SettingsScreen.bs";
 import { make as DetailScreen } from "../screens/DetailScreen.bs";
@@ -25,8 +23,6 @@ export const TopNavigator = () => {
 const LatestStack = createNativeStackNavigator();
 
 export const LatestNavigator = () => {
-  const { colors } = React.useContext(ThemeContext);
-
   return (
     <LatestStack.Navigator>
       <LatestStack.Screen name="Latest news" component={LatestScreen} />
@@ -37,8 +33,6 @@ export const LatestNavigator = () => {
 };
 
 export const SettingsNavigator = () => {
-  const { colors } = React.useContext(ThemeContext);
-
   return (
     <LatestStack.Navigator>
       <LatestStack.Screen name="Settings" component={SettingsScreen} />

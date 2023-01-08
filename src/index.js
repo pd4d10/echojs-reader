@@ -5,8 +5,8 @@ import { BottomTabNavigator } from "./navigators/bottom-tab";
 import {
   context as ThemeContext,
   Provider as ThemeProvider,
-} from "./ThemeContext.bs";
-import { Provider as AuthProvider } from "./AuthContext.bs";
+} from "./contexts/ThemeContext.bs";
+import { Provider as AuthProvider } from "./contexts/AuthContext.bs";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 

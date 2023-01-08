@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TopNavigator, LatestNavigator, SettingsNavigator } from "./stack";
 import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { context as ThemeContext } from "../ThemeContext.bs";
+import { context as ThemeContext } from "../contexts/ThemeContext.bs";
 
 const Tab = createBottomTabNavigator();
 
