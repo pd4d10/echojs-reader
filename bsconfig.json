@@ -5,11 +5,9 @@
     "subdirs": true
   },
   "package-specs": {
-    "module": "es6",
-    "in-source": true
+    "module": "es6"
   },
   "jsx": { "version": 3 },
-  "suffix": ".bs.js",
   "bsc-flags": ["-open Belt"],
   "ppx-flags": ["@greenlabs/ppx-spice/ppx"],
   "bs-dependencies": [
