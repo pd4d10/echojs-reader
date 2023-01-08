@@ -45,7 +45,7 @@ module Provider = {
     let (theme, _setTheme) = React.useState(_ => None)
 
     React.useEffect0(() => {
-      ReactNative.AsyncStorage.getItem("theme")
+      ReactNativeAsyncStorage.getItem("theme")
       ->Js.Promise2.then(v => {
         _setTheme(
           _ =>
@@ -64,7 +64,7 @@ module Provider = {
 
     let setTheme = v => {
       _setTheme(_ => v->Some)
-      ReactNative.AsyncStorage.setItem("theme", v->Theme.toString)->ignore
+      ReactNativeAsyncStorage.setItem("theme", v->Theme.toString)->ignore
     }
 
     let value = theme->Option.flatMap(theme => {
