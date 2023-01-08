@@ -31,11 +31,11 @@
     "@greenlabs/ppx-spice": "^0.1.9",
     "@rescript-react-native/async-storage": "^1.6.3",
     "@rescript/react": "^0.10.3",
-    "rescript": "^10.0.1",
+    "rescript": "^10.1.1",
     "rescript-react-native": "^0.70.0",
     "rescript-react-navigation": "^6.0.3",
     "rescript-webapi": "^0.7.0"
   },
   "private": true,
-  "packageManager": "yarn@3.3.1"
+  "packageManager": "pnpm@7.23.0"
 }
