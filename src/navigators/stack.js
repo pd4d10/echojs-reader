@@ -1,6 +1,6 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { LoginScreen } from "../screens/login";
+import { make as LoginScreen } from "../screens/LoginScreen.bs";
 import { context as ThemeContext } from "../ThemeContext.bs";
 
 import { LatestScreen, TopScreen } from "../screens/list";
