@@ -1,1 +1,1 @@
-export { App as default } from "./src/index";
+export { default } from "./src/main.bs";

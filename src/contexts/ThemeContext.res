@@ -17,7 +17,7 @@ module Theme = {
 
 type colors = {
   primary: string,
-  headerStatusBar: ReactNative.StatusBar.barStyle,
+  headerStatusBar: Expo.StatusBar.style,
   headerAndroidBar: string,
   contentTitle: string,
   contentUrl: string,
@@ -72,7 +72,7 @@ module Provider = {
       | Theme.Dark => {
           // TODO:
           primary: "#af1d1d",
-          headerStatusBar: #"dark-content",
+          headerStatusBar: #dark,
           headerAndroidBar: "#831616",
           contentTitle: "#000",
           contentUrl: "#999",
@@ -87,7 +87,7 @@ module Provider = {
         }
       | _ => {
           primary: "#af1d1d",
-          headerStatusBar: #"light-content",
+          headerStatusBar: #light,
           headerAndroidBar: "#831616",
           contentTitle: "#000",
           contentUrl: "#999",

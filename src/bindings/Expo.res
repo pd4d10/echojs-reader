@@ -12,6 +12,13 @@ module WebBrowser = {
     "openBrowserAsync"
 }
 
+module StatusBar = {
+  type style = [#auto | #inverted | #light | #dark]
+
+  @react.component @module("expo-status-bar")
+  external make: (~style: style=?, ~backgroundColor: string=?) => React.element = "StatusBar"
+}
+
 module ActionSheet = {
   type options = {
     title?: string,
@@ -23,6 +30,11 @@ module ActionSheet = {
 
   @module("@expo/react-native-action-sheet")
   external useActionSheet: unit => actionSheetProps = "useActionSheet"
+
+  module ActionSheetProvider = {
+    @react.component @module("@expo/react-native-action-sheet")
+    external make: (~children: React.element=?) => React.element = "ActionSheetProvider"
+  }
 }
 
 module VectorIcons = {
