@@ -20,7 +20,7 @@ let make = () => {
         (),
       )}>
     <Tab.Screen
-      name="Top"
+      name="TopStack"
       component={TopStack.make}
       options={_ =>
         Tab.options(
@@ -30,7 +30,7 @@ let make = () => {
         )}
     />
     <Tab.Screen
-      name="Latest"
+      name="LatestStack"
       component={LatestStack.make}
       options={_ =>
         Tab.options(
@@ -40,7 +40,7 @@ let make = () => {
         )}
     />
     <Tab.Screen
-      name="Settings"
+      name="SettingsStack"
       component={SettingsStack.make}
       options={_ =>
         Tab.options(
