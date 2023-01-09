@@ -10,8 +10,8 @@ module Navigation = ReactNavigation.Core.NavigationScreenProp(M)
 @react.component
 let make = (~item: Model.post, ~hascommentlink=true, ~updateVote) => {
   let navigation = ReactNavigation.Native.useNavigation()->Js.Nullable.toOption
-  let auth = React.useContext(AuthContext.context)
-  let theme = React.useContext(ThemeContext.context)->Option.getExn
+  let auth = Auth.context->React.useContext
+  let theme = Theme.context->React.useContext->Option.getExn
   let actionSheet = Expo.ActionSheet.useActionSheet()
 
   let isText = item.url->Js.String2.startsWith("text://")
@@ -94,7 +94,7 @@ let make = (~item: Model.post, ~hascommentlink=true, ~updateVote) => {
                       }
 
                       let _ =
-                        await auth->AuthContext.fetchWithAuth(
+                        await auth->Auth.fetch(
                           `/votenews?news_id=${item.id}&vote_type=${type_}&apisecret=${state.secret}`,
                           #post,
                         )

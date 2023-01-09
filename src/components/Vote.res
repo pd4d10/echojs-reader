@@ -2,7 +2,7 @@ open ReactNative
 
 @react.component
 let make = (~up, ~down, ~voted) => {
-  let theme = ThemeContext.context->React.useContext->Option.getExn
+  let theme = Theme.context->React.useContext->Option.getExn
 
   <View>
     <Text

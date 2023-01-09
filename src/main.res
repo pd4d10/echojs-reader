@@ -1,7 +1,7 @@
 module App = {
   @react.component
   let make = () => {
-    let {colors} = React.useContext(ThemeContext.context)->Option.getExn
+    let {colors} = Theme.context->React.useContext->Option.getExn
 
     <ReactNavigation.Native.NavigationContainer
       theme={{
@@ -25,11 +25,11 @@ module App = {
 
 @react.component
 let default = () => {
-  <AuthContext.Provider>
-    <ThemeContext.Provider>
+  <Auth.Provider>
+    <Theme.Provider>
       <Expo.ActionSheet.ActionSheetProvider>
         <App />
       </Expo.ActionSheet.ActionSheetProvider>
-    </ThemeContext.Provider>
-  </AuthContext.Provider>
+    </Theme.Provider>
+  </Auth.Provider>
 }

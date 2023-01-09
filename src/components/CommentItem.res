@@ -3,7 +3,7 @@ open ReactNative
 @react.component
 let rec make = (~item: Model.comment, ~level) => {
   let marginLeft = level->Float.fromInt *. 20.
-  let theme = ThemeContext.context->React.useContext->Option.getExn
+  let theme = Theme.context->React.useContext->Option.getExn
 
   <>
     <View

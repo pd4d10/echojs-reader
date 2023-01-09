@@ -5,7 +5,7 @@ module Tab = ReactNavigation.BottomTabs.Make(M)
 
 @react.component
 let make = () => {
-  let {colors} = React.useContext(ThemeContext.context)->Option.getExn
+  let {colors} = Theme.context->React.useContext->Option.getExn
 
   let getIconColor = focused => {
     focused ? colors.primary : colors.tabInactive

@@ -11,8 +11,8 @@ module Navigation = ReactNavigation.Core.NavigationScreenProp(M)
 let make = (~navigation as _, ~route as _) => {
   let navigation = ReactNavigation.Native.useNavigation()->Js.toOption->Option.getExn
 
-  let {colors} = React.useContext(ThemeContext.context)->Option.getExn
-  let auth = React.useContext(AuthContext.context)
+  let {colors} = Theme.context->React.useContext->Option.getExn
+  let auth = Auth.context->React.useContext
 
   let (username, setUsername) = React.useState(_ => "")
   let (password, setPassword) = React.useState(_ => "")
@@ -49,7 +49,7 @@ let make = (~navigation as _, ~route as _) => {
             | ("", _) | (_, "") => Alert.alert(~title="Please enter a username and password", ())
             | _ => {
                 let doLogin = async () => {
-                  await auth->AuthContext.login(~username, ~password)
+                  await auth->Auth.login(~username, ~password)
                   navigation->Navigation.goBack()
                 }
                 doLogin()->ignore
@@ -67,8 +67,8 @@ let make = (~navigation as _, ~route as _) => {
             | ("", _) | (_, "") => Alert.alert(~title="Please enter a username and password", ())
             | _ => {
                 let doCreate = async () => {
-                  await auth->AuthContext.createAccount(~username, ~password)
-                  await auth->AuthContext.login(~username, ~password)
+                  await auth->Auth.createAccount(~username, ~password)
+                  await auth->Auth.login(~username, ~password)
                   navigation->Navigation.goBack()
                 }
                 doCreate()->ignore

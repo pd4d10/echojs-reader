@@ -2,8 +2,8 @@ open ReactNative
 
 @react.component
 let make = (~sort) => {
-  let {colors} = React.useContext(ThemeContext.context)->Option.getExn
-  let auth = AuthContext.context->React.useContext
+  let {colors} = Theme.context->React.useContext->Option.getExn
+  let auth = Auth.context->React.useContext
 
   let (first, setFirst) = React.useState(() => false)
   let (refreshing, setRefreshing) = React.useState(() => false)
@@ -14,7 +14,7 @@ let make = (~sort) => {
   let pageSize = 30
   let fetchData = async (~anchor=0, ()) => {
     let json =
-      await auth->AuthContext.fetchWithAuth(
+      await auth->Auth.fetch(
         `/getnews/${sort}/${anchor->Int.toString}/${pageSize->Int.toString}`,
         #get,
       )

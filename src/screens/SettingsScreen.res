@@ -10,8 +10,8 @@ module Navigation = ReactNavigation.Core.NavigationScreenProp(M)
 @react.component
 let make = (~navigation as _, ~route as _) => {
   let navigation = ReactNavigation.Native.useNavigation()->Js.toOption->Option.getExn
-  let auth = React.useContext(AuthContext.context)
-  let {theme, setTheme, colors} = React.useContext(ThemeContext.context)->Option.getExn
+  let auth = Auth.context->React.useContext
+  let {theme, setTheme, colors} = Theme.context->React.useContext->Option.getExn
 
   <ScrollView contentContainerStyle={Style.viewStyle(~paddingVertical=20.->Style.dp, ())}>
     <TableView>
@@ -34,7 +34,7 @@ let make = (~navigation as _, ~route as _) => {
                     {
                       text: "OK",
                       onPress: _ => {
-                        auth->AuthContext.logout->ignore
+                        auth->Auth.logout->ignore
                       },
                     },
                   ],
@@ -59,9 +59,9 @@ let make = (~navigation as _, ~route as _) => {
         }}
       </Section>
       <Section header="THEME" sectionTintColor=#transparent>
-        {[ThemeContext.Theme.Light, ThemeContext.Theme.Dark]
+        {[Theme.Theme.Light, Theme.Theme.Dark]
         ->Array.map(item => {
-          let themeS = ThemeContext.Theme.toString(item)
+          let themeS = Theme.Theme.toString(item)
 
           <Cell
             key=themeS

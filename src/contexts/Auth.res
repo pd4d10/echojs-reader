@@ -23,7 +23,7 @@ type value = {state: option<state>, dispatch: action => unit}
 
 let context = React.createContext({state: initialState, dispatch: _ => ()})
 
-let fetchWithAuth = async (ctx, url, method) => {
+let fetch = async (ctx, url, method) => {
   open Webapi.Fetch
   let cookie = ctx.state->Option.map(state => `auth=${state.auth}`)
   let method_ = switch method {
@@ -46,15 +46,14 @@ let fetchWithAuth = async (ctx, url, method) => {
 }
 
 let createAccount = async (ctx, ~username, ~password) => {
-  let _json =
-    await ctx->fetchWithAuth(`/create_account?username=${username}&password=${password}`, #post)
+  let _json = await ctx->fetch(`/create_account?username=${username}&password=${password}`, #post)
   // Seems EchoJS's create account API does not return secret
   // So don't use any data from this API
   // Just create account and call login API again to login
 }
 
 let login = async (ctx, ~username, ~password) => {
-  let json = await ctx->fetchWithAuth(`/login?username=${username}&password=${password}`, #get)
+  let json = await ctx->fetch(`/login?username=${username}&password=${password}`, #get)
   let data = json->Model.Api.login_decode->Result.getExn
   await ReactNativeAsyncStorage.multiSet([
     ("auth", data.auth),
@@ -68,7 +67,7 @@ let logout = async ctx => {
   switch ctx.state {
   | None => ()
   | Some(state) => {
-      let _json = await ctx->fetchWithAuth(`/logout?apisecret=${state.secret}`, #post)
+      let _json = await ctx->fetch(`/logout?apisecret=${state.secret}`, #post)
       await ReactNativeAsyncStorage.multiRemove(["auth", "username", "secret"])
       Drop->ctx.dispatch
     }

@@ -12,8 +12,8 @@ let make = (~navigation as _, ~route as _) => {
   let route = ReactNavigation.Native.useRoute()->Js.Nullable.toOption->Option.getExn
   let params: Model.post = route.params->Option.getExn
 
-  let theme = ThemeContext.context->React.useContext->Option.getExn
-  let auth = AuthContext.context->React.useContext
+  let theme = Theme.context->React.useContext->Option.getExn
+  let auth = Auth.context->React.useContext
 
   let (loading, setLoading) = React.useState(_ => false)
   let (comments, setComments) = React.useState(_ => [])
@@ -24,7 +24,7 @@ let make = (~navigation as _, ~route as _) => {
         setLoading(_ => true)
         // let id = "22273"
         let id = params.id
-        let json = await auth->AuthContext.fetchWithAuth(`/getcomments/${id}`, #get)
+        let json = await auth->Auth.fetch(`/getcomments/${id}`, #get)
         let {comments} = json->Model.Api.comments_decode->Result.getExn
         setComments(_ =>
           comments->Js.Array2.sortInPlaceWith((a, b) => a.ctime->Float.toInt - b.ctime->Float.toInt)
