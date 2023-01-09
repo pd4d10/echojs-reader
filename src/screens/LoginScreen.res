@@ -8,9 +8,7 @@ module M = {
 module Navigation = ReactNavigation.Core.NavigationScreenProp(M)
 
 @react.component
-let make = (~navigation as _, ~route as _) => {
-  let navigation = ReactNavigation.Native.useNavigation()->Js.toOption->Option.getExn
-
+let make = (~navigation, ~route as _) => {
   let {colors} = Theme.context->React.useContext->Option.getExn
   let auth = Auth.context->React.useContext
 

@@ -1,12 +1,5 @@
 open ReactNative
 
-module M = {
-  type params = Model.post
-  type options
-}
-
-module Navigation = ReactNavigation.Core.NavigationScreenProp(M)
-
 @react.component
 let make = (~navigation as _, ~route as _) => {
   let route = ReactNavigation.Native.useRoute()->Js.Nullable.toOption->Option.getExn
