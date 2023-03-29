@@ -108,8 +108,6 @@ module Provider = {
       None
     })
 
-    context
-    ->React.Context.provider
-    ->React.createElement({"value": {state, dispatch}, "children": children})
+    context->React.Context.provider->React.createElement({value: {state, dispatch}, children})
   }
 }

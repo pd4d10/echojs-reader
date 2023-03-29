@@ -108,9 +108,7 @@ module Provider = {
     switch value {
     | None => React.null
     | Some(value) =>
-      context
-      ->React.Context.provider
-      ->React.createElement({"value": Some(value), "children": children})
+      context->React.Context.provider->React.createElement({value: Some(value), children})
     }
   }
 }
