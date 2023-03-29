@@ -9,6 +9,7 @@ specifiers:
   '@react-navigation/native': ^6.1.6
   '@react-navigation/native-stack': ^6.9.12
   '@rescript-react-native/async-storage': ^1.6.3
+  '@rescript/core': ^0.2.0
   '@rescript/react': ^0.11.0
   date-fns: ^2.29.3
   expo: ^48.0.9
@@ -48,6 +49,7 @@ devDependencies:
   '@babel/core': 7.21.3
   '@greenlabs/ppx-spice': 0.1.12
   '@rescript-react-native/async-storage': 1.6.3
+  '@rescript/core': 0.2.0
   '@rescript/react': 0.11.0_react@18.2.0
   rescript: 10.1.3
   rescript-react-native: 0.70.0_bw6tsuxq6ebv5aawydccyuypea
@@ -2175,6 +2177,10 @@ packages:
     resolution: {integrity: sha512-3GMvq2/kjPYg6fB9QjYj0r4OqmsNGM0cYn0MWb7FYMiBUij/A9l624QJfCfO2m5aCmJACvUlWMVdZjLwhVLSqw==}
     peerDependencies:
       '@react-native-community/async-storage': ^1.6.0
+    dev: true
+
+  /@rescript/core/0.2.0:
+    resolution: {integrity: sha512-gY0OmietZ1t+EflWwIJAR90sRNxjCrtlg3b3m4o//sQ84e/09S3fC+GErZjl/cdrTPKID6emOlVQ8hRNgF8qVQ==}
     dev: true
 
   /@rescript/react/0.11.0_react@18.2.0:

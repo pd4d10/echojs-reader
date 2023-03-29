@@ -46,16 +46,12 @@ module Provider = {
 
     React.useEffect0(() => {
       ReactNativeAsyncStorage.getItem("theme")
-      ->Js.Promise2.then(v => {
+      ->Promise.then(v => {
         _setTheme(
           _ =>
-            v
-            ->Js.Null.toOption
-            ->Option.flatMap(Theme.fromString)
-            ->Option.getWithDefault(Light)
-            ->Some,
+            v->Null.toOption->Option.flatMap(Theme.fromString)->Option.getWithDefault(Light)->Some,
         )
-        Js.Promise2.resolve()
+        Promise.resolve()
       })
       ->ignore
 

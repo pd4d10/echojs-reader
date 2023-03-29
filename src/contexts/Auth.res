@@ -33,10 +33,10 @@ let fetch = async (ctx, url, method) => {
   let headers = HeadersInit.make({"Cookie": cookie})
   let init = RequestInit.make(~method_, ~headers, ())
 
-  Js.log3("req:", url, method)
+  Console.log3("req:", url, method)
   let res = await fetchWithInit("https://echojs.com/api" ++ url, init)
   let json = await res->Response.json
-  Js.log2("res:", json)
+  Console.log2("res:", json)
 
   // TODO:
   // if (json.status === "err") {
@@ -82,11 +82,11 @@ module Provider = {
     React.useEffect0(() => {
       // for debugging
       ReactNativeAsyncStorage.getAllKeys()
-      ->Js.Promise2.then(async keys => {
-        switch keys->Js.Null.toOption {
+      ->Promise.then(async keys => {
+        switch keys->Null.toOption {
         | Some(keys) => {
             let data = await ReactNativeAsyncStorage.multiGet(keys)
-            Js.log(data)
+            Console.log(data)
           }
 
         | _ => ()
@@ -95,9 +95,9 @@ module Provider = {
       ->ignore
 
       ReactNativeAsyncStorage.multiGet(["auth", "username", "secret"])
-      ->Js.Promise2.then(async items => {
+      ->Promise.then(async items => {
         switch [0, 1, 2]->Array.map(
-          index => items[index]->Option.flatMap(((_key, value)) => value->Js.Null.toOption),
+          index => items[index]->Option.flatMap(((_key, value)) => value->Null.toOption),
         ) {
         | [Some(auth), Some(username), Some(secret)] => Update({auth, username, secret})->dispatch
         | _ => ()

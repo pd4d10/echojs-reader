@@ -112,8 +112,8 @@ let make = (~sort) => {
 
                 let newItems = await fetchData(~anchor=items->Array.length, ())
                 // remove duplicated items
-                let ids = items->Array.map(item => item.id)->Set.String.fromArray
-                let newItems = newItems->Array.keep(item => !Set.String.has(ids, item.id))
+                let ids = items->Array.map(item => item.id)->Set.fromArray
+                let newItems = newItems->Array.filter(item => !Set.has(ids, item.id))
 
                 setItems(_ => items->Array.concat(newItems))
                 setEnd(_ => newItems->Array.length < pageSize)

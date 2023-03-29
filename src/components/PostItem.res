@@ -9,12 +9,12 @@ module Navigation = ReactNavigation.Core.NavigationScreenProp(M)
 
 @react.component
 let make = (~item: Model.post, ~hascommentlink=true, ~updateVote) => {
-  let navigation = ReactNavigation.Native.useNavigation()->Js.Nullable.toOption
+  let navigation = ReactNavigation.Native.useNavigation()->Nullable.toOption
   let auth = Auth.context->React.useContext
   let theme = Theme.context->React.useContext->Option.getExn
   let actionSheet = Expo.ActionSheet.useActionSheet()
 
-  let isText = item.url->Js.String2.startsWith("text://")
+  let isText = item.url->String.startsWith("text://")
 
   <View style={Style.viewStyle(~flexDirection=#row, ~padding=10.->Style.dp, ())}>
     <View style={Style.viewStyle(~flex=1., ())}>

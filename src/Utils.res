@@ -1,7 +1,7 @@
 let getHostFromUrl = url => {
   url
-  ->Js.String2.replaceByRe(Js.Re.fromString("^.*?\/\/"), "")
-  ->Js.String2.split("/")
+  ->String.replaceRegExp(Re.fromString("^.*?\/\/"), "")
+  ->String.split("/")
   ->Array.get(0)
   ->Option.getWithDefault("")
 }
@@ -10,5 +10,5 @@ let getHostFromUrl = url => {
 external formatDistance: (. float, float) => string = "formatDistance"
 
 let timeAgo = timestamp => {
-  formatDistance(. timestamp *. 1000., Js.Date.now())
+  formatDistance(. timestamp *. 1000., Date.now())
 }

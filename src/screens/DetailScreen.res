@@ -2,7 +2,7 @@ open ReactNative
 
 @react.component
 let make = (~navigation as _, ~route as _) => {
-  let route = ReactNavigation.Native.useRoute()->Js.Nullable.toOption->Option.getExn
+  let route = ReactNavigation.Native.useRoute()->Nullable.toOption->Option.getExn
   let params: Model.post = route.params->Option.getExn
 
   let theme = Theme.context->React.useContext->Option.getExn
@@ -20,11 +20,11 @@ let make = (~navigation as _, ~route as _) => {
         let json = await auth->Auth.fetch(`/getcomments/${id}`, #get)
         let {comments} = json->Model.Api.comments_decode->Result.getExn
         setComments(_ =>
-          comments->Js.Array2.sortInPlaceWith((a, b) => a.ctime->Float.toInt - b.ctime->Float.toInt)
+          comments->Array.sort((a, b) => a.ctime->Float.toInt - b.ctime->Float.toInt)
         )
         setLoading(_ => false)
       } catch {
-      | Js.Exn.Error(obj) => setLoading(_ => false)
+      | Exn.Error(obj) => setLoading(_ => false)
       // TODO:
       }
     }
